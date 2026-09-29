@@ -1,0 +1,62 @@
+/* Visual presets — one engine, several characters.
+   Switch with siteConfig.preset (or the demo-bar switcher). A preset only redefines tokens,
+   so components never change. To add a preset: copy a block, rename, adjust tokens,
+   and list the id in js/config.js → EO.presets. */
+
+/* 1 · BLACK FRAME — dark editorial, thin sans, square corners (default values live in variables.css) */
+[data-preset="black-frame"] { color-scheme: dark; }
+
+/* 2 · WARM STONE — umber & travertine, serif display, softer corners, muted photography */
+[data-preset="warm-stone"] {
+  --color-bg-dark: #2a2521;
+  --color-bg-black: #1b1815;
+  --color-bg-light: #E9E1D4;
+  --color-text-light: #F1EADF;
+  --color-text-dark: #2b2621;
+  --color-muted: #B5AB9B;
+  --color-muted-light: #62594d;
+  --color-accent: #B98A5E;
+  --color-on-accent: #201a15;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --fw-display: 400;
+  --track-display: -.012em;
+  --lh-display: 1.06;
+  --fs-display-xl: clamp(2.8rem, 6.6vw, 5.5rem);
+  --track-label: .16em;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-btn: 999px;
+  --swatch-radius: 999px;
+  --media-filter: saturate(.86) sepia(.14);
+  --cat-ratio: 3 / 4;
+  --hero-overlay: linear-gradient(90deg, rgba(27,24,21,.7) 0%, rgba(27,24,21,.34) 50%, rgba(27,24,21,.05) 100%), linear-gradient(0deg, rgba(27,24,21,.6) 0%, rgba(27,24,21,0) 36%), linear-gradient(180deg, rgba(27,24,21,.45) 0%, rgba(27,24,21,0) 22%);
+  --header-scrolled-bg: rgba(27, 24, 21, .92);
+}
+
+/* 3 · MINIMAL WHITE — light throughout, ultra-light type, generous space, ink-black accent */
+[data-preset="minimal-white"] {
+  color-scheme: light;
+  --color-bg-dark: #F5F5F3;
+  --color-bg-black: #ECECE9;
+  --color-bg-light: #FFFFFF;
+  --color-text-light: #141414;
+  --color-text-dark: #141414;
+  --color-muted: #6a6a65;
+  --color-muted-light: #6a6a65;
+  --color-accent: #141414;
+  --color-on-accent: #FFFFFF;
+  --error: #b4381f;
+  --hero-accent: #FFFFFF;
+  --hero-on-accent: #141414;
+  --fw-display: 200;
+  --track-display: -.035em;
+  --lh-display: 1;
+  --fs-display-xl: clamp(2.9rem, 7.8vw, 6.75rem);
+  --section-space: clamp(5.5rem, 11vw, 10rem);
+  --track-label: .26em;
+  --radius-md: 0px;
+  --cat-ratio: 1 / 1.15;
+  --header-scrolled-bg: rgba(255, 255, 255, .92);
+  --header-scrolled-fg: #141414;
+  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.22) 55%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,0) 34%), linear-gradient(180deg, rgba(10,10,10,.4) 0%, rgba(10,10,10,0) 20%);
+}

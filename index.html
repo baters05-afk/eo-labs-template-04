@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-preset="black-frame">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EO Labs Windows & Doors — Aluminium, PVC & Timber Windows and Doors</title>
+  <meta name="description" content="Aluminium, timber and PVC windows, doors, sliding systems and facades for modern residential and commercial architecture.">
+  <meta name="theme-color" content="#090909">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/images/hero-villa.svg" fetchpriority="high">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/presets.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Tiny blocking bootstrap: resolves config + applies preset/colours before first paint (no theme flash). -->
+  <script src="data/site.config.js"></script>
+  <script src="data/client.override.js"></script>
+  <script src="js/config.js"></script>
+</head>
+<body>
+  <div class="visually-hidden" id="liveRegion" role="status" aria-live="polite"></div>
+  <a class="skip-link" href="#main" data-i18n="nav.skip"></a>
+
+  <header class="site-header on-photo" id="siteHeader">
+    <div class="demo-bar" id="demoBar" hidden></div>
+    <div class="container header-main" id="headerMain"></div>
+    <div class="mobile-nav" id="mobileNav"></div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero on-photo" id="top" aria-labelledby="hero-title">
+      <div class="hero__media" id="heroMedia"><img id="heroImg" src="assets/images/hero-villa.svg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+          <h1 class="display-xl" id="hero-title" data-i18n="hero.title"></h1>
+          <p class="hero__text" data-i18n="hero.text"></p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#products"><span data-i18n="btn.explore"></span><span class="arrow" data-arrow></span></a>
+            <button class="btn btn--ghost" type="button" data-open-quote><span data-i18n="btn.quote"></span></button>
+          </div>
+        </div>
+        <ul class="hero__tags" id="heroTags"></ul>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="section theme-light" id="products" aria-labelledby="products-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow" data-i18n="products.eyebrow"></p>
+            <h2 class="display-lg" id="products-title" data-i18n="products.title"></h2>
+          </div>
+          <p class="section-head__text" data-i18n="products.text"></p>
+        </div>
+        <div class="category-grid" id="categoryGrid" data-reveal></div>
+        <div class="range" id="range" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- PRECISION -->
+    <section class="section theme-dark precision" id="precision" aria-labelledby="precision-title">
+      <div class="container precision__grid">
+        <div class="precision__copy" data-reveal>
+          <p class="eyebrow" data-i18n="precision.eyebrow"></p>
+          <h2 class="display-lg" id="precision-title" data-i18n="precision.title"></h2>
+          <p class="lead" data-i18n="precision.text"></p>
+          <ul class="spec-list" id="specList"></ul>
+          <a class="btn btn--ghost" href="#materials"><span data-i18n="btn.details"></span><span class="arrow" data-arrow></span></a>
+        </div>
+        <figure class="tech" id="tech" data-reveal></figure>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section theme-light" id="projects" aria-labelledby="projects-title" hidden>
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow" data-i18n="projects.eyebrow"></p>
+            <h2 class="display-lg" id="projects-title" data-i18n="projects.title"></h2>
+          </div>
+          <div class="section-head__intro">
+            <p class="section-head__text" data-i18n="projects.text"></p>
+          </div>
+        </div>
+        <div class="project-grid" id="projectGrid" data-reveal></div>
+        <div class="projects__foot" id="projectsFoot"></div>
+      </div>
+    </section>
+
+    <!-- MATERIALS -->
+    <section class="section theme-dark" id="materials" aria-labelledby="materials-title" hidden>
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow" data-i18n="materials.eyebrow"></p>
+            <h2 class="display-lg" id="materials-title" data-i18n="materials.title"></h2>
+          </div>
+          <p class="section-head__text" data-i18n="materials.text"></p>
+        </div>
+        <div class="material-grid" id="materialGrid" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- CONFIGURATOR -->
+    <section class="section theme-light" id="configurator" aria-labelledby="config-title" hidden>
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow" data-i18n="config.eyebrow"></p>
+            <h2 class="display-lg" id="config-title" data-i18n="config.title"></h2>
+          </div>
+          <p class="section-head__text" data-i18n="config.text"></p>
+        </div>
+        <div class="config" id="config" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section theme-dark" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div class="about__copy" data-reveal>
+          <p class="eyebrow" data-i18n="about.eyebrow"></p>
+          <h2 class="display-lg" id="about-title" data-i18n="about.title"></h2>
+          <p class="lead" id="aboutText"></p>
+        </div>
+        <ol class="process" id="process" data-reveal></ol>
+      </div>
+    </section>
+
+    <!-- MANUFACTURERS (rendered only when the client lists real ones) -->
+    <section class="section section--tight theme-light" id="manufacturers" aria-labelledby="manufacturers-title" hidden>
+      <div class="container" data-reveal>
+        <p class="eyebrow" data-i18n="manufacturers.eyebrow"></p>
+        <h2 class="display-md" id="manufacturers-title" data-i18n="manufacturers.title"></h2>
+        <div class="logo-row" id="logoRow"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section theme-light" id="faq" aria-labelledby="faq-title" hidden>
+      <div class="container faq__grid">
+        <div data-reveal>
+          <p class="eyebrow" data-i18n="faq.eyebrow"></p>
+          <h2 class="display-lg" id="faq-title" data-i18n="faq.title" style="margin-top:1.5rem"></h2>
+        </div>
+        <div class="accordion" id="accordion" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta" aria-labelledby="cta-title">
+      <div class="cta__media"><img id="ctaImg" src="assets/images/cta-interior.svg" alt="" width="1200" height="1300" loading="lazy" decoding="async"></div>
+      <div class="cta__panel theme-dark" data-reveal>
+        <p class="eyebrow" data-i18n="cta.eyebrow"></p>
+        <h2 class="display-lg" id="cta-title" data-i18n="cta.title"></h2>
+        <p class="lead" data-i18n="cta.text"></p>
+        <div class="cta__row">
+          <button class="btn btn--primary" type="button" data-open-quote><span data-i18n="btn.quote"></span><span class="arrow" data-arrow></span></button>
+          <p class="cta__note"><span data-i18n="cta.note"></span><span id="ctaDemoNote" hidden><br><span data-i18n="demo.simulation"></span></span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer theme-black" id="contact">
+    <div class="container" id="footerInner"></div>
+  </footer>
+
+  <!-- Project gallery -->
+  <dialog class="gallery" id="galleryDialog" aria-label="Project gallery">
+    <div class="gallery__inner" id="galleryInner"></div>
+  </dialog>
+
+  <!-- Quote wizard -->
+  <dialog class="quote" id="quoteDialog" aria-labelledby="quoteTitle">
+    <div class="quote__panel theme-dark" id="quotePanel"></div>
+  </dialog>
+
+  <script src="data/products.js" defer></script>
+  <script src="data/materials.js" defer></script>
+  <script src="data/projects.js" defer></script>
+  <script src="data/manufacturers.js" defer></script>
+  <script src="data/faq.js" defer></script>
+  <script src="data/options.js" defer></script>
+  <script src="data/translations.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/render.js" defer></script>
+  <script src="js/gallery.js" defer></script>
+  <script src="js/configurator.js" defer></script>
+  <script src="js/quote.js" defer></script>
+  <script src="js/seo.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/* Design tokens. Palette values here are the BLACK FRAME defaults;
+   presets.css swaps them per preset and siteConfig.branding overrides them per client. */
+:root {
+  /* layout */
+  --container: 1440px;
+  --page-padding: clamp(1.25rem, 4vw, 3.5rem);
+  --section-space: clamp(4.5rem, 9vw, 8.5rem);
+  --header-h: 4.5rem;
+  --demo-bar-h: 0px;
+
+  /* spacing scale */
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4.5rem;
+
+  /* type */
+  --font-body: "Inter", "Manrope", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-display: var(--font-body);
+  --fw-display: 300;
+  --track-display: -.025em;
+  --lh-display: 1.02;
+  --fs-display-xl: clamp(2.9rem, 7.2vw, 6.25rem);
+  --fs-display-lg: clamp(2.15rem, 4.5vw, 4rem);
+  --fs-display-md: clamp(1.5rem, 2.4vw, 2rem);
+  --fs-lead: clamp(1rem, 1.25vw, 1.15rem);
+  --fs-body: 1rem;
+  --fs-sm: .875rem;
+  --fs-xs: .78rem;
+  --fs-label: .6875rem;
+  --lh-body: 1.6;
+  --track-label: .22em;
+  --label-transform: uppercase;
+
+  /* shape */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-btn: 0px;
+  --swatch-radius: 0px;
+  --border-w: 1px;
+  --media-filter: none;
+  --cat-ratio: 4 / 5;
+
+  /* motion */
+  --transition-fast: 160ms ease;
+  --transition-medium: 420ms cubic-bezier(.2, .6, .2, 1);
+  --transition-slow: 1100ms cubic-bezier(.2, .6, .2, 1);
+
+  /* palette (raw) */
+  --color-bg-dark: #111111;
+  --color-bg-black: #090909;
+  --color-bg-light: #F2EFE9;
+  --color-text-light: #F4F1EB;
+  --color-text-dark: #181818;
+  --color-muted: #AAA59D;
+  --color-muted-light: #5F5A52;
+  --color-accent: #C9AC82;
+  --color-on-accent: #181818;
+  --error: #ee8b73;
+  --color-border-dark: color-mix(in srgb, var(--color-text-light) 14%, transparent);
+  --color-border-light: color-mix(in srgb, var(--color-text-dark) 14%, transparent);
+
+  /* on-photo (hero, header before scroll) always light */
+  --photo-fg: #F4F1EB;
+  --photo-muted: rgba(244, 241, 235, .78);
+  --photo-line: rgba(244, 241, 235, .28);
+  --hero-accent: var(--color-accent);
+  --hero-on-accent: var(--color-on-accent);
+  --header-scrolled-bg: rgba(9, 9, 9, .9);
+  --header-scrolled-fg: var(--color-text-light);
+  --hero-overlay: linear-gradient(90deg, rgba(9,9,9,.72) 0%, rgba(9,9,9,.38) 48%, rgba(9,9,9,.08) 100%), linear-gradient(0deg, rgba(9,9,9,.62) 0%, rgba(9,9,9,0) 34%), linear-gradient(180deg, rgba(9,9,9,.5) 0%, rgba(9,9,9,0) 20%);
+}
