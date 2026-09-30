@@ -45,3 +45,6 @@ input[type="color"] { width: 2.6rem; height: 2.4rem; padding: 0; background: non
 .code { width: 100%; min-height: 14rem; font: 12px/1.5 ui-monospace, Menlo, monospace; }
 .toast { color: var(--accent); }
 @media (max-width: 800px) { .shell { grid-template-columns: 1fr; } .side { position: static; height: auto; } #nav { grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); } }
+
+.hl-field { position: relative; outline: 2px solid #e2735a; outline-offset: 6px; border-radius: 2px; }
+.hl-field::before { content: attr(data-n); position: absolute; left: -2.1rem; top: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: #e2735a; color: #fff; font-weight: 700; display: grid; place-items: center; font-size: .8rem; }

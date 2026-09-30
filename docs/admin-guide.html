@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>EO Labs Template 04 — инструкция по админке</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 10.5pt/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #181818; }
+  h1 { font-size: 26pt; font-weight: 300; letter-spacing: -.02em; margin: 0 0 6mm; line-height: 1.05; }
+  h2 { font-size: 16pt; font-weight: 500; margin: 0 0 3mm; padding-top: 2mm; border-top: 2px solid #181818; }
+  h3 { font-size: 11pt; margin: 5mm 0 2mm; }
+  p { margin: 0 0 3mm; }
+  .muted { color: #6b665e; }
+  .eyebrow { font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: #6b665e; margin-bottom: 3mm; }
+  section { break-before: page; }
+  .cover { break-before: auto; }
+  .cover img { width: 100%; height: 66mm; object-fit: cover; object-position: 70% 60%; margin: 5mm 0; display: block; }
+  figure { margin: 3mm 0 4mm; break-inside: avoid; }
+  figure img { width: 100%; display: block; border: 1px solid #d8d3ca; }
+  figcaption { font-size: 8.5pt; color: #6b665e; margin-top: 1.5mm; }
+  ol.legend { list-style: none; counter-reset: n; padding: 0; margin: 3mm 0 0; }
+  ol.legend li { counter-increment: n; position: relative; padding: 0 0 2.2mm 9mm; break-inside: avoid; }
+  ol.legend li::before { content: counter(n); position: absolute; left: 0; top: .1mm; width: 6mm; height: 6mm; border-radius: 50%; background: #e2735a; color: #fff; font-weight: 700; font-size: 8.5pt; display: grid; place-items: center; text-align: center; line-height: 6mm; }
+  .steps { counter-reset: s; list-style: none; padding: 0; }
+  .steps li { counter-increment: s; position: relative; padding: 0 0 3mm 10mm; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 6.5mm; height: 6.5mm; border-radius: 50%; background: #181818; color: #fff; font-weight: 700; font-size: 8.5pt; text-align: center; line-height: 6.5mm; }
+  .note { background: #f1eee8; border-left: 3px solid #c9ac82; padding: 3mm 4mm; margin: 3mm 0; break-inside: avoid; }
+  .warn { background: #fbeee9; border-left: 3px solid #e2735a; padding: 3mm 4mm; margin: 3mm 0; break-inside: avoid; }
+  code { font: 9pt ui-monospace, Menlo, monospace; background: #efece6; padding: 0 1.2mm; border-radius: 1mm; }
+  pre { font: 8.8pt/1.45 ui-monospace, Menlo, monospace; background: #181818; color: #f5f3ef; padding: 3.5mm 4mm; border-radius: 1.5mm; white-space: pre-wrap; margin: 2mm 0 4mm; break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9.5pt; }
+  th, td { text-align: left; padding: 2mm 2.5mm; border-bottom: 1px solid #d8d3ca; vertical-align: top; }
+  th { font-size: 8pt; letter-spacing: .12em; text-transform: uppercase; color: #6b665e; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .toc a { color: inherit; text-decoration: none; }
+  .toc { columns: 2; column-gap: 8mm; font-size: 9.5pt; } .toc li { padding: .5mm 0; break-inside: avoid; }
+  .split { display: grid; grid-template-columns: 1.3fr .7fr; gap: 6mm; align-items: start; } .split ol.legend { margin-top: 0; font-size: 9.5pt; } .split figure { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="eyebrow">EO Labs · Template 04 · Windows &amp; Doors</div>
+  <h1>Инструкция по админке<br>и запуску нового клиента</h1>
+  <p class="muted">Что где менять, чтобы за 30–60 минут превратить шаблон в сайт конкретной оконной компании. Без правки кода.</p>
+  <img src="img/s01-site-top.png" alt="">
+  <h3>Содержание</h3>
+  <ol class="toc">
+    <li>Как это работает и как открыть админку</li>
+    <li>Общий порядок работы: от правок до готового сайта</li>
+    <li>General — компания, логотип, картинки</li>
+    <li>Contact — контакты, соцсети, зона работы</li>
+    <li>Branding — стиль сайта и цвета</li>
+    <li>Products — список продуктов</li>
+    <li>Materials — материалы и образцы отделок</li>
+    <li>Projects — проекты</li>
+    <li>Manufacturers — производители</li>
+    <li>FAQ — вопросы и ответы</li>
+    <li>Technical — технические показатели</li>
+    <li>SEO — заголовки и описание</li>
+    <li>Languages и Demo mode</li>
+    <li>Export / Import — сохранить и применить</li>
+    <li>Чего в админке нет (и где это менять)</li>
+    <li>Замена фотографий</li>
+    <li>Чек-лист перед запуском</li>
+  </ol>
+</div>
+
+<section>
+  <div class="eyebrow">Шаг 1</div>
+  <h2>Как это работает и как открыть админку</h2>
+  <p>Сайт — это набор готовых страниц, которые собираются из одного файла с данными клиента (<code>data/client.config.js</code>). Админка — это удобная форма, которая меняет эти данные, не заставляя вас открывать код.</p>
+  <div class="note"><b>Важно понимать.</b> Админка работает <b>локально, в вашем браузере</b>. Она ничего не отправляет на сервер и не имеет пароля. Изменения видны на сайте сразу, но только в этом же браузере — пока вы не выгрузите файл и не пересоберёте сайт (см. следующий шаг).</div>
+  <h3>Где открыть</h3>
+  <ul>
+    <li>Онлайн-версия для тренировки: <code>https://baters05-afk.github.io/eo-labs-template-04/admin/</code></li>
+    <li>Локально (рабочий вариант для клиента): в папке проекта выполните <code>npx http-server . -p 8804 -c-1</code> и откройте <code>http://localhost:8804/admin/</code></li>
+  </ul>
+  <h3>Как устроен экран</h3>
+  <ul>
+    <li><b>Слева</b> — разделы: General, Contact, Branding, Products, Materials, Projects, Manufacturers, FAQ, Technical, SEO, Languages, Demo mode, Export / Import.</li>
+    <li><b>Внизу слева</b> — кнопка <b>Preview site ↗</b> (открывает сайт с вашими правками) и статус «Saved locally» — правки сохраняются сами через долю секунды.</li>
+    <li>Поля с подписью <b>EN / DE</b> — тексты на каждом языке отдельно. Не заполнили немецкий — покажется английский.</li>
+  </ul>
+  <div class="warn"><b>Не выкладывайте папку <code>admin</code> на сайт клиента.</b> Она нужна только вам.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Шаг 2</div>
+  <h2>Общий порядок работы</h2>
+  <ol class="steps">
+    <li><b>Откройте админку</b> и заполните разделы слева направо (General → Contact → Branding → Products → … ).</li>
+    <li>Нажимайте <b>Preview site</b> — проверяйте, как выглядит сайт. Вернитесь в админку, поправьте, посмотрите снова.</li>
+    <li>Когда всё готово: раздел <b>Export / Import → Export client.override.js</b>. Скачается файл.</li>
+    <li>Положите этот файл в папку <code>data/</code> проекта с заменой (там уже лежит пустой <code>client.override.js</code>).</li>
+    <li>В терминале в папке проекта выполните: <pre>node tools/build.js</pre> Команда пересоберёт страницы <code>/en/</code>, <code>/de/</code> и файлы для поисковиков. <b>Без этого шага поисковик не увидит новые тексты.</b></li>
+    <li>Загрузите сайт на хостинг (Cloudflare / GitHub Pages / любой), <b>кроме папок</b> <code>admin</code>, <code>tools</code>, <code>src</code> и файлов <code>*.md</code>.</li>
+  </ol>
+  <div class="note"><b>Страховка:</b> в Export / Import есть <b>Export JSON</b> — резервная копия. Её можно вернуть кнопкой <b>Import JSON</b> (например, на другом компьютере). <b>Reset local changes</b> стирает все локальные правки и возвращает демо-данные.</div>
+  <div class="note"><b>Если в админке что-то пропало после очистки браузера</b> — правки хранятся в браузере. Поэтому по окончании работы всегда делайте Export.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 1 · General</div>
+  <h2>General — компания, логотип, главные картинки</h2>
+  <figure><img src="img/a01-general.png" alt=""><figcaption>Раздел General. Красные номера — поля, которые чаще всего меняют.</figcaption></figure>
+  <ol class="legend">
+    <li><b>Company name</b> — полное название. Идёт в подвал (копирайт), в описание для поисковиков и Google. Пример: «Fensterbau Nord GmbH».</li>
+    <li><b>Short name (header)</b> — короткое имя рядом с логотипом в шапке и подвале. Пример: «Fensterbau Nord». Длинное название в шапку не влезет.</li>
+    <li><b>Legal name</b> — юридическое название для копирайта и структурированных данных. Можно оставить пустым.</li>
+    <li><b>Logo</b> — путь к файлу логотипа (например <code>assets/client/logo.svg</code>). Кнопка <b>Upload</b> нужна только для быстрого просмотра. Для готового сайта положите файл в <code>assets</code> и укажите путь. Ниже галочка: <b>Logo follows theme colour</b> — включена для однотонного SVG (он сам станет белым/чёрным по теме); для цветного логотипа или PNG галочку <b>снимите</b>.</li>
+    <li><b>Favicon</b> — маленькая иконка во вкладке браузера (лучше SVG или PNG 32×32).</li>
+  </ol>
+  <p>Ниже на этой же странице — картинки: <b>Hero image</b> (главное фото), <b>Hero image — mobile</b> (отдельный кадр для телефона, необязательно), <b>CTA image</b> (фото у блока «Get a tailored recommendation») и <b>Technical profile image</b> (разрез профиля). Подробно про фото — в конце инструкции.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 2 · Contact</div>
+  <h2>Contact — контакты, соцсети, зона работы</h2>
+  <figure><img src="img/a02-contact.png" alt=""><figcaption>Раздел Contact.</figcaption></figure>
+  <ol class="legend">
+    <li><b>Phone</b> — телефон. Показывается в подвале как ссылка «позвонить».</li>
+    <li><b>Email</b> — почта. Ссылка в подвале; на неё же уходит письмо, если у формы заявки не задан адрес приёма.</li>
+    <li><b>WhatsApp</b> — номер в международном формате (например <code>+49 30 1234567</code>). В подвале появится ссылка на чат.</li>
+    <li><b>Address</b> — адрес одной строкой.</li>
+    <li><b>Service area</b> — коды стран по одному в строке: <code>DE</code>, <code>AT</code>, <code>CH</code>, <code>NL</code>, <code>BE</code> … Показываются в подвале как «Service area» и передаются Google.</li>
+    <li><b>Instagram / LinkedIn / YouTube</b> — ссылки на страницы. Пустые не показываются.</li>
+  </ol>
+  <p>Ниже — <b>Legal links</b>: ссылки на «Datenschutz/Privacy», «Terms», «Cookie settings». Пустые не показываются.</p>
+  <div class="note">Пока включён <b>Demo mode</b>, вместо ваших контактов в подвале стоят серые заглушки «Added when the site goes live» — так задумано, чтобы демо не выдавало выдуманные номера. Контакты появятся после выключения демо-режима.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 3 · Branding</div>
+  <h2>Branding — стиль сайта и цвета</h2>
+  <figure><img src="img/a03-design.png" alt=""><figcaption>Раздел Branding.</figcaption></figure>
+  <ol class="legend">
+    <li><b>Preset</b> — общий характер сайта, переключается одним выбором:
+      <b>Black Frame</b> — тёмный, строгий, тонкий шрифт (по умолчанию);
+      <b>Warm Stone</b> — тёплые «каменные» тона и шрифт с засечками;
+      <b>Minimal White</b> — светлый, воздушный, чёрный акцент.
+      Меняет шрифты, фон секций, кнопки и фильтр на фотографиях.</li>
+    <li><b>Primary</b> — цвет «тёмных» секций (Precision, Materials, About, CTA).</li>
+    <li><b>Secondary</b> — цвет «светлых» секций (Products, Projects, Configurator, FAQ).</li>
+    <li><b>Accent</b> — цвет кнопок и акцентов (по умолчанию тёплый бежевый).</li>
+  </ol>
+  <p>Ещё есть <b>Base / footer</b> (фон подвала), <b>Text on light / on dark</b> и <b>Muted text</b>. Кнопка <b>Reset</b> возвращает цвет пресета. Меняйте цвета только если у клиента есть фирменные — иначе оставьте пресет.</p>
+  <div class="warn">Проверяйте контраст: светлый текст на светлом фоне читаться не будет. Если сомневаетесь — нажмите Reset.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 4 · Products</div>
+  <h2>Products — список продуктов</h2>
+  <p>Это блок «The range» под четырьмя плитками: фильтруемый список систем. Нажмите <b>Add</b>, чтобы добавить продукт; у каждого есть <b>Edit</b>, <b>Delete</b> и стрелки ↑ ↓ для порядка.</p>
+  <div class="split"><figure><img src="img/a05-product-edit.png" alt=""><figcaption>Редактирование продукта (нажата кнопка Edit).</figcaption></figure><ol class="legend">
+    <li><b>Category</b> — к какой плитке относится (Windows, Doors, Sliding, Facades). От этого зависит фильтр.</li>
+    <li><b>Title EN / DE</b> — название на каждом языке.</li>
+    <li><b>Description EN / DE</b> — одно-два предложения. Без выдуманных цифр и обещаний.</li>
+    <li><b>Active</b> — выключите галочку, чтобы скрыть продукт, не удаляя его.</li>
+  </ol></div>
+  <p>Ниже полей: <b>Material</b> (галочки — из чего продукт; по ним работает фильтр «Material» и конфигуратор) и <b>Features</b> (преимущества, по одному в строке, на каждом языке).</p>
+  <div class="note"><b>Связь с конфигуратором:</b> какие материалы, отделки и стёкла доступны для каждой категории, задаётся в <code>data/client.config.js</code> (поля <code>availableMaterials</code>, <code>availableFinishes</code>, <code>availableGlass</code>). Пример: у «Doors» нет PVC — в конфигураторе он серый и недоступен.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 5 · Materials</div>
+  <h2>Materials — материалы и образцы отделок</h2>
+  <p>Секция «Materials that last»: четыре колонки с цветными образцами. Каждый образец — это «финиш» (Finish).</p>
+  <div class="split"><figure><img src="img/a06-materials.png" alt=""><figcaption>Редактирование материала (на примере Timber). Ниже — список образцов.</figcaption></figure><ol class="legend">
+    <li><b>Title EN / DE</b> — название материала (Aluminium, Timber, PVC, Composite).</li>
+    <li><b>Finishes → Name EN / DE</b> — название образца («Anthracite», «Natural oak»). Оно же читается экранными программами и появляется при выборе в конфигураторе.</li>
+    <li><b>Finishes → цвет</b> — можно вписать цвет (<code>#3a3d40</code>), нажать на квадратик-палитру, или вписать градиент/узор. <b>Add finish</b> добавляет образец, <b>✕</b> удаляет.</li>
+  </ol></div>
+  <p>Также: <b>Subtitle</b> (короткая подпись под названием), <b>Description</b>, <b>Features</b> (список свойств).</p>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 6 · Projects</div>
+  <h2>Projects — проекты</h2>
+  <div class="split"><figure><img src="img/a07-projects.png" alt=""><figcaption>Редактирование проекта.</figcaption></figure><ol class="legend">
+    <li><b>Title EN / DE</b> — название объекта.</li>
+    <li><b>Location</b> — город/регион. Если поле пустое, место на сайте не показывается.</li>
+    <li><b>Demo project</b> — галочка для демонстрационных проектов. <b>Когда Demo mode выключен, такие проекты скрываются автоматически.</b> Для реальных проектов галочку снимите.</li>
+    <li><b>Featured on homepage</b> — показывать на главной (максимум три первых с этой галочкой). Порядок меняется стрелками ↑ ↓ в списке.</li>
+  </ol></div>
+  <p>Ниже: <b>Type</b> (Residential, Commercial …), <b>Images</b> (добавляйте пути к фото — они образуют галерею), <b>Material</b>, <b>Description</b>.</p>
+  <div class="warn">Никогда не выдавайте демо-картинки за реальные объекты клиента. Реальные проекты — только с настоящими фотографиями клиента.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 7 · Manufacturers</div>
+  <h2>Manufacturers — производители систем</h2>
+  <figure><img src="img/a08-manufacturers.png" alt=""><figcaption>Раздел изначально пустой — это сделано намеренно.</figcaption></figure>
+  <p>Нажмите <b>Add</b> и заполните: <b>Name</b>, <b>Logo</b> (путь к файлу логотипа бренда), <b>URL</b> (сайт бренда), <b>Active</b>.</p>
+  <div class="warn">Добавляйте <b>только тех производителей, с которыми клиент действительно работает</b>. В демо-режиме блок скрыт, чтобы шаблон не «заявлял» партнёрство. Блок с логотипами появится над FAQ сам, как только будет хотя бы один активный производитель и Demo mode выключен.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 8 · FAQ</div>
+  <h2>FAQ — вопросы и ответы</h2>
+  <div class="split"><figure><img src="img/a09-faq.png" alt=""><figcaption>Редактирование вопроса.</figcaption></figure><ol class="legend">
+    <li><b>Question EN / DE</b> — вопрос.</li>
+    <li><b>Answer EN / DE</b> — ответ. Пишите только то, что правда для клиента (сроки, гарантия, районы работы). Эти тексты видит и Google (структурированные данные FAQ).</li>
+  </ol></div>
+  <p>Кнопки <b>Add / Delete / ↑ ↓</b> — как в других списках. Если все вопросы неактивны, блок FAQ и пункт «FAQ» в меню исчезают.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 9 · Technical</div>
+  <h2>Technical — технические показатели</h2>
+  <figure><img src="img/a10-technical.png" alt=""><figcaption>Раздел Technical.</figcaption></figure>
+  <ol class="legend">
+    <li><b>Thermal insulation</b> — например «Uw от 0,8 W/m²K». Пусто = на сайте «High thermal performance».</li>
+    <li><b>Acoustic performance</b> — например «до 45 dB». Пусто = «Enhanced acoustic comfort».</li>
+    <li><b>Security</b> — например «RC2 (опция)». Пусто = «Security options available».</li>
+    <li><b>Profile annotations</b> (Triple glazing, Thermal break …) — необязательные значения под подписями на фото разреза профиля.</li>
+  </ol>
+  <div class="warn"><b>Вписывайте только сертифицированные значения реальных систем клиента.</b> Если цифры не подтверждены документами — оставляйте поля пустыми: сайт покажет нейтральные формулировки без обещаний.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 10 · SEO</div>
+  <h2>SEO — заголовки, описание, отправка заявок</h2>
+  <div class="split"><figure><img src="img/a11-seo.png" alt=""><figcaption>Раздел SEO.</figcaption></figure><ol class="legend">
+    <li><b>Site URL</b> — адрес сайта клиента, например <code>https://www.fensterbau-nord.de</code>. Нужен для canonical, hreflang, карты сайта и превью в соцсетях. <b>Обязательно заполните перед запуском.</b></li>
+    <li><b>Title EN / DE</b> — заголовок в Google (до ~60 знаков): «Компания — главное, город». Пусто = автогенерация.</li>
+    <li><b>Description EN / DE</b> — описание под заголовком в Google (до ~155 знаков).</li>
+    <li><b>Open Graph image</b> — картинка для превью ссылки в мессенджерах и соцсетях (рекомендуется 1200×630, JPG/PNG — SVG не подойдёт).</li>
+    <li><b>Quote endpoint</b> — адрес, куда отправлять заявки клиентов (POST JSON). Пусто = после заявки откроется письмо на адрес из Contact. В демо-режиме заявки не отправляются вообще.</li>
+  </ol></div>
+  <div class="note">Пока <b>Demo mode</b> включён, для поисковиков стоит запрет индексации (<code>noindex</code>), и используется демо-заголовок «Windows &amp; Doors Website Template — EO Labs Demo». Ваши SEO-тексты вступают в силу после выключения демо-режима.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Разделы 11–12 · Languages и Demo mode</div>
+  <h2>Languages и Demo mode</h2>
+  <div class="two">
+    <figure><img src="img/a12-languages.png" alt=""><figcaption>Languages.</figcaption></figure>
+    <figure><img src="img/a13-mode.png" alt=""><figcaption>Demo mode.</figcaption></figure>
+  </div>
+  <h3>Languages</h3>
+  <p>Галочками отмечаются включённые языки, ниже — язык по умолчанию. Сейчас доступны English и Deutsch. Каждый язык — отдельный адрес: <code>/en/</code>, <code>/de/</code>. Чтобы добавить нидерландский или французский, разработчик добавляет блок <code>nl</code> или <code>fr</code> в <code>data/translations.js</code> — тогда язык сам появится в списке, а страница <code>/nl/</code> создастся при сборке.</p>
+  <h3>Demo mode (красный номер 1 на второй картинке)</h3>
+  <table>
+    <tr><th></th><th>Включён (демо)</th><th>Выключен (боевой сайт)</th></tr>
+    <tr><td>Плашка «DEMO TEMPLATE»</td><td>есть</td><td>нет</td></tr>
+    <tr><td>Индексация Google</td><td>запрещена</td><td>разрешена</td></tr>
+    <tr><td>Заявки</td><td>ничего не отправляется</td><td>уходят на endpoint / почту</td></tr>
+    <tr><td>Контакты в подвале</td><td>серые заглушки</td><td>ваши данные</td></tr>
+    <tr><td>Демо-проекты</td><td>показаны, подписаны «Demo imagery»</td><td>скрыты</td></tr>
+    <tr><td>Производители, LocalBusiness</td><td>нет</td><td>если данные заполнены</td></tr>
+  </table>
+  <p>В этом же разделе — переключатели функций (<b>Features</b>): можно скрыть Configurator, Materials, Projects, Manufacturers, FAQ или переключатель пресетов (он нужен только для показа клиенту).</p>
+</section>
+
+<section>
+  <div class="eyebrow">Раздел 13 · Export / Import</div>
+  <h2>Export / Import — сохранить и применить</h2>
+  <figure><img src="img/a14-data.png" alt=""><figcaption>Раздел Export / Import.</figcaption></figure>
+  <table>
+    <tr><th>Кнопка</th><th>Что делает</th></tr>
+    <tr><td><b>Export client.override.js</b></td><td>Главный файл: кладётся в <code>data/</code>, после этого запускается <code>node tools/build.js</code>. Так правки попадают на боевой сайт.</td></tr>
+    <tr><td><b>Export JSON</b></td><td>Резервная копия всех данных.</td></tr>
+    <tr><td><b>Import JSON</b></td><td>Загрузить ранее сохранённую копию (или конфигурацию другого клиента).</td></tr>
+    <tr><td><b>Reset local changes</b></td><td>Стереть все локальные правки и вернуть демо-данные. Действие необратимо — сначала сделайте Export.</td></tr>
+  </table>
+  <p>Внизу страницы виден текущий JSON всех данных — можно скопировать или отправить коллеге.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Дополнительно</div>
+  <h2>Чего в админке нет — и где это менять</h2>
+  <table>
+    <tr><th>Что</th><th>Где менять</th></tr>
+    <tr><td>Заголовки секций, тексты кнопок, подписи форм (например «Built around the view.»)</td><td><code>data/translations.js</code> или блок <code>translations</code> в <code>client.override.js</code>. Пример: <pre>window.EO_OVERRIDE = { translations: { en: { hero: { title: 'Windows built\nfor the Alps.' } } } };</pre></td></tr>
+    <tr><td>Названия и фото четырёх плиток (Windows, Doors, Sliding Systems, Facades), правила совместимости в конфигураторе</td><td><code>data/client.config.js</code> → раздел <code>categories</code></td></tr>
+    <tr><td>Варианты стёкол и типов проекта в конфигураторе</td><td><code>data/options.js</code></td></tr>
+    <tr><td>Положение подписей на разрезе профиля (если вы сменили фото)</td><td><code>client.config.js</code> → <code>technical.points</code></td></tr>
+    <tr><td>Новый язык (NL, FR)</td><td><code>data/translations.js</code> + включить в Languages</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="eyebrow">Дополнительно</div>
+  <h2>Замена фотографий</h2>
+  <p>Фотографии на сайте лежат в трёх форматах (AVIF, WebP, JPEG) и в четырёх размерах — так сайт быстро грузится на телефоне. Делает это одна команда.</p>
+  <ol class="steps">
+    <li>Положите исходные фото (ширина от 2400 px) в папку <code>assets/photos-src/</code> с такими именами:
+      <table>
+        <tr><th>Файл</th><th>Где используется</th></tr>
+        <tr><td><code>hero.jpg</code></td><td>Главный экран (горизонтальный, ~2400×980)</td></tr>
+        <tr><td><code>hero-mobile.jpg</code></td><td>Главный экран на телефоне (вертикальный, ~1200×1600)</td></tr>
+        <tr><td><code>cat-windows.jpg</code>, <code>cat-doors.jpg</code>, <code>cat-sliding.jpg</code>, <code>cat-facades.jpg</code></td><td>Плитки Windows / Doors / Sliding Systems / Facades (4:5)</td></tr>
+        <tr><td><code>project-1.jpg</code> … <code>project-3.jpg</code></td><td>Проекты (3:2)</td></tr>
+        <tr><td><code>cta.jpg</code></td><td>Фото у блока «Get a tailored recommendation»</td></tr>
+        <tr><td><code>profile.jpg</code></td><td>Разрез профиля в секции Precision</td></tr>
+      </table></li>
+    <li>Выполните: <pre>node tools/images.js</pre> Появится папка <code>assets/photos/</code> и файл <code>manifest.json</code> с готовыми описаниями картинок.</li>
+    <li>Перенесите нужные записи из <code>manifest.json</code> в <code>data/client.config.js</code> (поля <code>hero.image</code>, <code>hero.imageMobile</code>, <code>categories[].image</code>, <code>projects[].images</code>, <code>cta.image</code>, <code>technical.image</code>). <b>Алт-тексты</b> (описания для незрячих и поисковиков) заполните для каждого фото.</li>
+    <li>Запустите <code>node tools/build.js</code> — hero получит предзагрузку, страницы соберутся.</li>
+  </ol>
+  <div class="note"><b>Точка фокуса:</b> поле <code>hero.focal</code> (например <code>'70% 50%'</code>) — какую часть фото не обрезать на широких экранах. Для телефона используется отдельный кадр <code>hero-mobile.jpg</code>.</div>
+  <div class="warn">Демо-фотографии в шаблоне созданы нейросетью и подписаны «Demo imagery». Для клиентского сайта используйте его реальные фотографии объектов.</div>
+</section>
+
+<section>
+  <div class="eyebrow">Финиш</div>
+  <h2>Чек-лист перед запуском</h2>
+  <table>
+    <tr><th style="width:8mm"></th><th>Проверьте</th></tr>
+    <tr><td>☐</td><td>Логотип, название, короткое имя, favicon заменены</td></tr>
+    <tr><td>☐</td><td>Контакты, зона работы, соцсети, ссылки на юридические страницы заполнены</td></tr>
+    <tr><td>☐</td><td>Пресет выбран; фирменные цвета (если есть) заданы, текст читается</td></tr>
+    <tr><td>☐</td><td>Продукты и материалы — реальные; неиспользуемые скрыты (Active)</td></tr>
+    <tr><td>☐</td><td>Проекты — только реальные, с настоящими фото; у них снята галочка Demo</td></tr>
+    <tr><td>☐</td><td>Производители — только реальные; логотипы добавлены</td></tr>
+    <tr><td>☐</td><td>FAQ — ответы соответствуют условиям клиента</td></tr>
+    <tr><td>☐</td><td>Технические показатели — только подтверждённые (или пусто)</td></tr>
+    <tr><td>☐</td><td>SEO: Site URL, заголовки, описания, OG-картинка; endpoint заявок проверен</td></tr>
+    <tr><td>☐</td><td><b>Demo mode выключен</b></td></tr>
+    <tr><td>☐</td><td>Export client.override.js → <code>data/</code> → <code>node tools/build.js</code></td></tr>
+    <tr><td>☐</td><td>Открыть сайт: <code>/en/</code> и <code>/de/</code>, телефон и компьютер, меню, конфигуратор, форма заявки</td></tr>
+    <tr><td>☐</td><td>Выложить без <code>admin</code>, <code>tools</code>, <code>src</code>, <code>*.md</code></td></tr>
+  </table>
+  <p class="muted">EO Labs · Template 04. Подробная техническая документация — файл <code>CLIENT_SETUP.md</code> в проекте.</p>
+</section>
+
+</body>
+</html>

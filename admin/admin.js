@@ -250,5 +250,16 @@
   document.addEventListener('input', onInput);
   document.addEventListener('change', onChange);
   document.addEventListener('click', onClick);
+  // deep links (used for the PDF guide): ?section=seo&open=products:0&hl=siteConfig.company.name,siteConfig.company.logo
+  const q = new URLSearchParams(location.search);
+  if (q.get('section') && PANELS[q.get('section')]) ui.section = q.get('section');
+  if (q.get('open')) { const [l, i] = q.get('open').split(':'); ui.open[l] = Number(i); }
   render();
+  if (q.get('hl')) {
+    q.get('hl').split(',').forEach((path, n) => {
+      const el = document.querySelector(`[data-path="${path}"]`);
+      const box = el && (el.closest('.field') || el.parentElement);
+      if (box) { box.classList.add('hl-field'); box.dataset.n = n + 1; }
+    });
+  }
 })();
