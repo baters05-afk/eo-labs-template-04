@@ -46,13 +46,17 @@
 
   /* ---------- focus ---------- */
   function setFocus(fig, id) {
-    if (!fig.classList.contains('is-interactive')) return;
+    if (!fig.classList.contains('is-interactive') || (id && fig.dataset.view !== 'exploded')) return;
     const lab = id ? fig.querySelector(`.pev__label[data-id="${id}"]`) || fig.querySelector(`.pev__item[data-id="${id}"]`) : null;
     const layerId = lab ? lab.dataset.layer : null;
     fig.dataset.focus = id || '';
     fig.classList.toggle('has-focus', !!id);
     $$('.pev__layer[data-layer]', fig).forEach((l) => l.classList.toggle('is-focus', !!id && l.dataset.layer === layerId));
-    $$('.pev__label', fig).forEach((l) => l.classList.toggle('is-active', !!id && l.dataset.id === id));
+    $$('.pev__label', fig).forEach((l) => {
+      const active = !!id && l.dataset.id === id;
+      l.classList.toggle('is-active', active);
+      l.setAttribute('aria-pressed', String(active));
+    });
     $$('.pev__lines line', fig).forEach((l) => l.classList.toggle('is-active', !!id && l.dataset.id === id));
     $$('.pev__item[data-id]', fig).forEach((b) => b.setAttribute('aria-pressed', String(!!id && b.dataset.id === id)));
     if (!reduced()) track(fig, 800); else layoutLines(fig);
@@ -60,6 +64,7 @@
 
   function setView(fig, view) {
     fig.dataset.view = view;
+    $$('.pev__label', fig).forEach((l) => l.tabIndex = view === 'assembled' ? -1 : 0);
     if (view === 'assembled') setFocus(fig, null);
     $$('.pev__toggle button', fig).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
     if (!reduced()) track(fig, 1100); else layoutLines(fig);
@@ -70,6 +75,12 @@
     fig.dataset.bound = '1';
     const hover = matchMedia('(hover: hover) and (pointer: fine)');
     $$('.pev__label', fig).forEach((label) => {
+      label.addEventListener('focus', () => setFocus(fig, label.dataset.id));
+      label.addEventListener('blur', () => setFocus(fig, null));
+      label.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFocus(fig, fig.dataset.focus === label.dataset.id ? null : label.dataset.id); }
+        if (e.key === 'Escape') setFocus(fig, null);
+      });
       label.addEventListener('mouseenter', () => { if (hover.matches) setFocus(fig, label.dataset.id); });
       label.addEventListener('mouseleave', () => { if (hover.matches) setFocus(fig, null); });
       label.addEventListener('click', () => { if (!hover.matches) setFocus(fig, fig.dataset.focus === label.dataset.id ? null : label.dataset.id); });

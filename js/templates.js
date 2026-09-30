@@ -242,7 +242,7 @@
     const lineHtml = animate ? items.map((a) => `<line data-id="${esc(a.id)}" x1="0" y1="0" x2="0" y2="0" pathLength="1" style="--i:${a.n - 1}"/>`).join('') : '';
     const labelHtml = animate ? items.map((a) => {
       const al = (a.label && a.label.align) || 'left';
-      return `<li class="pev__label is-${al}" data-id="${esc(a.id)}" data-layer="${esc(a.layer || '')}" style="--lx:${num(a.label && a.label.x)}%;--ly:${num(a.label && a.label.y)}%;--i:${a.n - 1}"><span class="pev__n">${a.nn}</span><b>${esc(a.title)}</b>${a.value ? `<em>${esc(a.value)}</em>` : ''}<small>${esc(a.desc)}</small></li>`;
+      return `<li class="pev__label is-${al}" tabindex="0" role="button" aria-pressed="false" data-id="${esc(a.id)}" data-layer="${esc(a.layer || '')}" style="--lx:${num(a.label && a.label.x)}%;--ly:${num(a.label && a.label.y)}%;--i:${a.n - 1}"><span class="pev__n">${a.nn}</span><b>${esc(a.title)}</b>${a.value ? `<em>${esc(a.value)}</em>` : ''}<small>${esc(a.desc)}</small></li>`;
     }).join('') : '';
 
     const listHtml = items.map((a) => (animate

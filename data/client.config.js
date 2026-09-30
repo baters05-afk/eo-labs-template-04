@@ -150,7 +150,7 @@ EO.client = {
     }
   },
   "technicalProfile": {
-    "animation": true,
+    "animation": false,
     "canvas": {
       "width": 1800,
       "height": 1200
@@ -175,7 +175,7 @@ EO.client = {
       "annotateAt": 1450
     },
     "ghost": {
-      "opacity": 0.18,
+      "opacity": 0.1,
       "focusOpacity": 0.07
     },
     "base": {
@@ -195,16 +195,16 @@ EO.client = {
         },
         "z": 5,
         "desktopOffset": {
-          "x": 115,
-          "y": -80
+          "x": 165,
+          "y": -120
         },
         "tabletOffset": {
-          "x": 85,
-          "y": -60
+          "x": 105,
+          "y": -82
         },
         "mobileOffset": {
-          "x": 28,
-          "y": -24
+          "x": 48,
+          "y": -40
         },
         "start": 500,
         "duration": 450
@@ -219,16 +219,16 @@ EO.client = {
         },
         "z": 4,
         "desktopOffset": {
-          "x": 75,
-          "y": -25
+          "x": 70,
+          "y": -30
         },
         "tabletOffset": {
-          "x": 55,
-          "y": -20
+          "x": 45,
+          "y": -22
         },
         "mobileOffset": {
-          "x": 18,
-          "y": -8
+          "x": 20,
+          "y": -12
         },
         "start": 650,
         "duration": 400
@@ -243,16 +243,16 @@ EO.client = {
         },
         "z": 1,
         "desktopOffset": {
-          "x": -95,
-          "y": 10
+          "x": -145,
+          "y": 12
         },
         "tabletOffset": {
-          "x": -70,
-          "y": 5
+          "x": -95,
+          "y": 8
         },
         "mobileOffset": {
-          "x": -24,
-          "y": 0
+          "x": -44,
+          "y": 2
         },
         "start": 800,
         "duration": 450
@@ -267,16 +267,16 @@ EO.client = {
         },
         "z": 3,
         "desktopOffset": {
-          "x": 85,
-          "y": 35
+          "x": 105,
+          "y": 70
         },
         "tabletOffset": {
-          "x": 60,
-          "y": 25
+          "x": 70,
+          "y": 48
         },
         "mobileOffset": {
-          "x": 22,
-          "y": 12
+          "x": 34,
+          "y": 25
         },
         "start": 950,
         "duration": 450
@@ -291,16 +291,16 @@ EO.client = {
         },
         "z": 2,
         "desktopOffset": {
-          "x": 40,
-          "y": 115
+          "x": 95,
+          "y": 155
         },
         "tabletOffset": {
-          "x": 25,
-          "y": 85
+          "x": 65,
+          "y": 105
         },
         "mobileOffset": {
-          "x": 6,
-          "y": 30
+          "x": 29,
+          "y": 58
         },
         "start": 1100,
         "duration": 450
@@ -315,7 +315,7 @@ EO.client = {
           "y": 26.7
         },
         "label": {
-          "x": 98,
+          "x": 65,
           "y": 0.5,
           "align": "right"
         }
@@ -368,7 +368,7 @@ EO.client = {
         },
         "label": {
           "x": 79,
-          "y": 73,
+          "y": 87,
           "align": "left"
         }
       }

@@ -331,7 +331,6 @@ html:not(.js) .pev__toggle, .pev.is-static .pev__toggle { display: none; }
 
 /* plate = stage (canvas) + annotation overlay. Nothing is clipped: layers may travel outside the canvas box. */
 .pev__plate { --fg: #F5F3EF; --fg-muted: rgba(245, 243, 239, .7); color: #F5F3EF; position: relative; width: 100%; aspect-ratio: var(--ratio, 860 / 940); }
-.pev__plate::before { content: ""; position: absolute; inset: -6% -4%; background: radial-gradient(circle at 46% 52%, rgba(255, 255, 255, .045), transparent 60%); pointer-events: none; }
 .pev__stage { position: absolute; left: var(--sx, 0); top: var(--sy, 0); width: var(--sw, 100%); aspect-ratio: var(--cr, 3 / 2); transition: opacity var(--fade, 250ms) ease, transform var(--fade, 250ms) ease; transform-origin: 40% 55%; }
 .pev__base, .pev__ghost, .pev__layer { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pev__base picture, .pev__base img, .pev__ghost picture, .pev__ghost img, .pev__layer picture, .pev__layer img { display: block; width: 100%; height: 100%; object-fit: contain; }
@@ -370,7 +369,7 @@ html:not(.js) .pev__toggle, .pev.is-static .pev__toggle { display: none; }
 
 /* focus mode (hover a label on desktop / tap a list item on touch) */
 .pev.is-interactive.has-focus .pev__layer:not(.is-focus) { opacity: .3; }
-.pev.is-interactive .pev__layer.is-focus { opacity: 1; --sc: 1.03; --tx: calc(var(--dx) + var(--hx, 0px)); --ty: calc(var(--dy) + var(--hy, 0px)); filter: var(--lf) brightness(1.15) drop-shadow(0 14px 35px rgba(0, 0, 0, .35)); }
+.pev.is-interactive[data-view="exploded"] .pev__layer.is-focus { opacity: 1; --sc: 1.03; --tx: calc(var(--dx) + var(--hx, 0px)); --ty: calc(var(--dy) + var(--hy, 0px)); filter: var(--lf) brightness(1.15) drop-shadow(0 14px 35px rgba(0, 0, 0, .35)); }
 .pev.is-interactive.has-focus .pev__ghost { opacity: var(--gf, .07); }
 .pev.is-interactive.has-focus .pev__label:not(.is-active) { opacity: .45; }
 .pev.is-interactive.has-focus .pev__lines line { opacity: .25; }
@@ -396,3 +395,11 @@ html:not(.js) .pev__toggle, .pev.is-static .pev__toggle { display: none; }
   .js .pev .pev__dot, .js .pev .pev__label { opacity: 1 !important; transform: none !important; }
   .pev .pev__lines line { stroke-dashoffset: 0 !important; }
 }
+
+/* Keyboard annotation controls retain the Black Frame treatment. */
+.pev__label:focus-visible { outline: 1px solid var(--color-accent); outline-offset: 6px; }
+.pev[data-view="assembled"] .pev__lines, .pev[data-view="assembled"] .pev__dot, .pev[data-view="assembled"] .pev__labels { opacity: 0; pointer-events: none; }
+
+.pev__base { transition: opacity 600ms ease; }
+.pev.is-exploded[data-view="exploded"] .pev__base { opacity: .25; }
+@media (prefers-reduced-motion: reduce) { .pev__base, .anno-legend { transition: none !important; } }
