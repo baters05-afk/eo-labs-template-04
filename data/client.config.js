@@ -282,7 +282,10 @@ EO.client = {
         "low-e",
         "solar",
         "privacy"
-      ]
+      ],
+      "preview": {
+        "position": "50% 50%"
+      }
     },
     {
       "id": "doors",
@@ -336,7 +339,10 @@ EO.client = {
         "standard",
         "low-e",
         "privacy"
-      ]
+      ],
+      "preview": {
+        "position": "50% 60%"
+      }
     },
     {
       "id": "sliding",
@@ -389,7 +395,10 @@ EO.client = {
         "low-e",
         "solar",
         "standard"
-      ]
+      ],
+      "preview": {
+        "position": "50% 50%"
+      }
     },
     {
       "id": "facades",
@@ -444,7 +453,10 @@ EO.client = {
         "low-e",
         "solar",
         "privacy"
-      ]
+      ],
+      "preview": {
+        "position": "50% 50%"
+      }
     }
   ],
   "products": [
@@ -751,7 +763,8 @@ EO.client = {
             "en": "Anodised natural",
             "de": "Natur eloxiert"
           },
-          "color": "linear-gradient(135deg,#d6d6d3,#9d9d9a)"
+          "color": "#A7A7A3",
+          "previewImage": null
         },
         {
           "id": "anthracite",
@@ -759,7 +772,8 @@ EO.client = {
             "en": "Anthracite",
             "de": "Anthrazit"
           },
-          "color": "#3a3d40"
+          "color": "#383B3D",
+          "previewImage": null
         },
         {
           "id": "black",
@@ -767,7 +781,8 @@ EO.client = {
             "en": "Deep black",
             "de": "Tiefschwarz"
           },
-          "color": "#141414"
+          "color": "#151515",
+          "previewImage": null
         },
         {
           "id": "white",
@@ -775,7 +790,8 @@ EO.client = {
             "en": "Pure white",
             "de": "Reinweiß"
           },
-          "color": "#e9e9e5"
+          "color": "#E8E5DE",
+          "previewImage": null
         },
         {
           "id": "bronze",
@@ -783,7 +799,8 @@ EO.client = {
             "en": "Bronze",
             "de": "Bronze"
           },
-          "color": "linear-gradient(135deg,#7a6650,#54442f)"
+          "color": "#6C5846",
+          "previewImage": null
         }
       ],
       "features": [
@@ -800,7 +817,9 @@ EO.client = {
           "de": "Pflegeleicht"
         }
       ],
-      "image": ""
+      "image": "",
+      "defaultFinish": "anthracite",
+      "swatch": "linear-gradient(135deg,#7d8184 0%,#3a3d40 48%,#65696c 100%)"
     },
     {
       "id": "timber",
@@ -823,7 +842,8 @@ EO.client = {
             "en": "Natural oak",
             "de": "Eiche natur"
           },
-          "color": "repeating-linear-gradient(90deg, #c9a26c 0 7px, #bd9660 7px 10px)"
+          "color": "repeating-linear-gradient(90deg, #c9a26c 0 7px, #bd9660 7px 10px)",
+          "previewImage": null
         },
         {
           "id": "ash",
@@ -831,7 +851,8 @@ EO.client = {
             "en": "Light ash",
             "de": "Esche hell"
           },
-          "color": "repeating-linear-gradient(90deg, #dcc8a6 0 7px, #d1bb96 7px 10px)"
+          "color": "repeating-linear-gradient(90deg, #dcc8a6 0 7px, #d1bb96 7px 10px)",
+          "previewImage": null
         },
         {
           "id": "walnut",
@@ -839,7 +860,8 @@ EO.client = {
             "en": "Walnut",
             "de": "Nussbaum"
           },
-          "color": "repeating-linear-gradient(90deg, #5d412c 0 7px, #523a27 7px 10px)"
+          "color": "repeating-linear-gradient(90deg, #5d412c 0 7px, #523a27 7px 10px)",
+          "previewImage": null
         },
         {
           "id": "smoked",
@@ -847,7 +869,8 @@ EO.client = {
             "en": "Smoked oak",
             "de": "Eiche geräuchert"
           },
-          "color": "repeating-linear-gradient(90deg, #3d3129 0 7px, #33291f 7px 10px)"
+          "color": "repeating-linear-gradient(90deg, #3d3129 0 7px, #33291f 7px 10px)",
+          "previewImage": null
         }
       ],
       "features": [
@@ -864,7 +887,9 @@ EO.client = {
           "de": "Aufarbeitbar"
         }
       ],
-      "image": ""
+      "image": "",
+      "defaultFinish": "oak",
+      "swatch": "repeating-linear-gradient(90deg, #c9a26c 0 7px, #bd9660 7px 10px)"
     },
     {
       "id": "pvc",
@@ -887,7 +912,8 @@ EO.client = {
             "en": "White",
             "de": "Weiß"
           },
-          "color": "#f1f1ee"
+          "color": "#EFEDE8",
+          "previewImage": null
         },
         {
           "id": "cream",
@@ -895,7 +921,8 @@ EO.client = {
             "en": "Cream",
             "de": "Creme"
           },
-          "color": "#e6ddc6"
+          "color": "#e6ddc6",
+          "previewImage": null
         },
         {
           "id": "anthracite",
@@ -903,7 +930,8 @@ EO.client = {
             "en": "Anthracite foil",
             "de": "Anthrazit-Folie"
           },
-          "color": "#3b3e42"
+          "color": "#383B3D",
+          "previewImage": null
         },
         {
           "id": "oak-foil",
@@ -911,7 +939,8 @@ EO.client = {
             "en": "Oak-effect foil",
             "de": "Eiche-Dekor"
           },
-          "color": "repeating-linear-gradient(90deg, #a98259 0 7px, #9d774f 7px 10px)"
+          "color": "repeating-linear-gradient(90deg, #a98259 0 7px, #9d774f 7px 10px)",
+          "previewImage": null
         }
       ],
       "features": [
@@ -928,7 +957,9 @@ EO.client = {
           "de": "Große Dekorauswahl"
         }
       ],
-      "image": ""
+      "image": "",
+      "defaultFinish": "white",
+      "swatch": "linear-gradient(135deg,#f0efeb,#d7d6d2)"
     },
     {
       "id": "composite",
@@ -951,7 +982,8 @@ EO.client = {
             "en": "Slate",
             "de": "Schiefer"
           },
-          "color": "linear-gradient(135deg,#565a5d,#3d4144)"
+          "color": "linear-gradient(135deg,#565a5d,#3d4144)",
+          "previewImage": null
         },
         {
           "id": "stone",
@@ -959,7 +991,8 @@ EO.client = {
             "en": "Stone",
             "de": "Stein"
           },
-          "color": "linear-gradient(135deg,#9a958a,#7c776d)"
+          "color": "linear-gradient(135deg,#9a958a,#7c776d)",
+          "previewImage": null
         },
         {
           "id": "bronze",
@@ -967,7 +1000,8 @@ EO.client = {
             "en": "Bronze",
             "de": "Bronze"
           },
-          "color": "linear-gradient(135deg,#7b664d,#5a4830)"
+          "color": "linear-gradient(135deg,#7b664d,#5a4830)",
+          "previewImage": null
         },
         {
           "id": "sand",
@@ -975,7 +1009,8 @@ EO.client = {
             "en": "Sand",
             "de": "Sand"
           },
-          "color": "linear-gradient(135deg,#cfc3aa,#b9ac91)"
+          "color": "linear-gradient(135deg,#cfc3aa,#b9ac91)",
+          "previewImage": null
         }
       ],
       "features": [
@@ -992,7 +1027,9 @@ EO.client = {
           "de": "Hochwertige Innenoptik"
         }
       ],
-      "image": ""
+      "image": "",
+      "defaultFinish": "slate",
+      "swatch": "linear-gradient(135deg,#5b5f61 0%,#33373a 50%,#8d8a80 100%)"
     }
   ],
   "projects": [

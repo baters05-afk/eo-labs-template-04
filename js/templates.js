@@ -51,7 +51,7 @@
     (i.sources || []).forEach((s) => { out += src(s); });
     const wh = i.width && i.height ? ` width="${i.width}" height="${i.height}"` : '';
     const style = o.focal ? ` style="object-position:${esc(o.focal)}"` : '';
-    const img = `<img src="${esc(asset(i.src))}"${i.srcset ? ` srcset="${esc(assetSet(i.srcset))}"` : ''}${sizes} alt="${esc(alt)}"${wh}${style} loading="${o.eager ? 'eager' : 'lazy'}" decoding="async"${o.eager ? ' fetchpriority="high"' : ''}>`;
+    const img = `<img src="${esc(asset(i.src))}"${i.srcset ? ` srcset="${esc(assetSet(i.srcset))}"` : ''}${sizes} alt="${esc(alt)}"${wh}${style} loading="${o.eager || o.load === 'eager' ? 'eager' : 'lazy'}" decoding="async"${o.eager ? ' fetchpriority="high"' : ''}>`;
     return out ? `<picture>${out}${img}</picture>` : img;
   }
   function media(image, alt, o = {}) {
@@ -153,6 +153,7 @@
   }
 
   const matName = (id) => { const m = materials().find((x) => x.id === id); return m ? tr(m.title) : id; };
+  const rangeCount = (n) => (n === 1 ? t('products.countOne') : t('products.count', { n }));
   function filteredProducts() {
     const f = EO.state.filter;
     return products().filter((p) => (f.category === 'all' || p.category === f.category) && (f.material === 'all' || (p.material || []).indexOf(f.material) > -1));
@@ -178,7 +179,7 @@
           <div class="range__filter-row"><span class="label" id="fl-mat">${esc(t('products.material'))}</span>
             <div class="chips" role="group" aria-labelledby="fl-mat">${chip('material', 'all', t('products.all'))}${materials().map((m) => chip('material', m.id, tr(m.title))).join('')}</div></div>
         </div>
-        <p class="range__count" id="rangeCount" role="status" aria-live="polite">${esc(t('products.count', { n: filteredProducts().length }))}</p>
+        <p class="range__count" id="rangeCount" role="status" aria-live="polite">${esc(rangeCount(filteredProducts().length))}</p>
       </div>
       <ul class="range-list" id="rangeList">${rangeListHtml()}</ul>`;
   }
@@ -370,5 +371,5 @@
 
   EO.ui = { esc, picture, media, ICON, arrow, asImg, pad, $, $$, t, tr };
   EO.data = { categories, materials, products, projects, faqItems, manufacturers };
-  EO.tpl = { headerInner, footerInner, mainInner, rangeListHtml, rangeHtml, materialsGrid, heroPreload, hash, navItems };
+  EO.tpl = { rangeCount, headerInner, footerInner, mainInner, rangeListHtml, rangeHtml, materialsGrid, heroPreload, hash, navItems };
 })();

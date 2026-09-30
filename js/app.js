@@ -27,7 +27,7 @@
     const f = EO.state.filter;
     $$('[data-filter]').forEach((b) => { const [g, id] = b.dataset.filter.split(':'); b.setAttribute('aria-pressed', String(f[g] === id)); });
     $('#rangeList').innerHTML = EO.tpl.rangeListHtml();
-    $('#rangeCount').textContent = t('products.count', { n: $$('#rangeList .range-item').length });
+    $('#rangeCount').textContent = EO.tpl.rangeCount($$('#rangeList .range-item').length);
   }
 
   /* ---------- menu ---------- */

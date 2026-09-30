@@ -36,7 +36,7 @@ EO.defaults.translations = {
     },
     products: {
       eyebrow: 'Products', title: 'The range.', text: 'Choose a category or filter by material.',
-      all: 'All', category: 'Category', material: 'Material', count: '{n} systems', none: 'No systems match this filter.',
+      all: 'All', category: 'Category', material: 'Material', count: '{n} systems', countOne: '1 system', none: 'No systems match this filter.',
       filterLabel: 'Filter products'
     },
     precision: {
@@ -69,7 +69,7 @@ EO.defaults.translations = {
       prompts: { product: 'What do you need?', material: 'Which material?', finish: 'Choose a finish', glass: 'Glass type', project: 'Project type' },
       stepOf: 'Step {n} of {total}',
       summary: 'Your selection', preview: 'Selection preview', previewEmpty: 'Choose a product to see it here.', empty: 'Not selected yet',
-      unavailable: 'Not available for this product', chooseFirst: 'Choose a material first.',
+      unavailable: 'Not available for this product', chooseFirst: 'Choose a material first.', frame: 'Frame / material', finishLabel: 'Finish', glassLabel: 'Glass', context: 'Project context', showingFor: 'Showing products available in {material}.', stepDone: 'completed',
       hint: 'You can change any choice at any time.', edit: 'Change'
     },
     about: {
@@ -144,7 +144,7 @@ EO.defaults.translations = {
     },
     products: {
       eyebrow: 'Produkte', title: 'Das Sortiment.', text: 'Wählen Sie eine Kategorie oder filtern Sie nach Material.',
-      all: 'Alle', category: 'Kategorie', material: 'Material', count: '{n} Systeme', none: 'Keine Systeme für diesen Filter.',
+      all: 'Alle', category: 'Kategorie', material: 'Material', count: '{n} Systeme', countOne: '1 System', none: 'Keine Systeme für diesen Filter.',
       filterLabel: 'Produkte filtern'
     },
     precision: {
@@ -177,7 +177,7 @@ EO.defaults.translations = {
       prompts: { product: 'Was benötigen Sie?', material: 'Welches Material?', finish: 'Oberfläche wählen', glass: 'Glasart', project: 'Projektart' },
       stepOf: 'Schritt {n} von {total}',
       summary: 'Ihre Auswahl', preview: 'Vorschau der Auswahl', previewEmpty: 'Wählen Sie ein Produkt, um es hier zu sehen.', empty: 'Noch nicht gewählt',
-      unavailable: 'Für dieses Produkt nicht verfügbar', chooseFirst: 'Bitte zuerst ein Material wählen.',
+      unavailable: 'Für dieses Produkt nicht verfügbar', chooseFirst: 'Bitte zuerst ein Material wählen.', frame: 'Rahmen / Material', finishLabel: 'Oberfläche', glassLabel: 'Glas', context: 'Projektkontext', showingFor: 'Angezeigt werden Produkte, die in {material} verfügbar sind.', stepDone: 'abgeschlossen',
       hint: 'Sie können jede Auswahl jederzeit ändern.', edit: 'Ändern'
     },
     about: {

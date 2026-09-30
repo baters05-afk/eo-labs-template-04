@@ -51,6 +51,9 @@ Add one: copy a block in `presets.css`, add the id to `EO.presets` in `js/config
 Colour system: `#0A0A0A / #111 / #181818` · light `#F1EEE8 / #F5F3EF` · accent `#C9AC82` · muted `#98938A`.
 
 ## 4 · Configurator data model
+Every click updates one state object and immediately updates the preview (cross-fading photo, material / finish / glass samples), the live "Your selection" and the next steps. A configuration can be shared as a link: `?product=sliding&material=aluminium&finish=anthracite&glass=low-e&project=commercial` (restored on load).
+Preview data: `categories[].preview {image?, position}`, `materials[].swatch`, `materials[].finishes[].{color, previewImage}` (set `previewImage` for a finish-specific render), `options.glass[].{overlay, effect, note}`, `options.projectTypes[].image`.
+
 `EO.state.configuratorState = { product, material, finish, glass, projectType }` — every option comes from data, nothing is hard-coded in the UI.
 Per category (or product) in `client.config.js`:
 ```js
