@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="{{lang}}" data-preset="{{preset}}" data-root="{{root}}" data-hash="{{hash}}"{{switcher}}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0A0A">
+  {{head}}
+  {{preload}}
+  <link rel="stylesheet" href="{{root}}css/variables.css">
+  <link rel="stylesheet" href="{{root}}css/presets.css">
+  <link rel="stylesheet" href="{{root}}css/base.css">
+  <link rel="stylesheet" href="{{root}}css/layout.css">
+  <link rel="stylesheet" href="{{root}}css/components.css">
+  <link rel="stylesheet" href="{{root}}css/sections.css">
+  <link rel="stylesheet" href="{{root}}css/responsive.css">
+  {{brandStyle}}
+  <script>document.documentElement.classList.add('js');(function(d){if(d.dataset.switcher){try{var p=sessionStorage.getItem('eo-t04:preset');if(p)d.dataset.preset=p}catch(e){}}})(document.documentElement)</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">{{skip}}</a>
+  <div class="visually-hidden" id="liveRegion" role="status" aria-live="polite"></div>
+
+  <header class="site-header on-photo" id="siteHeader">{{header}}</header>
+
+  <main id="main">
+{{main}}
+  </main>
+
+  <footer class="site-footer theme-black" id="contact">{{footer}}</footer>
+
+  <dialog class="gallery" id="galleryDialog" aria-label="Project gallery">
+    <div class="gallery__inner" id="galleryInner"></div>
+  </dialog>
+
+  <dialog class="quote" id="quoteDialog" aria-labelledby="quoteTitle">
+    <div class="quote__panel theme-dark" id="quotePanel"></div>
+  </dialog>
+
+  <script src="{{root}}data/client.config.js" defer></script>
+  <script src="{{root}}data/client.override.js" defer></script>
+  <script src="{{root}}data/options.js" defer></script>
+  <script src="{{root}}data/translations.js" defer></script>
+  <script src="{{root}}js/config.js" defer></script>
+  <script src="{{root}}js/i18n.js" defer></script>
+  <script src="{{root}}js/templates.js" defer></script>
+  <script src="{{root}}js/configurator.js" defer></script>
+  <script src="{{root}}js/seo.js" defer></script>
+  <script src="{{root}}js/gallery.js" defer></script>
+  <script src="{{root}}js/quote.js" defer></script>
+  <script src="{{root}}js/app.js" defer></script>
+</body>
+</html>

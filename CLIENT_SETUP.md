@@ -1,137 +1,108 @@
 # EO Labs · Template 04 — Windows & Doors (BLACK FRAME engine)
 
 Static, framework-free (HTML5 / CSS3 / vanilla ES6+) website platform for windows, doors, aluminium / PVC / timber systems, sliding systems and facades.
-One engine, three visual presets, EN/DE out of the box, no build step, no dependencies.
+One engine, three visual presets, EN/DE (URL-per-language), no runtime dependencies.
+
+**HTML = content · CSS = presentation · JS = interaction.**
+The deployable HTML is generated from the config by `node tools/build.js`, so crawlers receive real text (H1, navigation, categories, materials, engineering, projects, FAQ, CTA, footer) *before* any JavaScript runs. JS only enhances.
 
 ```bash
 cd eo-labs-template-04
-npx http-server . -p 8804 -c-1     # or any static server; open http://localhost:8804
+node tools/build.js                       # regenerate /index.html, /en/, /de/, robots.txt (+ sitemap.xml in live mode)
+npx http-server . -p 8804 -c-1            # preview
 ```
-
-> Open it through a local server, not `file://` — the admin preview uses `localStorage`, which is per-origin.
 
 ---
 
-## 1 · Adapting the template for a new client (10–30 min)
+## 1 · New client in ~30 minutes
 
-Everything client-specific lives in `/data`, `/assets` and (optionally) one override file. **No HTML/CSS/JS edits are required.**
+Everything client-specific lives in **one file: `data/client.config.js`** (+ `/assets`). No HTML/CSS/JS edits.
 
-| # | Step | Where |
-|---|------|-------|
-| 1 | Replace the logo (single-colour SVG follows the theme colour; for a colour logo/PNG set `logoMono: false`) | `assets/icons/logo.svg` or `company.logo` |
-| 2 | Company name, short name, legal name | `data/site.config.js → company` |
-| 3 | Pick a **preset** and, if needed, override brand colours | `preset`, `branding` |
-| 4 | Contacts, service area, social, legal links | `contact`, `social`, `legal` |
-| 5 | Hero image (+ update the `<link rel="preload">` in `index.html`), CTA image, technical profile image | `hero.image`, `cta.image`, `technical.image` |
-| 6 | Products (range list) and the four category tiles | `data/products.js` |
-| 7 | Materials + finish swatches | `data/materials.js` |
-| 8 | Real projects (`demo:false`) | `data/projects.js` |
-| 9 | Manufacturers the client really works with | `data/manufacturers.js` |
-| 10 | Languages (`default`, `enabled`) | `languages` |
-| 11 | SEO: `siteUrl`, titles, descriptions, OG image; FAQ answers | `seo`, `data/faq.js` |
-| 12 | Technical figures — only certified values | `technical.specs`, `technical.annotations` |
-| 13 | `demoMode: false` | `data/site.config.js` |
-| 14 | Deploy the folder **without** `/admin` and `/tools` | any static host |
+| # | Step | Where in `client.config.js` |
+|---|------|------|
+| 1 | Replace the logo (single-colour SVG follows the theme colour; colour logo → `logoMono:false`) | `company.logo` |
+| 2 | Company name / short / legal | `company` |
+| 3 | Contacts, service areas, socials, legal links | `contact`, `serviceAreas`, `socials`, `legal` |
+| 4 | Pick a preset, set primary/accent if the brand needs it | `themePreset`, `branding` |
+| 5 | Hero photo (+ optional mobile crop) | `hero.image`, `hero.imageMobile`, `hero.focal` |
+| 6 | Categories & products (+ which materials/finishes/glass each supports) | `categories`, `products` |
+| 7 | Materials + finish swatches | `materials` |
+| 8 | Real projects (`demo:false`) | `projects` |
+| 9 | Manufacturer logos (only real ones) | `manufacturers` |
+| 10 | FAQ, languages, SEO | `faq`, `languages`, `seo` |
+| 11 | Certified technical figures only | `technical.specs`, `technical.annotations` |
+| 12 | `demoMode:false`, then **`node tools/build.js`** and deploy | `demoMode` |
 
-### Faster: use the admin
-Open `/admin/index.html` → edit → changes autosave to your browser and are previewed on `/index.html` immediately → **Export client.override.js** → drop the file into `/data/`. Defaults are left untouched, so template updates stay mergeable.
-Layer order (later wins): `data/*.js` defaults → `data/client.override.js` → admin preview (`localStorage`).
-See `CLIENT_CONFIG_EXAMPLE.js` for a complete override.
+**Admin (optional):** `/admin/index.html` edits the same data with instant preview on `/index.html`, then *Export client.override.js* → put it in `/data/` → run the build. The override is deep-merged over `client.config.js` (lists replace), so the base config stays clean.
+**Texts** (hero headline, section titles, labels) live in `data/translations.js`; override single keys via `client.override.js → translations`.
+See `CLIENT_CONFIG_EXAMPLE.js`.
 
-### Texts (hero, section headings, form labels)
-UI copy is in `data/translations.js`. Override single keys from `client.override.js`:
+## 2 · Photography pipeline (AVIF / WebP / JPEG, responsive)
+1. Put source photos (≥2400 px wide) in `assets/photos-src/` (`hero.jpg`, `hero-mobile.jpg`, `cat-windows.jpg` …).
+2. `node tools/images.js` → `assets/photos/<name>-{640,960,1440,1920}.{avif,webp,jpg}` + `manifest.json` (needs macOS `sips`, `cwebp`, optional `ffmpeg` with libsvtav1 for AVIF).
+3. Paste the manifest entry into `hero.image` / `categories[].image` / `projects[].images[].src` …
+4. `node tools/build.js` — the hero gets `<link rel="preload">` (with `imagesrcset`), `<picture>` sources, correct `width/height` (no CLS); below-the-fold images are `loading="lazy"`.
+
+`hero.imageMobile` (its own portrait crop) is served to ≤640 px with its own preload. **The bundled images are generated SVG placeholders** — swap in real architectural photography for every client (no third-party photos are shipped).
+
+## 3 · Presets — one engine, several characters
+`themePreset`: `black-frame` · `warm-stone` · `minimal-white` (`css/presets.css`). A preset only redefines tokens (palette, display font/weight, radius, swatch shape, image filter, section spacing, hero/header treatment); components never change. In demo mode a switcher in the top bar flips presets live.
+Add one: copy a block in `presets.css`, add the id to `EO.presets` in `js/config.js`. `branding.*` colours override any preset: `primary` = dark surface, `secondary` = light surface, `accent`, `black` (footer/base), `textDark`, `textLight`, `muted`.
+Colour system: `#0A0A0A / #111 / #181818` · light `#F1EEE8 / #F5F3EF` · accent `#C9AC82` · muted `#98938A`.
+
+## 4 · Configurator data model
+`EO.state.configuratorState = { product, material, finish, glass, projectType }` — every option comes from data, nothing is hard-coded in the UI.
+Per category (or product) in `client.config.js`:
 ```js
-window.EO_OVERRIDE = { translations: { en: { hero: { title: 'Windows built\nfor the Alps.' } } } };
+availableMaterials: ['aluminium', 'timber'],
+availableFinishes: { aluminium: ['anthracite', 'black'], timber: ['oak', 'walnut'] },   // omit = all finishes of that material
+availableGlass: ['standard', 'low-e', 'privacy']
 ```
-`\n` becomes a line break in headings; `{company}` / `{name}` are replaced with the company name.
+Unsupported options are disabled with a reason; changing the product drops choices that are no longer valid. "Continue →" opens the quote wizard with the configuration pre-filled (it then only asks size, quantity, installation, location, contact).
 
----
+## 5 · Languages & SEO
+- One prerendered page per language: `/index.html` (default language, canonical → `/<default>/`), `/en/`, `/de/` … with `hreflang` alternates + `x-default` (needs `seo.siteUrl`). The language switch is real links (`<a href="../de/">`).
+- Add Dutch: add `translations.nl` in `data/translations.js`, add `'nl'` to `languages.enabled`, rebuild → `/nl/` exists. Content lists fall back to the default language where `nl` is missing.
+- `demoMode:true` → title "Windows & Doors Website Template — EO Labs Demo", `robots: noindex, nofollow`, `robots.txt Disallow: /`. `demoMode:false` → `index, follow`, client SEO, `sitemap.xml`.
+- JSON-LD: `BreadcrumbList`, `FAQPage` (only when the FAQ is rendered), `ItemList/Product` (live mode, no offers/ratings), `LocalBusiness` **only** in live mode with real name + contact data. Never reviews, ratings, awards or certifications.
+- Landing pages `/windows`, `/doors`, `/sliding-doors`, `/aluminium-windows`, `/pvc-windows`, `/timber-windows`, `/facades` are prepared as flags (`seo.pages.*.enabled`) but **not generated** — add one only when the client has unique content for it.
 
-## 2 · Presets — one engine, several characters
-
-Set `preset` in config (or in Admin → Branding). In demo mode a small switcher in the top bar lets you flip presets live.
-
-| Preset | Character |
+## 6 · demoMode
+| `true` | `false` |
 |---|---|
-| `black-frame` | Dark editorial, thin sans, square corners, champagne accent |
-| `warm-stone` | Umber & travertine, serif display, pill buttons/round swatches, warm muted photography |
-| `minimal-white` | Light throughout, ultra-light type, generous space, ink-black accent |
+| DEMO TEMPLATE bar + footer label, noindex | none, indexable |
+| Quote wizard is interactive but **sends nothing and stores nothing** ("Demo complete — No personal information has been submitted.") | POSTs JSON to `quote.endpoint`, or prepares a `mailto:`; consent required |
+| Placeholders instead of phone/e-mail/address; no service area | only real values |
+| Projects labelled "Demo imagery" | `demo:true` projects hidden |
+| No manufacturers, no LocalBusiness | shown / built from real data |
+| No testimonials, ratings, awards, certifications, guarantees, invented locations — anywhere | same |
 
-A preset only redefines CSS tokens (`css/presets.css`): palette, display font/weight/tracking, radius, swatch shape, image filter, category ratio, section spacing, header/hero overlay. Components never change.
-**Add a preset:** copy a block in `css/presets.css`, rename `[data-preset="…"]`, adjust tokens, add the id to `EO.presets` (+ `EO.presetNames`/`presetShort`) in `js/config.js`.
-`branding.*` colours override the preset for any client: `primary` = "dark" surface, `secondary` = "light" surface, `accent`, `black` (footer/base), `textDark`, `textLight`, `muted`.
-
-## 3 · Languages
-`data/translations.js` holds UI strings; content lists carry `{en, de, …}` objects. Missing keys fall back to the default language, then English.
-**Add Dutch:** add `translations.nl = { … }` (copy `en`), add `'nl'` to `languages.enabled`. Add `nl` values to content where you have them. No component changes.
-Language is persisted, can be forced with `?lang=de`, updates `<html lang>`, title, meta, OG and JSON-LD without reload.
-
-## 4 · demoMode
-
-| `demoMode: true` | `demoMode: false` |
-|---|---|
-| "DEMO TEMPLATE · Not a real company" bar + footer label | hidden |
-| `robots: noindex, nofollow` | `index, follow` |
-| Quote wizard fully interactive, **nothing sent, nothing stored**, ends with "This is a demo. No personal data has been submitted." | POSTs JSON to `quote.endpoint`, or prepares a `mailto:` to `contact.email`; consent checkbox required |
-| No phone/e-mail/address shown (placeholders instead), no service area | shows only what is filled in |
-| Projects marked **Sample**, "Demo imagery / Sample presentation" | `demo:true` projects hidden automatically |
-| Manufacturers section hidden | shown if real entries exist |
-| No `LocalBusiness` schema | `LocalBusiness` built **only** from real data (name + phone/e-mail/address) |
-| No reviews, ratings, awards, certifications, guarantees — anywhere | same: the template never generates them |
-
-Technical figures (Uw, dB, RC class) are empty by default; the section then shows generic wording. Enter values only if they are certified for the client's real systems.
-
----
-
-## 5 · Architecture
-
+## 7 · Architecture
 ```
-index.html               semantic shell: section landmarks, dialogs, no client data
-css/
-  variables.css          tokens: container, spacing, type scale, radius, motion, palette (BLACK FRAME defaults)
-  presets.css            black-frame · warm-stone · minimal-white
-  base.css  layout.css   reset/type · containers, section themes (.theme-dark/-light/-black/.on-photo), reveal
-  components.css         buttons, chips, media, swatches, accordion, fields, options
-  sections.css           header, hero, products, precision, projects, materials, configurator, about, faq, cta, footer, dialogs
-  responsive.css         ≤1180 · ≤960 · ≤768 · ≤640 (mobile designed separately) · ≤380 · ≥1700
-js/
-  config.js  (sync, tiny) merge defaults → override → localStorage, apply preset + brand colours before first paint
-  i18n.js                t(), tr(), language state, DOM application
-  render.js              pure data → HTML for every section
-  configurator.js        5-step selector + live summary (roving radio groups, availability rules from product data)
-  quote.js               8-step wizard in <dialog>, validation, demo/live submit
-  gallery.js             project lightbox (<dialog>, arrows, keyboard, index)
-  seo.js                 title/meta/canonical/OG/Twitter/hreflang + JSON-LD
-  app.js                 bootstrap, delegated events, header, reveal, parallax, accordion
-data/
-  site.config.js         business configuration (single object)
-  products.js  materials.js  projects.js  manufacturers.js  faq.js  options.js
-  translations.js        EN / DE UI copy
-  client.override.js     per-client override (exported from admin)
-admin/                   local editor: list CRUD + reorder, colours, presets, languages, SEO, export/import
-tools/generate-demo-images.js   regenerates the demo illustrations
+src/index.template.html      page shell with {{tokens}}
+js/templates.js              pure data → HTML (used by the browser AND the build)
+js/config.js  i18n.js  seo.js  configurator.js   pure logic (runs in Node too)
+js/app.js                    hydration: events, mobile menu, reveal, filters, accordion
+js/gallery.js  quote.js      dialogs
+tools/build.js               Node VM prerender → /index.html, /<lang>/index.html, robots.txt, sitemap.xml
+tools/images.js              AVIF/WebP/JPEG pipeline
+tools/generate-demo-images.js   demo SVG placeholders
+data/client.config.js        ← THE client file
+data/client.override.js      per-client override (from admin)   data/options.js  data/translations.js
+css/variables.css presets.css base.css layout.css components.css sections.css responsive.css
+admin/                       local editor with import/export (never deploy)
 ```
+The page carries `data-hash`; on load the browser compares it with the live config and only re-renders (from the same templates) when they differ — e.g. admin preview.
 
-Responsive strategy: desktop-first with token-scaled type and spacing; at ≤960 the header collapses to a compact menu and grids fold; at ≤640 categories and projects become horizontal snap rails, the configurator and wizard go vertical/full-screen, technical callouts collapse into numbered markers + legend, CTAs go full width.
+## 8 · Notes
+- Deploy the folder without `/admin`, `/tools`, `/src`, `*.md`.
+- The engineering section uses a generated cross-section illustration; replace `technical.image` with a real profile section photo/render.
+- Fonts: system/Inter stack, zero webfont requests. To self-host add woff2 to `assets/fonts/` and `@font-face` in `variables.css`.
+- Admin is local (`localStorage` + export), no authentication.
 
-## 6 · SEO architecture
-- Homepage: `title`, `description`, canonical (from `seo.siteUrl`), Open Graph, Twitter, `hreflang` (`?lang=xx`) when more than one language and a `siteUrl` are set.
-- JSON-LD: `BreadcrumbList`, `ItemList` of `Product` (no offers/ratings), `FAQPage` **only when the FAQ is rendered**, `LocalBusiness` only in live mode with real data.
-- Future landing pages are prepared, not generated: `seo.pages` (`/windows`, `/doors`, `/sliding-doors`, `/aluminium-windows`, `/pvc-windows`, `/timber-windows`, `/facades`). Set `enabled: true` for a slug once a real page with real content exists; the category tile then links to it instead of filtering the homepage range.
-- The homepage HTML is filled by JavaScript (copy comes from translations). Search engines render this, but for maximum SEO consider a prerender step (e.g. headless snapshot at deploy time) — not included on purpose to keep the platform build-free.
-
-## 7 · Notes & limits (be honest with the client)
-- **Demo imagery** is generated abstract SVG (no third-party photography). Replace with real architectural photography (jpg/webp, 1920w hero, 1200w projects); give big images `srcset` via `{ src, srcset }` objects in the data files.
-- **Fonts:** system/Inter-style stack, zero webfont requests. To self-host Inter/Manrope drop woff2 files in `assets/fonts/` and add `@font-face` to `variables.css`.
-- **Admin** is a local tool (`localStorage` + export). Do not deploy it to production; it has no authentication.
-- The quote endpoint is a plain JSON POST; wire it to the client's CRM/form backend. Add a privacy policy URL under `legal.privacy`.
-- The preview `<link rel="preload">` in `index.html` points at the default hero — update it when you change `hero.image`.
-
-## 8 · Pre-launch QA checklist
-- [ ] `demoMode:false`, real contacts, no `Demo`/`Sample` labels visible
-- [ ] Only real projects/manufacturers; demo projects removed or hidden
-- [ ] `seo.siteUrl`, titles, descriptions, OG image set; canonical is correct
-- [ ] Legal links (`privacy`, `terms`, `cookies`) set; quote endpoint tested
-- [ ] Alt texts reviewed; images compressed; hero preload updated
-- [ ] 360 / 390 / 430 / 768 / 1024 / 1440 / 1920 — no horizontal scroll, menu, configurator and quote wizard work
-- [ ] Keyboard: skip link, menu, language switch, radio groups (arrow keys), dialogs (Esc), accordion
+## 9 · Pre-launch checklist
+- [ ] `demoMode:false`, real contacts, `seo.siteUrl`, titles/descriptions/OG, legal links, quote endpoint
+- [ ] Real photography via `tools/images.js`; hero focal points checked on mobile; alt texts reviewed
+- [ ] Only real projects/manufacturers; no demo labels visible
+- [ ] `node tools/build.js` re-run after every config change; view-source shows the H1 and page text
+- [ ] 360 / 390 / 430 / 768 / 1024 / 1440 / 1920: no horizontal scroll; menu, configurator, quote work; keyboard OK

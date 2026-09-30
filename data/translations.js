@@ -26,7 +26,7 @@ EO.defaults.translations = {
       label: 'Demo template', notReal: 'Not a real company', preset: 'Preset',
       contactPlaceholder: 'Added when the site goes live',
       imagery: 'Demo imagery / Sample presentation',
-      sample: 'Sample', simulation: 'Simulation mode — nothing is sent.'
+      sample: 'Demo imagery', simulation: 'Simulation mode — nothing is sent.'
     },
     hero: {
       eyebrow: 'Modern windows & doors for\nexceptional spaces',
@@ -43,8 +43,8 @@ EO.defaults.translations = {
       eyebrow: 'Engineered for a higher standard',
       title: 'Precision\nin every detail.',
       text: 'Our systems combine architectural design with advanced engineering — a considered balance of insulation, security and durability.',
-      thermal: 'Thermal insulation', acoustic: 'Acoustic performance', security: 'Security', durability: 'Durability',
-      thermalGeneric: 'High thermal performance', acousticGeneric: 'Enhanced acoustic comfort', securityGeneric: 'Security options available', durabilityGeneric: 'Designed for European climates',
+      thermal: 'Thermal performance', acoustic: 'Acoustic performance', security: 'Security', durability: 'Durability',
+      thermalGeneric: 'High thermal performance', acousticGeneric: 'Enhanced acoustic comfort', securityGeneric: 'Security options available', durabilityGeneric: 'Designed for demanding climates',
       glazing: 'Triple glazing', thermalBreak: 'Thermal break', profile: 'Aluminium profile', chambers: 'Multi-chamber design',
       glazingGeneric: '', thermalBreakGeneric: 'Maximum efficiency', profileGeneric: 'Slim and strong', chambersGeneric: 'For superior insulation',
       alt: 'Technical cross-section of an aluminium window profile with triple glazing, thermal break and multiple chambers',
@@ -68,7 +68,7 @@ EO.defaults.translations = {
       steps: { product: 'Product', material: 'Material', finish: 'Finish', glass: 'Glass', project: 'Project' },
       prompts: { product: 'What do you need?', material: 'Which material?', finish: 'Choose a finish', glass: 'Glass type', project: 'Project type' },
       stepOf: 'Step {n} of {total}',
-      summary: 'Your selection', empty: 'Not selected yet',
+      summary: 'Your selection', preview: 'Selection preview', previewEmpty: 'Choose a product to see it here.', empty: 'Not selected yet',
       unavailable: 'Not available for this product', chooseFirst: 'Choose a material first.',
       hint: 'You can change any choice at any time.', edit: 'Change'
     },
@@ -96,12 +96,12 @@ EO.defaults.translations = {
       rights: 'All rights reserved.', privacy: 'Privacy', terms: 'Terms', cookies: 'Cookie settings', demoNote: 'Demo template. Not a real company.'
     },
     quote: {
-      title: 'Request a quote', stepOf: 'Step {n} of {total}', back: 'Back', next: 'Next', submit: 'Send request', submitDemo: 'Finish demo', close: 'Close', recap: 'Your request',
+      title: 'Request a quote', stepOf: 'Step {n} of {total}', back: 'Back', next: 'Next', submit: 'Send request', submitDemo: 'Finish demo', close: 'Close', recap: 'Your configuration',
       steps: {
         product: 'Which product?', material: 'Which material?', project: 'Project type', size: 'Approximate size',
         quantity: 'Quantity', installation: 'Installation required?', location: 'Location', contact: 'Contact details'
       },
-      short: { product: 'Product', material: 'Material', project: 'Project', size: 'Size', quantity: 'Quantity', installation: 'Installation', location: 'Location', glass: 'Glass', finish: 'Finish' },
+      short: { product: 'Product', material: 'Material', project: 'Project type', size: 'Size', quantity: 'Quantity', installation: 'Installation', location: 'Location', glass: 'Glass', finish: 'Finish' },
       width: 'Width (mm)', height: 'Height (mm)', sizeUnknown: "I don't know the size yet",
       quantityLabel: 'Number of units', decrease: 'Decrease quantity', increase: 'Increase quantity',
       notSure: 'Not sure yet', yes: 'Yes, please', no: 'No, supply only', undecided: 'Undecided',
@@ -110,7 +110,7 @@ EO.defaults.translations = {
       consent: 'I agree that my details are used to answer this request.',
       consentDemo: 'Demo mode: your details stay in this browser tab and are never sent.',
       errors: { required: 'Please make a selection.', size: 'Enter width and height, or tick the box.', quantity: 'Enter a quantity between 1 and 99.', postcode: 'Enter a postcode.', name: 'Enter your name.', email: 'Enter a valid email address.', consent: 'Please confirm to continue.' },
-      demoDoneTitle: 'This is a demo.', demoDone: 'No personal data has been submitted.',
+      demoDoneTitle: 'Demo complete', demoDone: 'No personal information has been submitted.',
       doneTitle: 'Thank you.', done: 'Your request has been sent. We will get back to you shortly.',
       failTitle: 'Could not send.', fail: 'Please try again or contact us directly.',
       mailto: 'Open email to send', restart: 'Start over', sending: 'Sending…'
@@ -134,7 +134,7 @@ EO.defaults.translations = {
       label: 'Demo-Vorlage', notReal: 'Kein echtes Unternehmen', preset: 'Preset',
       contactPlaceholder: 'Wird bei Livegang ergänzt',
       imagery: 'Demobilder / Beispielpräsentation',
-      sample: 'Beispiel', simulation: 'Simulationsmodus – es wird nichts gesendet.'
+      sample: 'Demobild', simulation: 'Simulationsmodus – es wird nichts gesendet.'
     },
     hero: {
       eyebrow: 'Moderne Fenster & Türen für\nbesondere Räume',
@@ -151,8 +151,8 @@ EO.defaults.translations = {
       eyebrow: 'Entwickelt für höchste Ansprüche',
       title: 'Präzision\nin jedem Detail.',
       text: 'Unsere Systeme verbinden architektonisches Design mit moderner Technik – eine durchdachte Balance aus Dämmung, Sicherheit und Langlebigkeit.',
-      thermal: 'Wärmedämmung', acoustic: 'Schallschutz', security: 'Sicherheit', durability: 'Langlebigkeit',
-      thermalGeneric: 'Hohe Wärmedämmleistung', acousticGeneric: 'Mehr akustischer Komfort', securityGeneric: 'Sicherheitsoptionen verfügbar', durabilityGeneric: 'Für europäisches Klima entwickelt',
+      thermal: 'Wärmedämmleistung', acoustic: 'Schallschutz', security: 'Sicherheit', durability: 'Langlebigkeit',
+      thermalGeneric: 'Hohe Wärmedämmleistung', acousticGeneric: 'Mehr akustischer Komfort', securityGeneric: 'Sicherheitsoptionen verfügbar', durabilityGeneric: 'Für anspruchsvolles Klima entwickelt',
       glazing: 'Dreifachverglasung', thermalBreak: 'Thermische Trennung', profile: 'Aluminiumprofil', chambers: 'Mehrkammer-Design',
       glazingGeneric: '', thermalBreakGeneric: 'Maximale Effizienz', profileGeneric: 'Schlank und stabil', chambersGeneric: 'Für bessere Dämmung',
       alt: 'Technischer Querschnitt eines Aluminium-Fensterprofils mit Dreifachverglasung, thermischer Trennung und mehreren Kammern',
@@ -176,7 +176,7 @@ EO.defaults.translations = {
       steps: { product: 'Produkt', material: 'Material', finish: 'Oberfläche', glass: 'Glas', project: 'Projekt' },
       prompts: { product: 'Was benötigen Sie?', material: 'Welches Material?', finish: 'Oberfläche wählen', glass: 'Glasart', project: 'Projektart' },
       stepOf: 'Schritt {n} von {total}',
-      summary: 'Ihre Auswahl', empty: 'Noch nicht gewählt',
+      summary: 'Ihre Auswahl', preview: 'Vorschau der Auswahl', previewEmpty: 'Wählen Sie ein Produkt, um es hier zu sehen.', empty: 'Noch nicht gewählt',
       unavailable: 'Für dieses Produkt nicht verfügbar', chooseFirst: 'Bitte zuerst ein Material wählen.',
       hint: 'Sie können jede Auswahl jederzeit ändern.', edit: 'Ändern'
     },
@@ -204,7 +204,7 @@ EO.defaults.translations = {
       rights: 'Alle Rechte vorbehalten.', privacy: 'Datenschutz', terms: 'AGB', cookies: 'Cookie-Einstellungen', demoNote: 'Demo-Vorlage. Kein echtes Unternehmen.'
     },
     quote: {
-      title: 'Angebot anfragen', stepOf: 'Schritt {n} von {total}', back: 'Zurück', next: 'Weiter', submit: 'Anfrage senden', submitDemo: 'Demo beenden', close: 'Schließen', recap: 'Ihre Anfrage',
+      title: 'Angebot anfragen', stepOf: 'Schritt {n} von {total}', back: 'Zurück', next: 'Weiter', submit: 'Anfrage senden', submitDemo: 'Demo beenden', close: 'Schließen', recap: 'Ihre Konfiguration',
       steps: {
         product: 'Welches Produkt?', material: 'Welches Material?', project: 'Projektart', size: 'Ungefähre Größe',
         quantity: 'Menge', installation: 'Montage erforderlich?', location: 'Standort', contact: 'Kontaktdaten'
@@ -218,7 +218,7 @@ EO.defaults.translations = {
       consent: 'Ich bin einverstanden, dass meine Angaben zur Beantwortung dieser Anfrage verwendet werden.',
       consentDemo: 'Demo-Modus: Ihre Angaben bleiben in diesem Browser-Tab und werden nie gesendet.',
       errors: { required: 'Bitte treffen Sie eine Auswahl.', size: 'Geben Sie Breite und Höhe ein oder setzen Sie den Haken.', quantity: 'Geben Sie eine Menge zwischen 1 und 99 ein.', postcode: 'Geben Sie eine Postleitzahl ein.', name: 'Geben Sie Ihren Namen ein.', email: 'Geben Sie eine gültige E-Mail-Adresse ein.', consent: 'Bitte bestätigen Sie, um fortzufahren.' },
-      demoDoneTitle: 'Dies ist eine Demo.', demoDone: 'Es wurden keine personenbezogenen Daten übermittelt.',
+      demoDoneTitle: 'Demo abgeschlossen', demoDone: 'Es wurden keine personenbezogenen Daten übermittelt.',
       doneTitle: 'Vielen Dank.', done: 'Ihre Anfrage wurde gesendet. Wir melden uns in Kürze.',
       failTitle: 'Senden nicht möglich.', fail: 'Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.',
       mailto: 'E-Mail zum Senden öffnen', restart: 'Von vorn beginnen', sending: 'Wird gesendet…'

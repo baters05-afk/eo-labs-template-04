@@ -3,9 +3,9 @@
 :root {
   /* layout */
   --container: 1440px;
-  --page-padding: clamp(1.25rem, 4vw, 3.5rem);
-  --section-space: clamp(4.5rem, 9vw, 8.5rem);
-  --header-h: 4.5rem;
+  --page-padding: clamp(1.125rem, 4vw, 4rem);
+  --section-space: clamp(5rem, 9.5vw, 8.75rem);   /* desktop ≈120–140 · tablet 80–100 */
+  --header-h: 4.75rem;
   --demo-bar-h: 0px;
 
   /* spacing scale */
@@ -17,15 +17,14 @@
   --font-display: var(--font-body);
   --fw-display: 300;
   --track-display: -.025em;
-  --lh-display: 1.02;
-  --fs-display-xl: clamp(2.9rem, 7.2vw, 6.25rem);
-  --fs-display-lg: clamp(2.15rem, 4.5vw, 4rem);
-  --fs-display-md: clamp(1.5rem, 2.4vw, 2rem);
-  --fs-lead: clamp(1rem, 1.25vw, 1.15rem);
+  --lh-display: .96;
+  --fs-display-xl: clamp(3.25rem, 6vw, 6.875rem);     /* hero headline 52 → 110px */
+  --fs-display-lg: clamp(2.25rem, 4.2vw, 4.25rem);    /* H2 36 → 68px */
+  --fs-display-md: clamp(1.5rem, 2.2vw, 2rem);        /* H3 / step prompts */
+  --fs-lead: clamp(1.0625rem, 1.3vw, 1.1875rem);      /* 17 → 19px */
   --fs-body: 1rem;
   --fs-sm: .875rem;
-  --fs-xs: .78rem;
-  --fs-label: .6875rem;
+  --fs-label: .6875rem;                               /* eyebrow 11px */
   --lh-body: 1.6;
   --track-label: .22em;
   --label-transform: uppercase;
@@ -46,12 +45,12 @@
 
   /* palette (raw) */
   --color-bg-dark: #111111;
-  --color-bg-black: #090909;
-  --color-bg-light: #F2EFE9;
-  --color-text-light: #F4F1EB;
+  --color-bg-black: #0A0A0A;
+  --color-bg-light: #F1EEE8;
+  --color-text-light: #F5F3EF;
   --color-text-dark: #181818;
-  --color-muted: #AAA59D;
-  --color-muted-light: #5F5A52;
+  --color-muted: #98938A;
+  --color-muted-light: #5C574F;
   --color-accent: #C9AC82;
   --color-on-accent: #181818;
   --error: #ee8b73;
@@ -59,12 +58,12 @@
   --color-border-light: color-mix(in srgb, var(--color-text-dark) 14%, transparent);
 
   /* on-photo (hero, header before scroll) always light */
-  --photo-fg: #F4F1EB;
+  --photo-fg: #F5F3EF;
   --photo-muted: rgba(244, 241, 235, .78);
   --photo-line: rgba(244, 241, 235, .28);
   --hero-accent: var(--color-accent);
   --hero-on-accent: var(--color-on-accent);
-  --header-scrolled-bg: rgba(9, 9, 9, .9);
+  --header-scrolled-bg: rgba(11, 11, 11, .93);
   --header-scrolled-fg: var(--color-text-light);
-  --hero-overlay: linear-gradient(90deg, rgba(9,9,9,.72) 0%, rgba(9,9,9,.38) 48%, rgba(9,9,9,.08) 100%), linear-gradient(0deg, rgba(9,9,9,.62) 0%, rgba(9,9,9,0) 34%), linear-gradient(180deg, rgba(9,9,9,.5) 0%, rgba(9,9,9,0) 20%);
+  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.5) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,0) 30%), linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 18%);
 }

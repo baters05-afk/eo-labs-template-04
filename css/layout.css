@@ -7,7 +7,8 @@
 .on-photo    { --fg: var(--photo-fg); --fg-muted: var(--photo-muted); --line: var(--photo-line); --focus: #fff; }
 
 .section { background: var(--bg); color: var(--fg); padding-block: var(--section-space); position: relative; }
-.section--tight { padding-block: calc(var(--section-space) * .6); }
+.section--lg { padding-block: calc(var(--section-space) * 1.2); }
+.section--sm { padding-block: calc(var(--section-space) * .55); }
 
 .section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--space-7); align-items: end; margin-bottom: clamp(2rem, 5vw, 4rem); }
 .section-head__intro { display: grid; gap: var(--space-4); justify-items: start; }

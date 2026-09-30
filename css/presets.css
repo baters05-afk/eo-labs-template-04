@@ -10,7 +10,7 @@
 [data-preset="warm-stone"] {
   --color-bg-dark: #2a2521;
   --color-bg-black: #1b1815;
-  --color-bg-light: #E9E1D4;
+  --color-bg-light: #EBE4D8;
   --color-text-light: #F1EADF;
   --color-text-dark: #2b2621;
   --color-muted: #B5AB9B;
@@ -20,16 +20,16 @@
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --fw-display: 400;
   --track-display: -.012em;
-  --lh-display: 1.06;
-  --fs-display-xl: clamp(2.8rem, 6.6vw, 5.5rem);
+  --lh-display: 1;
+  --fs-display-xl: clamp(3rem, 5.8vw, 6.5rem);
   --track-label: .16em;
   --radius-sm: 2px;
   --radius-md: 4px;
-  --radius-btn: 999px;
-  --swatch-radius: 999px;
+  --radius-btn: 2px;
+  --swatch-radius: 0px;
   --media-filter: saturate(.86) sepia(.14);
   --cat-ratio: 3 / 4;
-  --hero-overlay: linear-gradient(90deg, rgba(27,24,21,.7) 0%, rgba(27,24,21,.34) 50%, rgba(27,24,21,.05) 100%), linear-gradient(0deg, rgba(27,24,21,.6) 0%, rgba(27,24,21,0) 36%), linear-gradient(180deg, rgba(27,24,21,.45) 0%, rgba(27,24,21,0) 22%);
+  --hero-overlay: linear-gradient(90deg, rgba(27,24,21,.78) 0%, rgba(27,24,21,.48) 32%, rgba(27,24,21,.1) 62%, rgba(27,24,21,0) 100%), linear-gradient(0deg, rgba(27,24,21,.6) 0%, rgba(27,24,21,0) 30%), linear-gradient(180deg, rgba(27,24,21,.5) 0%, rgba(27,24,21,0) 18%);
   --header-scrolled-bg: rgba(27, 24, 21, .92);
 }
 
@@ -51,12 +51,12 @@
   --fw-display: 200;
   --track-display: -.035em;
   --lh-display: 1;
-  --fs-display-xl: clamp(2.9rem, 7.8vw, 6.75rem);
+  --fs-display-xl: clamp(3.25rem, 6.2vw, 7rem);
   --section-space: clamp(5.5rem, 11vw, 10rem);
   --track-label: .26em;
   --radius-md: 0px;
   --cat-ratio: 1 / 1.15;
   --header-scrolled-bg: rgba(255, 255, 255, .92);
   --header-scrolled-fg: #141414;
-  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.22) 55%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,0) 34%), linear-gradient(180deg, rgba(10,10,10,.4) 0%, rgba(10,10,10,0) 20%);
+  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.66) 0%, rgba(10,10,10,.34) 34%, rgba(10,10,10,.06) 62%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.5) 0%, rgba(10,10,10,0) 30%), linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 18%);
 }

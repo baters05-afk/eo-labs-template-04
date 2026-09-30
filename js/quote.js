@@ -41,7 +41,7 @@
   }
 
   function recapHtml() {
-    const keys = ['product', 'material', 'finish', 'glass', 'project', 'size', 'quantity', 'installation', 'location'].filter((k) => (k !== 'finish' && k !== 'glass') || S.data[k]);
+    const keys = ['product', 'material', 'finish', 'glass', 'project', 'size', 'quantity', 'installation', 'location'];
     return keys.map((k) => { const v = recapValue(k); return `<div><dt>${esc(t('quote.short.' + k))}</dt><dd class="${v ? '' : 'is-empty'}">${esc(v || '—')}</dd></div>`; }).join('');
   }
   const updateRecap = () => { const el = $('#quoteRecap'); if (el) el.innerHTML = recapHtml(); };
@@ -71,7 +71,7 @@
       case 'quantity': return `<div class="field"><span class="field__label" id="qQtyLabel">${esc(t('quote.quantityLabel'))}</span>
           <div class="qty" role="group" aria-labelledby="qQtyLabel"><button type="button" data-qty="-1" aria-label="${esc(t('quote.decrease'))}">−</button><input class="input" id="qQty" name="quantity" inputmode="numeric" pattern="[0-9]*" value="${esc(d.quantity)}" aria-labelledby="qQtyLabel"><button type="button" data-qty="1" aria-label="${esc(t('quote.increase'))}">+</button></div>${err('quantity')}</div>`;
       case 'location': {
-        const svc = (EO.site.contact && EO.site.contact.serviceArea) || [];
+        const svc = EO.site.serviceAreas || [];
         const list = opts().countries;
         const country = d.country || (svc[0] && byId(list, svc[0]) ? svc[0] : list[0].id);
         d.country = country;
@@ -191,8 +191,8 @@
       const d = $('#quoteDialog');
       if (S.done) S = fresh();
       if (o.prefill) {
-        const p = o.prefill;
-        ['product', 'material', 'project', 'glass', 'finish'].forEach((k) => { if (p[k]) S.data[k] = p[k]; });
+        const p = Object.assign({}, o.prefill, { project: o.prefill.projectType || o.prefill.project });
+        ['product', 'material', 'project', 'glass', 'finish'].forEach((k) => { S.data[k] = p[k] || ''; });
         S.step = Math.max(0, ['product', 'material', 'project'].findIndex((k) => !S.data[k]));
         if (['product', 'material', 'project'].every((k) => S.data[k])) S.step = STEPS.indexOf('size');
       } else if (o.reset) S = fresh();

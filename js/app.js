@@ -1,4 +1,9 @@
-/* Bootstrap + behaviour: events (delegated), header, reveal, parallax, accordion, language/preset switching. */
+/*
+ * Hydration + interaction. The page arrives fully rendered (tools/build.js); this file only enhances it:
+ * events, header, mobile menu, reveal, parallax, filters, accordion, dialogs.
+ * If the live config differs from the prerendered HTML (admin preview / unbuilt edits) the page is re-rendered
+ * from the same templates.
+ */
 (function () {
   'use strict';
   const EO = window.EO;
@@ -6,35 +11,39 @@
   let $, $$, t, tr;
   let menuOpen = false;
 
-  function rerender(focusSel) {
-    EO.render.all(menuOpen);
+  /* ---------- rendering ---------- */
+  function renderAll() {
+    $('#siteHeader').innerHTML = EO.tpl.headerInner();
+    $('#main').innerHTML = EO.tpl.mainInner();
+    $('#contact').innerHTML = EO.tpl.footerInner();
+    document.documentElement.style.setProperty('--demo-bar-h', EO.site.demoMode ? '2rem' : '0px');
+    EO.applyTheme();
     EO.seo.apply();
-    EO.gallery.refresh();
-    EO.quote.refresh();
     observeReveal();
-    if (focusSel) { const el = document.querySelector(focusSel); if (el) el.focus({ preventScroll: true }); }
+    initScroll();
   }
 
+  function updateRange() {
+    const f = EO.state.filter;
+    $$('[data-filter]').forEach((b) => { const [g, id] = b.dataset.filter.split(':'); b.setAttribute('aria-pressed', String(f[g] === id)); });
+    $('#rangeList').innerHTML = EO.tpl.rangeListHtml();
+    $('#rangeCount').textContent = t('products.count', { n: $$('#rangeList .range-item').length });
+  }
+
+  /* ---------- menu ---------- */
   function setMenu(open) {
     menuOpen = open;
-    const header = $('#siteHeader');
-    header.classList.toggle('is-open', open);
+    $('#siteHeader').classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
     const btn = $('#menuToggle');
-    if (btn) { btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? t('nav.close') : t('nav.menu'); }
+    if (btn) { btn.setAttribute('aria-expanded', String(open)); btn.querySelector('.menu-toggle__label').textContent = open ? t('nav.close') : t('nav.menu'); }
+    if (open) { const a = $('#mobileNav a'); if (a) a.focus({ preventScroll: true }); }
   }
-
-  function scrollToEl(el) { if (el) el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }
+  const scrollToEl = (el) => { if (el) el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); };
 
   /* ---------- click delegation ---------- */
   function onClick(e) {
     const tgt = e.target;
-    const lang = tgt.closest('[data-lang]');
-    if (lang) {
-      const zone = lang.closest('.mobile-nav, .site-footer, .header-tools');
-      const zoneSel = zone ? (zone.classList.contains('mobile-nav') ? '.mobile-nav' : zone.classList.contains('site-footer') ? '.site-footer' : '.header-tools') : '';
-      if (EO.i18n.set(lang.dataset.lang)) rerender(`${zoneSel} [data-lang="${lang.dataset.lang}"]`);
-      return;
-    }
     const preset = tgt.closest('button[data-preset]');
     if (preset) {
       EO.setPreset(preset.dataset.preset);
@@ -44,19 +53,17 @@
     if (tgt.closest('#menuToggle')) { setMenu(!menuOpen); return; }
     if (tgt.closest('.mobile-nav a')) setMenu(false);
 
-    const quote = tgt.closest('[data-open-quote]');
-    if (quote) { e.preventDefault(); setMenu(false); EO.quote.open({}); return; }
+    if (tgt.closest('[data-open-quote]')) { e.preventDefault(); setMenu(false); EO.quote.open({}); return; }
 
     const cat = tgt.closest('[data-category]');
     if (cat) {
       e.preventDefault(); setMenu(false);
       EO.state.filter.category = cat.dataset.category; EO.state.filter.material = 'all';
-      EO.render.updateRange();
-      scrollToEl($('#range'));
+      updateRange(); scrollToEl($('#range'));
       return;
     }
     const chip = tgt.closest('[data-filter]');
-    if (chip) { const [g, id] = chip.dataset.filter.split(':'); EO.state.filter[g] = id; EO.render.updateRange(); return; }
+    if (chip) { const [g, id] = chip.dataset.filter.split(':'); EO.state.filter[g] = id; updateRange(); return; }
 
     const conf = tgt.closest('[data-configure]');
     if (conf) {
@@ -98,7 +105,7 @@
     }
   }
 
-  /* radio-group keyboard support (arrows move + select) */
+  /* radio groups: arrows move + select; Esc closes the mobile menu */
   function onKeydown(e) {
     if (e.key === 'Escape' && menuOpen) { setMenu(false); const b = $('#menuToggle'); if (b) b.focus(); return; }
     const r = e.target.closest && e.target.closest('[role="radio"]');
@@ -107,10 +114,11 @@
     const items = $$('[role="radio"]:not(:disabled)', group);
     const i = items.indexOf(r);
     const next = items[(i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length];
-    if (next) { e.preventDefault(); next.click(); const again = group.ownerDocument.querySelector(`[data-focus="${next.dataset.focus}"]`) || next; (again.isConnected ? again : next).focus(); }
+    if (next) { e.preventDefault(); next.click(); const key = next.dataset.focus; const again = key ? document.querySelector(`[data-focus="${key}"]`) : null; (again || next).focus(); }
   }
 
-  /* ---------- header scroll, active nav, reveal, parallax ---------- */
+  /* ---------- header, active nav, parallax ---------- */
+  let scrollBound = false, navIO;
   function initScroll() {
     const header = $('#siteHeader');
     const media = $('#heroMedia');
@@ -120,20 +128,21 @@
       ticking = false;
       const y = window.scrollY;
       header.classList.toggle('is-scrolled', y > 40);
-      if (!reduced && media && y < hero.offsetHeight) media.style.transform = `translate3d(0, ${(y * 0.14).toFixed(1)}px, 0)`;
+      if (!reduced && media && hero && y < hero.offsetHeight) media.style.transform = `translate3d(0, ${(y * 0.12).toFixed(1)}px, 0)`;
     };
-    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    if (!scrollBound) { window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true }); scrollBound = true; }
     update();
 
     if ('IntersectionObserver' in window) {
+      if (navIO) navIO.disconnect();
       const map = new Map();
-      const io = new IntersectionObserver((entries) => {
+      navIO = new IntersectionObserver((entries) => {
         entries.forEach((en) => map.set(en.target.id, en.isIntersecting ? en.intersectionRatio : 0));
         let best = null, ratio = 0;
         map.forEach((v, k) => { if (v > ratio) { ratio = v; best = k; } });
         $$('.primary-nav a').forEach((a) => { if (best && a.getAttribute('href') === '#' + best) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
       }, { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.01, 1] });
-      ['products', 'precision', 'projects', 'materials', 'configurator', 'about', 'faq'].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+      ['products', 'precision', 'projects', 'materials', 'configurator', 'about', 'faq'].forEach((id) => { const el = document.getElementById(id); if (el) navIO.observe(el); });
     }
   }
 
@@ -147,17 +156,20 @@
 
   function init() {
     ({ $, $$, t, tr } = EO.ui);
-    EO.db = EO.resolveData();
-    EO.i18n.init(EO.db.translations);
-    EO.render.all(false);
-    EO.seo.apply();
+    EO.root = document.documentElement.dataset.root || '';
+    EO.resolve(true);
+    EO.i18n.init(EO.db.translations, document.documentElement.lang);
+    if (document.documentElement.dataset.hash !== EO.tpl.hash()) renderAll();   // live config differs from prerender
+    else {
+      const sw = document.documentElement.dataset.preset;
+      $$('button[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === sw)));
+      observeReveal(); initScroll();
+    }
     EO.gallery.init(); EO.configurator.init(); EO.quote.init();
     document.addEventListener('click', onClick);
     document.addEventListener('keydown', onKeydown);
     window.addEventListener('resize', () => { if (menuOpen && window.innerWidth > 960) setMenu(false); });
-    initScroll();
-    observeReveal();
-    EO.app = { rerender };
+    EO.app = { renderAll };
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

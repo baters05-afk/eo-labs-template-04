@@ -36,7 +36,7 @@ h1, h2, h3, h4, p, figure, dl, dd { margin: 0; }
   color: var(--fg-muted, var(--color-muted)); font-weight: 500; white-space: pre-line; line-height: 1.7;
 }
 .lead { font-size: var(--fs-lead); line-height: 1.65; color: var(--fg-muted, var(--color-muted)); max-width: 42ch; }
-.caption { font-size: var(--fs-xs); color: var(--fg-muted, var(--color-muted)); }
+.caption { font-size: var(--fs-sm); color: var(--fg-muted, var(--color-muted)); }
 .pre-line { white-space: pre-line; }
 
 @media (prefers-reduced-motion: reduce) {

@@ -8,7 +8,7 @@
 window.EO_OVERRIDE = {
   siteConfig: {
     demoMode: false,
-    preset: 'warm-stone',
+    themePreset: 'warm-stone',
 
     company: {
       name: 'Fensterbau Nord GmbH',
@@ -30,16 +30,19 @@ window.EO_OVERRIDE = {
       email: 'info@example.de',
       whatsapp: '+49 000 0000000',
       address: 'Musterstraße 1, 00000 Musterstadt',
-      serviceArea: ['DE', 'NL']
     },
-    social: { instagram: 'https://www.instagram.com/example', linkedin: '', youtube: '' },
+    serviceAreas: ['DE', 'NL'],
+    socials: { instagram: 'https://www.instagram.com/example', linkedin: '', youtube: '' },
     legal: { privacy: '/datenschutz', terms: '', cookies: '' },
 
     languages: { default: 'de', enabled: ['de', 'en'] },
     features: { configurator: true, materials: true, projects: true, manufacturers: true, faq: true, presetSwitcher: false },
 
     hero: {
-      image: 'assets/client/hero.jpg',
+      // paste the objects printed by `node tools/images.js` (AVIF/WebP/JPEG sets); a plain string also works
+      image: { src: 'assets/photos/hero-1440.jpg', srcset: 'assets/photos/hero-640.jpg 640w, assets/photos/hero-960.jpg 960w, assets/photos/hero-1440.jpg 1440w, assets/photos/hero-1920.jpg 1920w', sources: [{ type: 'image/avif', srcset: 'assets/photos/hero-640.avif 640w, assets/photos/hero-960.avif 960w, assets/photos/hero-1440.avif 1440w, assets/photos/hero-1920.avif 1920w' }, { type: 'image/webp', srcset: 'assets/photos/hero-640.webp 640w, assets/photos/hero-960.webp 960w, assets/photos/hero-1440.webp 1440w, assets/photos/hero-1920.webp 1920w' }], width: 1440, height: 810 },
+      imageMobile: null,          // optional portrait crop with its own focal point
+      focal: '62% 50%',
       alt: { de: 'Neubau mit bodentiefen Aluminium-Schiebetüren im Abendlicht', en: 'New build with floor-to-ceiling aluminium sliding doors at dusk' }
     },
 
@@ -55,7 +58,8 @@ window.EO_OVERRIDE = {
       siteUrl: 'https://www.example.de',
       title: { de: 'Fensterbau Nord – Fenster, Türen & Schiebesysteme', en: 'Fensterbau Nord – Windows, Doors & Sliding Systems' },
       description: { de: 'Fenster und Türen aus Aluminium, Holz und PVC – Beratung, Lieferung und Montage in Norddeutschland.', en: 'Aluminium, timber and PVC windows and doors – consultation, supply and installation in northern Germany.' },
-      ogImage: 'assets/client/og.jpg'
+      ogImage: 'assets/client/og.jpg',
+      // demoMode:true uses demoTitle/demoDescription (noindex). Live mode uses title/description.
     }
   },
 
