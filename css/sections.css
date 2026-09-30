@@ -83,7 +83,7 @@
 
 /* ================= PRECISION ================= */
 .precision { overflow: hidden; }
-.precision__grid { display: grid; grid-template-columns: minmax(0, 36fr) minmax(0, 64fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.precision__grid { display: grid; grid-template-columns: minmax(0, 35fr) minmax(0, 65fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
 .precision__copy { display: grid; gap: var(--space-5); justify-items: start; }
 .precision__copy .eyebrow { margin-bottom: var(--space-2); }
 .precision__copy .lead { max-width: 36ch; }
@@ -338,14 +338,16 @@ html:not(.js) .pev__toggle, .pev.is-static .pev__toggle { display: none; }
 .pev__base { filter: brightness(.42); -webkit-mask-image: radial-gradient(ellipse 60% 64% at 44% 52%, #000 25%, transparent 100%); mask-image: radial-gradient(ellipse 60% 64% at 44% 52%, #000 25%, transparent 100%); }
 .pev__ghost { opacity: 0; filter: brightness(.85); -webkit-mask-image: radial-gradient(ellipse 62% 66% at 44% 52%, #000 45%, transparent 100%); mask-image: radial-gradient(ellipse 62% 66% at 44% 52%, #000 45%, transparent 100%); transition: opacity 600ms ease; }
 .pev__layer { z-index: var(--z, 1); --dx: calc(var(--ddx, 0) * 1px); --dy: calc(var(--ddy, 0) * 1px); --tx: 0px; --ty: 0px; --sc: 1; transform: translate(var(--tx), var(--ty)) scale(var(--sc)); transition: transform var(--dur, 450ms) var(--ease) var(--delay, 0ms), opacity 260ms ease, filter 260ms ease; will-change: transform; }
-.pev__layer[data-layer="glass"] { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%); mask-image: linear-gradient(to bottom, transparent 0, #000 16%); }
+.pev__layer[data-layer="glass"] { --lf: brightness(1.75) contrast(1.06) saturate(1.35); -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%); mask-image: linear-gradient(to bottom, transparent 0, #000 16%); }
 @media (max-width: 1279px) { .pev__layer { --dx: calc(var(--tdx, 0) * 1px); --dy: calc(var(--tdy, 0) * 1px); } }
 @media (max-width: 768px) { .pev__layer { --dx: calc(var(--mdx, 0) * 1px); --dy: calc(var(--mdy, 0) * 1px); } }
 
 /* idle (assembled, hidden) → is-visible → is-exploded → is-labeled → is-interactive */
 .js .pev:not(.is-static):not(.is-visible) .pev__stage { opacity: 0; transform: scale(.98); }
 .pev.is-exploded[data-view="exploded"] .pev__layer, html:not(.js) .pev .pev__layer { --tx: var(--dx); --ty: var(--dy); }
-.pev.is-exploded[data-view="exploded"] .pev__layer { filter: drop-shadow(0 14px 35px rgba(0, 0, 0, .25)); }
+.pev__layer { --lf: brightness(1.12); }
+.pev__layer[data-layer="glass"] { --lf: brightness(1.75) contrast(1.06) saturate(1.35); }
+.pev.is-exploded[data-view="exploded"] .pev__layer { filter: var(--lf) drop-shadow(0 14px 35px rgba(0, 0, 0, .3)); }
 .pev.is-labeled[data-view="exploded"] .pev__ghost, html:not(.js) .pev .pev__ghost { opacity: var(--gh, .13); }
 .pev.is-interactive .pev__layer { transition: transform 700ms var(--ease) calc(var(--i, 0) * 45ms), opacity 260ms ease, filter 260ms ease; }
 
@@ -368,7 +370,7 @@ html:not(.js) .pev__toggle, .pev.is-static .pev__toggle { display: none; }
 
 /* focus mode (hover a label on desktop / tap a list item on touch) */
 .pev.is-interactive.has-focus .pev__layer:not(.is-focus) { opacity: .3; }
-.pev.is-interactive .pev__layer.is-focus { opacity: 1; --sc: 1.03; --tx: calc(var(--dx) + var(--hx, 0px)); --ty: calc(var(--dy) + var(--hy, 0px)); filter: brightness(1.12) drop-shadow(0 14px 35px rgba(0, 0, 0, .3)); }
+.pev.is-interactive .pev__layer.is-focus { opacity: 1; --sc: 1.03; --tx: calc(var(--dx) + var(--hx, 0px)); --ty: calc(var(--dy) + var(--hy, 0px)); filter: var(--lf) brightness(1.15) drop-shadow(0 14px 35px rgba(0, 0, 0, .35)); }
 .pev.is-interactive.has-focus .pev__ghost { opacity: var(--gf, .07); }
 .pev.is-interactive.has-focus .pev__label:not(.is-active) { opacity: .45; }
 .pev.is-interactive.has-focus .pev__lines line { opacity: .25; }
