@@ -1,0 +1,178 @@
+{
+  "cat-doors": {
+    "src": "assets/photos/cat-doors-960.jpg",
+    "srcset": "assets/photos/cat-doors-640.jpg 640w, assets/photos/cat-doors-960.jpg 960w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/cat-doors-640.avif 640w, assets/photos/cat-doors-960.avif 960w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/cat-doors-640.webp 640w, assets/photos/cat-doors-960.webp 960w"
+      }
+    ],
+    "width": 960,
+    "height": 1200
+  },
+  "cat-facades": {
+    "src": "assets/photos/cat-facades-960.jpg",
+    "srcset": "assets/photos/cat-facades-640.jpg 640w, assets/photos/cat-facades-960.jpg 960w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/cat-facades-640.avif 640w, assets/photos/cat-facades-960.avif 960w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/cat-facades-640.webp 640w, assets/photos/cat-facades-960.webp 960w"
+      }
+    ],
+    "width": 960,
+    "height": 1200
+  },
+  "cat-sliding": {
+    "src": "assets/photos/cat-sliding-960.jpg",
+    "srcset": "assets/photos/cat-sliding-640.jpg 640w, assets/photos/cat-sliding-960.jpg 960w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/cat-sliding-640.avif 640w, assets/photos/cat-sliding-960.avif 960w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/cat-sliding-640.webp 640w, assets/photos/cat-sliding-960.webp 960w"
+      }
+    ],
+    "width": 960,
+    "height": 1200
+  },
+  "cat-windows": {
+    "src": "assets/photos/cat-windows-960.jpg",
+    "srcset": "assets/photos/cat-windows-640.jpg 640w, assets/photos/cat-windows-960.jpg 960w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/cat-windows-640.avif 640w, assets/photos/cat-windows-960.avif 960w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/cat-windows-640.webp 640w, assets/photos/cat-windows-960.webp 960w"
+      }
+    ],
+    "width": 960,
+    "height": 1200
+  },
+  "cta": {
+    "src": "assets/photos/cta-1440.jpg",
+    "srcset": "assets/photos/cta-640.jpg 640w, assets/photos/cta-960.jpg 960w, assets/photos/cta-1440.jpg 1440w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/cta-640.avif 640w, assets/photos/cta-960.avif 960w, assets/photos/cta-1440.avif 1440w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/cta-640.webp 640w, assets/photos/cta-960.webp 960w, assets/photos/cta-1440.webp 1440w"
+      }
+    ],
+    "width": 1440,
+    "height": 720
+  },
+  "hero-mobile": {
+    "src": "assets/photos/hero-mobile-960.jpg",
+    "srcset": "assets/photos/hero-mobile-640.jpg 640w, assets/photos/hero-mobile-960.jpg 960w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/hero-mobile-640.avif 640w, assets/photos/hero-mobile-960.avif 960w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/hero-mobile-640.webp 640w, assets/photos/hero-mobile-960.webp 960w"
+      }
+    ],
+    "width": 960,
+    "height": 1280
+  },
+  "hero": {
+    "src": "assets/photos/hero-1440.jpg",
+    "srcset": "assets/photos/hero-640.jpg 640w, assets/photos/hero-960.jpg 960w, assets/photos/hero-1440.jpg 1440w, assets/photos/hero-1920.jpg 1920w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/hero-640.avif 640w, assets/photos/hero-960.avif 960w, assets/photos/hero-1440.avif 1440w, assets/photos/hero-1920.avif 1920w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/hero-640.webp 640w, assets/photos/hero-960.webp 960w, assets/photos/hero-1440.webp 1440w, assets/photos/hero-1920.webp 1920w"
+      }
+    ],
+    "width": 1440,
+    "height": 588
+  },
+  "profile": {
+    "src": "assets/photos/profile-1440.jpg",
+    "srcset": "assets/photos/profile-640.jpg 640w, assets/photos/profile-960.jpg 960w, assets/photos/profile-1440.jpg 1440w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/profile-640.avif 640w, assets/photos/profile-960.avif 960w, assets/photos/profile-1440.avif 1440w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/profile-640.webp 640w, assets/photos/profile-960.webp 960w, assets/photos/profile-1440.webp 1440w"
+      }
+    ],
+    "width": 1440,
+    "height": 960
+  },
+  "project-1": {
+    "src": "assets/photos/project-1-1440.jpg",
+    "srcset": "assets/photos/project-1-640.jpg 640w, assets/photos/project-1-960.jpg 960w, assets/photos/project-1-1440.jpg 1440w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/project-1-640.avif 640w, assets/photos/project-1-960.avif 960w, assets/photos/project-1-1440.avif 1440w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/project-1-640.webp 640w, assets/photos/project-1-960.webp 960w, assets/photos/project-1-1440.webp 1440w"
+      }
+    ],
+    "width": 1440,
+    "height": 960
+  },
+  "project-2": {
+    "src": "assets/photos/project-2-1440.jpg",
+    "srcset": "assets/photos/project-2-640.jpg 640w, assets/photos/project-2-960.jpg 960w, assets/photos/project-2-1440.jpg 1440w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/project-2-640.avif 640w, assets/photos/project-2-960.avif 960w, assets/photos/project-2-1440.avif 1440w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/project-2-640.webp 640w, assets/photos/project-2-960.webp 960w, assets/photos/project-2-1440.webp 1440w"
+      }
+    ],
+    "width": 1440,
+    "height": 960
+  },
+  "project-3": {
+    "src": "assets/photos/project-3-1440.jpg",
+    "srcset": "assets/photos/project-3-640.jpg 640w, assets/photos/project-3-960.jpg 960w, assets/photos/project-3-1440.jpg 1440w",
+    "sources": [
+      {
+        "type": "image/avif",
+        "srcset": "assets/photos/project-3-640.avif 640w, assets/photos/project-3-960.avif 960w, assets/photos/project-3-1440.avif 1440w"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "assets/photos/project-3-640.webp 640w, assets/photos/project-3-960.webp 960w, assets/photos/project-3-1440.webp 1440w"
+      }
+    ],
+    "width": 1440,
+    "height": 960
+  }
+}

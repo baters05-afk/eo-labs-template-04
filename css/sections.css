@@ -94,7 +94,7 @@
 .spec__icon svg { width: 1.4rem; height: 1.4rem; }
 .spec__title { font-size: var(--fs-sm); font-weight: 500; }
 .spec__value { font-size: var(--fs-sm); color: var(--fg-muted); }
-.tech { position: relative; --ratio: 1300 / 1250; max-width: 46rem; width: 100%; justify-self: end; }
+.tech { position: relative; max-width: 50rem; width: 100%; justify-self: end; }
 .tech .media::after { display: none; }
 .tech__plate { position: relative; --fg: #F4F1EB; --fg-muted: rgba(244,241,235,.7); --line: rgba(244,241,235,.2); color: var(--fg); }
 .anno-list { position: absolute; inset: 0; }

@@ -81,22 +81,59 @@ EO.client = {
   },
   "hero": {
     "image": {
-      "src": "assets/images/hero-villa.svg",
-      "width": 1920,
-      "height": 1080
+      "src": "assets/photos/hero-1440.jpg",
+      "srcset": "assets/photos/hero-640.jpg 640w, assets/photos/hero-960.jpg 960w, assets/photos/hero-1440.jpg 1440w, assets/photos/hero-1920.jpg 1920w",
+      "sources": [
+        {
+          "type": "image/avif",
+          "srcset": "assets/photos/hero-640.avif 640w, assets/photos/hero-960.avif 960w, assets/photos/hero-1440.avif 1440w, assets/photos/hero-1920.avif 1920w"
+        },
+        {
+          "type": "image/webp",
+          "srcset": "assets/photos/hero-640.webp 640w, assets/photos/hero-960.webp 960w, assets/photos/hero-1440.webp 1440w, assets/photos/hero-1920.webp 1920w"
+        }
+      ],
+      "width": 1440,
+      "height": 588
     },
-    "imageMobile": null,
-    "focal": "62% 50%",
+    "imageMobile": {
+      "src": "assets/photos/hero-mobile-960.jpg",
+      "srcset": "assets/photos/hero-mobile-640.jpg 640w, assets/photos/hero-mobile-960.jpg 960w",
+      "sources": [
+        {
+          "type": "image/avif",
+          "srcset": "assets/photos/hero-mobile-640.avif 640w, assets/photos/hero-mobile-960.avif 960w"
+        },
+        {
+          "type": "image/webp",
+          "srcset": "assets/photos/hero-mobile-640.webp 640w, assets/photos/hero-mobile-960.webp 960w"
+        }
+      ],
+      "width": 960,
+      "height": 1280
+    },
+    "focal": "70% 50%",
     "alt": {
-      "en": "Modern villa terrace with panoramic sliding glazing and thin aluminium frames at dusk",
-      "de": "Moderne Villenterrasse mit Panorama-Schiebeverglasung und schlanken Aluminiumrahmen in der Dämmerung"
+      "en": "Two-storey modern villa with floor-to-ceiling black aluminium glazing and an infinity pool at dusk",
+      "de": "Zweigeschossige moderne Villa mit raumhoher Verglasung in schwarzen Aluminiumprofilen und Infinity-Pool in der Dämmerung"
     }
   },
   "technical": {
     "image": {
-      "src": "assets/images/profile-section.svg",
-      "width": 1300,
-      "height": 1250
+      "src": "assets/photos/profile-1440.jpg",
+      "srcset": "assets/photos/profile-640.jpg 640w, assets/photos/profile-960.jpg 960w, assets/photos/profile-1440.jpg 1440w",
+      "sources": [
+        {
+          "type": "image/avif",
+          "srcset": "assets/photos/profile-640.avif 640w, assets/photos/profile-960.avif 960w, assets/photos/profile-1440.avif 1440w"
+        },
+        {
+          "type": "image/webp",
+          "srcset": "assets/photos/profile-640.webp 640w, assets/photos/profile-960.webp 960w, assets/photos/profile-1440.webp 1440w"
+        }
+      ],
+      "width": 1440,
+      "height": 960
     },
     "specs": {
       "thermal": "",
@@ -109,13 +146,42 @@ EO.client = {
       "thermalBreak": "",
       "profile": "",
       "chambers": ""
+    },
+    "points": {
+      "glazing": {
+        "x": "58%",
+        "y": "22.5%"
+      },
+      "profile": {
+        "x": "65.5%",
+        "y": "40%"
+      },
+      "thermalBreak": {
+        "x": "55%",
+        "y": "53%"
+      },
+      "chambers": {
+        "x": "64%",
+        "y": "73%"
+      }
     }
   },
   "cta": {
     "image": {
-      "src": "assets/images/cta-interior.svg",
-      "width": 1200,
-      "height": 1300
+      "src": "assets/photos/cta-1440.jpg",
+      "srcset": "assets/photos/cta-640.jpg 640w, assets/photos/cta-960.jpg 960w, assets/photos/cta-1440.jpg 1440w",
+      "sources": [
+        {
+          "type": "image/avif",
+          "srcset": "assets/photos/cta-640.avif 640w, assets/photos/cta-960.avif 960w, assets/photos/cta-1440.avif 1440w"
+        },
+        {
+          "type": "image/webp",
+          "srcset": "assets/photos/cta-640.webp 640w, assets/photos/cta-960.webp 960w, assets/photos/cta-1440.webp 1440w"
+        }
+      ],
+      "width": 1440,
+      "height": 720
     }
   },
   "quote": {
@@ -131,7 +197,7 @@ EO.client = {
       "en": "",
       "de": ""
     },
-    "ogImage": "assets/images/hero-villa.svg",
+    "ogImage": "assets/photos/hero-1440.jpg",
     "twitterCard": "summary_large_image",
     "pages": {
       "windows": {
@@ -184,10 +250,25 @@ EO.client = {
         "en": "Maximum daylight.\nSuperior thermal performance.",
         "de": "Maximales Tageslicht.\nHervorragende Wärmedämmung."
       },
-      "image": "assets/images/cat-windows.svg",
+      "image": {
+        "src": "assets/photos/cat-windows-960.jpg",
+        "srcset": "assets/photos/cat-windows-640.jpg 640w, assets/photos/cat-windows-960.jpg 960w",
+        "sources": [
+          {
+            "type": "image/avif",
+            "srcset": "assets/photos/cat-windows-640.avif 640w, assets/photos/cat-windows-960.avif 960w"
+          },
+          {
+            "type": "image/webp",
+            "srcset": "assets/photos/cat-windows-640.webp 640w, assets/photos/cat-windows-960.webp 960w"
+          }
+        ],
+        "width": 960,
+        "height": 1200
+      },
       "alt": {
-        "en": "Large window with a thin black frame framing a mountain view",
-        "de": "Großes Fenster mit schmalem schwarzem Rahmen und Bergblick"
+        "en": "Large fixed window with slim black frame overlooking a lake and mountains",
+        "de": "Großes Festfenster mit schlankem schwarzem Rahmen und Blick auf See und Berge"
       },
       "active": true,
       "availableMaterials": [
@@ -214,10 +295,25 @@ EO.client = {
         "en": "Security, design\nand long-lasting quality.",
         "de": "Sicherheit, Design\nund langlebige Qualität."
       },
-      "image": "assets/images/cat-doors.svg",
+      "image": {
+        "src": "assets/photos/cat-doors-960.jpg",
+        "srcset": "assets/photos/cat-doors-640.jpg 640w, assets/photos/cat-doors-960.jpg 960w",
+        "sources": [
+          {
+            "type": "image/avif",
+            "srcset": "assets/photos/cat-doors-640.avif 640w, assets/photos/cat-doors-960.avif 960w"
+          },
+          {
+            "type": "image/webp",
+            "srcset": "assets/photos/cat-doors-640.webp 640w, assets/photos/cat-doors-960.webp 960w"
+          }
+        ],
+        "width": 960,
+        "height": 1200
+      },
       "alt": {
-        "en": "Dark entrance door with a slim side light set in a stone wall",
-        "de": "Dunkle Haustür mit schmalem Seitenlicht in einer Steinwand"
+        "en": "Pivot entrance door in dark aluminium with slim glazed side lights in a stone wall",
+        "de": "Aluminium-Haustür in Anthrazit mit schmalen Glasseitenteilen in einer Steinwand"
       },
       "active": true,
       "availableMaterials": [
@@ -253,10 +349,25 @@ EO.client = {
         "en": "Seamless indoor-outdoor\nliving.",
         "de": "Nahtloses Wohnen\ndrinnen und draußen."
       },
-      "image": "assets/images/cat-sliding.svg",
+      "image": {
+        "src": "assets/photos/cat-sliding-960.jpg",
+        "srcset": "assets/photos/cat-sliding-640.jpg 640w, assets/photos/cat-sliding-960.jpg 960w",
+        "sources": [
+          {
+            "type": "image/avif",
+            "srcset": "assets/photos/cat-sliding-640.avif 640w, assets/photos/cat-sliding-960.avif 960w"
+          },
+          {
+            "type": "image/webp",
+            "srcset": "assets/photos/cat-sliding-640.webp 640w, assets/photos/cat-sliding-960.webp 960w"
+          }
+        ],
+        "width": 960,
+        "height": 1200
+      },
       "alt": {
-        "en": "Wide sliding glass wall opening onto a landscape at golden hour",
-        "de": "Breite Glas-Schiebewand mit Blick in die Landschaft zur goldenen Stunde"
+        "en": "Large-format sliding glass wall opening onto a terrace and pool",
+        "de": "Großformatige Glas-Schiebewand zur Terrasse und zum Pool"
       },
       "active": true,
       "availableMaterials": [
@@ -291,10 +402,25 @@ EO.client = {
         "en": "Architectural solutions\nfor larger projects.",
         "de": "Architektonische Lösungen\nfür größere Projekte."
       },
-      "image": "assets/images/cat-facades.svg",
+      "image": {
+        "src": "assets/photos/cat-facades-960.jpg",
+        "srcset": "assets/photos/cat-facades-640.jpg 640w, assets/photos/cat-facades-960.jpg 960w",
+        "sources": [
+          {
+            "type": "image/avif",
+            "srcset": "assets/photos/cat-facades-640.avif 640w, assets/photos/cat-facades-960.avif 960w"
+          },
+          {
+            "type": "image/webp",
+            "srcset": "assets/photos/cat-facades-640.webp 640w, assets/photos/cat-facades-960.webp 960w"
+          }
+        ],
+        "width": 960,
+        "height": 1200
+      },
       "alt": {
-        "en": "Glazed apartment facade with warm-lit windows at dusk",
-        "de": "Verglaste Wohnfassade mit warm beleuchteten Fenstern in der Dämmerung"
+        "en": "Glazed facade with slim black mullions on a two-storey building at dusk",
+        "de": "Verglaste Fassade mit schlanken schwarzen Pfosten an einem zweigeschossigen Gebäude in der Dämmerung"
       },
       "active": true,
       "availableMaterials": [
@@ -883,17 +1009,23 @@ EO.client = {
       "location": "",
       "images": [
         {
-          "src": "assets/images/project-lake-house.svg",
+          "src": "assets/photos/project-1-1440.jpg",
+          "srcset": "assets/photos/project-1-640.jpg 640w, assets/photos/project-1-960.jpg 960w, assets/photos/project-1-1440.jpg 1440w",
+          "sources": [
+            {
+              "type": "image/avif",
+              "srcset": "assets/photos/project-1-640.avif 640w, assets/photos/project-1-960.avif 960w, assets/photos/project-1-1440.avif 1440w"
+            },
+            {
+              "type": "image/webp",
+              "srcset": "assets/photos/project-1-640.webp 640w, assets/photos/project-1-960.webp 960w, assets/photos/project-1-1440.webp 1440w"
+            }
+          ],
+          "width": 1440,
+          "height": 960,
           "alt": {
-            "en": "Demo image: lakeside house with a long glazed volume and pool at dusk",
-            "de": "Demobild: Haus am See mit langem Glaskörper und Pool in der Dämmerung"
-          }
-        },
-        {
-          "src": "assets/images/project-lake-house-2.svg",
-          "alt": {
-            "en": "Demo image: glazed lakeside house at golden hour",
-            "de": "Demobild: verglastes Haus am See zur goldenen Stunde"
+            "en": "Demo image: lakeside villa with pool and floor-to-ceiling glazing",
+            "de": "Demobild: Villa am See mit Pool und raumhoher Verglasung"
           }
         }
       ],
@@ -921,17 +1053,23 @@ EO.client = {
       "location": "",
       "images": [
         {
-          "src": "assets/images/project-villa.svg",
+          "src": "assets/photos/project-2-1440.jpg",
+          "srcset": "assets/photos/project-2-640.jpg 640w, assets/photos/project-2-960.jpg 960w, assets/photos/project-2-1440.jpg 1440w",
+          "sources": [
+            {
+              "type": "image/avif",
+              "srcset": "assets/photos/project-2-640.avif 640w, assets/photos/project-2-960.avif 960w, assets/photos/project-2-1440.avif 1440w"
+            },
+            {
+              "type": "image/webp",
+              "srcset": "assets/photos/project-2-640.webp 640w, assets/photos/project-2-960.webp 960w, assets/photos/project-2-1440.webp 1440w"
+            }
+          ],
+          "width": 1440,
+          "height": 960,
           "alt": {
-            "en": "Demo image: timber-clad villa with large glazing in soft light",
-            "de": "Demobild: holzverkleidete Villa mit großer Verglasung im weichen Licht"
-          }
-        },
-        {
-          "src": "assets/images/project-villa-2.svg",
-          "alt": {
-            "en": "Demo image: timber-clad villa with pool in daylight",
-            "de": "Demobild: holzverkleidete Villa mit Pool bei Tageslicht"
+            "en": "Demo image: timber-clad villa with large corner glazing at dusk",
+            "de": "Demobild: holzverkleidete Villa mit großer Eckverglasung in der Dämmerung"
           }
         }
       ],
@@ -960,17 +1098,23 @@ EO.client = {
       "location": "",
       "images": [
         {
-          "src": "assets/images/project-apartments.svg",
+          "src": "assets/photos/project-3-1440.jpg",
+          "srcset": "assets/photos/project-3-640.jpg 640w, assets/photos/project-3-960.jpg 960w, assets/photos/project-3-1440.jpg 1440w",
+          "sources": [
+            {
+              "type": "image/avif",
+              "srcset": "assets/photos/project-3-640.avif 640w, assets/photos/project-3-960.avif 960w, assets/photos/project-3-1440.avif 1440w"
+            },
+            {
+              "type": "image/webp",
+              "srcset": "assets/photos/project-3-640.webp 640w, assets/photos/project-3-960.webp 960w, assets/photos/project-3-1440.webp 1440w"
+            }
+          ],
+          "width": 1440,
+          "height": 960,
           "alt": {
-            "en": "Demo image: apartment building with glazed balconies at dusk",
-            "de": "Demobild: Wohngebäude mit verglasten Balkonen in der Dämmerung"
-          }
-        },
-        {
-          "src": "assets/images/project-apartments-2.svg",
-          "alt": {
-            "en": "Demo image: apartment block facade with warm lit windows",
-            "de": "Demobild: Fassade eines Wohnblocks mit warm beleuchteten Fenstern"
+            "en": "Demo image: stone and glass residence with balcony glazing at dusk",
+            "de": "Demobild: Wohnhaus aus Stein und Glas mit Balkonverglasung in der Dämmerung"
           }
         }
       ],

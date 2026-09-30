@@ -194,17 +194,17 @@
 
   /* ---------- precision / engineering ---------- */
   const SPECS = ['thermal', 'acoustic', 'security', 'durability'];
-  const ANNOS = [
-    { id: 'glazing', x: '39%', y: '21%' },
-    { id: 'thermalBreak', x: '48%', y: '50%' },
-    { id: 'chambers', x: '57%', y: '66%' },
-    { id: 'profile', x: '63%', y: '88%' }
-  ];
+  const ANNO_IDS = ['glazing', 'profile', 'thermalBreak', 'chambers'];
+  const ANNO_DEFAULT = { glazing: { x: '58%', y: '22%' }, profile: { x: '65%', y: '40%' }, thermalBreak: { x: '55%', y: '53%' }, chambers: { x: '64%', y: '73%' } };
   function precisionSection() {
     const tech = EO.site.technical || {};
     const specs = tech.specs || {};
     const ann = tech.annotations || {};
+    const pts = Object.assign({}, ANNO_DEFAULT, tech.points || {});
+    const ANNOS = ANNO_IDS.map((id) => ({ id, x: pts[id].x, y: pts[id].y }));
     const label = (a) => ({ title: t('precision.' + a.id), value: ann[a.id] || t('precision.' + a.id + 'Generic') });
+    const ti = asImg(tech.image);
+    const tratio = ti.width && ti.height ? `${ti.width} / ${ti.height}` : '3 / 2';
     return `<section class="section section--lg theme-dark precision" id="precision" aria-labelledby="precision-title"><div class="container precision__grid">
       <div class="precision__copy" data-reveal>
         <p class="eyebrow">${esc(t('precision.eyebrow'))}</p>
@@ -213,7 +213,7 @@
         <ul class="spec-list">${SPECS.map((k, i) => `<li class="spec reveal-item" style="--i:${i}"><span class="spec__icon">${ICON[k]}</span><span><span class="spec__title">${esc(t('precision.' + k))}</span><span class="spec__value">${esc(specs[k] || t('precision.' + k + 'Generic'))}</span></span></li>`).join('')}</ul>
         <a class="link" href="#materials"><span>${esc(t('btn.details'))}</span>${arrow()}</a>
       </div>
-      <figure class="tech" id="tech" data-reveal><div class="tech__plate">${media(tech.image, t('precision.alt'), { ratio: '1300 / 1250', sizes: '(min-width: 961px) 46vw, 100vw' })}
+      <figure class="tech" id="tech" data-reveal><div class="tech__plate">${media(tech.image, t('precision.alt'), { ratio: tratio, sizes: '(min-width: 961px) 50vw, 100vw' })}
         <ol class="anno-list" aria-hidden="true">${ANNOS.map((a, i) => { const l = label(a); return `<li class="anno" style="--x:${a.x};--y:${a.y}"><span class="anno__dot">${i + 1}</span><span class="anno__line"></span><span class="anno__label"><b>${esc(l.title)}</b>${l.value ? `<small>${esc(l.value)}</small>` : ''}</span></li>`; }).join('')}</ol></div>
         <ol class="anno-legend" aria-label="${esc(t('precision.legend'))}">${ANNOS.map((a) => { const l = label(a); return `<li><span><b>${esc(l.title)}</b>${esc(l.value)}</span></li>`; }).join('')}</ol></figure>
     </div></section>`;

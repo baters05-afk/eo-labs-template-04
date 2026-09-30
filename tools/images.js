@@ -36,7 +36,7 @@ fs.readdirSync(SRC).filter((f) => /\.(jpe?g|png)$/i.test(f)).forEach((file) => {
   widths.forEach((w) => {
     const base = path.join(OUT, `${name}-${w}`);
     const jpg = `${base}.jpg`;
-    execFileSync('sips', ['-Z', String(w), '-s', 'format', 'jpeg', '-s', 'formatOptions', '78', src, '--out', jpg], { stdio: 'ignore' });
+    execFileSync('sips', ['--resampleWidth', String(w), '-s', 'format', 'jpeg', '-s', 'formatOptions', '78', src, '--out', jpg], { stdio: 'ignore' });
     execFileSync('cwebp', ['-quiet', '-q', '78', '-m', '5', jpg, '-o', `${base}.webp`]);
     if (avifOk) spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', jpg, '-c:v', 'libsvtav1', '-crf', '34', '-preset', '6', '-pix_fmt', 'yuv420p', '-frames:v', '1', '-f', 'avif', `${base}.avif`]);
     const rel = (ext) => `assets/photos/${name}-${w}.${ext} ${w}w`;

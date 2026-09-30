@@ -65,5 +65,5 @@
   --hero-on-accent: var(--color-on-accent);
   --header-scrolled-bg: rgba(11, 11, 11, .93);
   --header-scrolled-fg: var(--color-text-light);
-  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.5) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,0) 30%), linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 18%);
+  --hero-overlay: linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.3) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 100%), linear-gradient(0deg, rgba(10,10,10,.42) 0%, rgba(10,10,10,0) 28%), linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 16%);
 }

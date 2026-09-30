@@ -86,7 +86,6 @@ js/app.js                    hydration: events, mobile menu, reveal, filters, ac
 js/gallery.js  quote.js      dialogs
 tools/build.js               Node VM prerender → /index.html, /<lang>/index.html, robots.txt, sitemap.xml
 tools/images.js              AVIF/WebP/JPEG pipeline
-tools/generate-demo-images.js   demo SVG placeholders
 data/client.config.js        ← THE client file
 data/client.override.js      per-client override (from admin)   data/options.js  data/translations.js
 css/variables.css presets.css base.css layout.css components.css sections.css responsive.css
