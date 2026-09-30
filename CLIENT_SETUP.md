@@ -63,6 +63,11 @@ availableGlass: ['standard', 'low-e', 'privacy']
 ```
 Unsupported options are disabled with a reason; changing the product drops choices that are no longer valid. "Continue →" opens the quote wizard with the configuration pre-filled (it then only asks size, quantity, installation, location, contact).
 
+## 4b · Exploded profile view (Precision section)
+`technicalProfile` in `client.config.js` drives the animated cross-section: `animation`, `canvas`, `base`, `layers[]` (`id`, `image`, `desktopOffset {x,y}`, `mobileOffset {x,y}`, `start`, `duration` in ms), `annotations[]` (`id`, `layer`, `anchor {x,y}` in % of the canvas — the dot and line live *inside* the layer, so they move with it). Desktop offsets are design px at an 800 px plate (scaled with container width), mobile offsets are real px.
+Sequence (once, at ~45 % visibility): assembled fade/scale-in → layers separate (staggered) → dots, lines draw, labels fade in → hover a label to lift its layer. `prefers-reduced-motion` and no-JS show the final state. Set `animation:false` (or remove `layers`) for the static `technical.image` fallback.
+**New client render:** put the section photo/render in `assets/photos-src/profile.jpg`, adjust the region polygons at the top of `tools/make-profile-layers.py`, run `python3 tools/make-profile-layers.py` (needs Pillow) → `assets/profile/profile-<layer>-{960,1440}.webp` with identical canvases, then adjust anchors/offsets in the config and `node tools/build.js`.
+
 ## 5 · Languages & SEO
 - One prerendered page per language: `/index.html` (default language, canonical → `/<default>/`), `/en/`, `/de/` … with `hreflang` alternates + `x-default` (needs `seo.siteUrl`). The language switch is real links (`<a href="../de/">`).
 - Add Dutch: add `translations.nl` in `data/translations.js`, add `'nl'` to `languages.enabled`, rebuild → `/nl/` exists. Content lists fall back to the default language where `nl` is missing.
