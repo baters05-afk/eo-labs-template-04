@@ -32,7 +32,7 @@
   .config__left, .config__right { display: contents; }
   .stepper { order: 1; } .config__stage { order: 2; } .config__preview { order: 3; max-width: 40rem; } .config__summary { order: 4; } .config__nav { order: 5; }
   .config__right { position: static; }
-  .pev { justify-self: stretch; max-width: 40rem; }
+  .pev { justify-self: stretch; max-width: 46rem; }
   .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project:first-child { grid-column: 1 / -1; }
   .cta { grid-template-columns: 1fr; }
@@ -40,17 +40,30 @@
   .cta__media img { position: absolute; }
 }
 
+@media (min-width: 769px) and (max-width: 1279px) {
+  /* tablet: titles only, description appears for the focused component (prevents label collisions, esp. DE) */
+  .pev__label small { display: none; }
+  .pev__label.is-active small { display: block; position: absolute; top: 100%; left: 0; width: 100%; padding-top: .25rem; background: rgba(10, 10, 10, .88); }
+  .pev__label b { font-size: .6875rem; letter-spacing: .1em; }
+}
+
 @media (max-width: 768px) {
-  /* exploded view: smaller separation, labels move below the image as a list */
-  .pev__layer { --dx: calc(var(--mdx, 0) * 1px); --dy: calc(var(--mdy, 0) * 1px); }
-  .pev__labels, .pev__line { display: none; }
+  /* exploded view: labels become an interactive component list below the image */
+  .pev__plate { aspect-ratio: var(--mratio, 1 / 1.04); }
+  .pev__stage { left: var(--msx, 0); top: var(--msy, 0); width: var(--msw, 100%); }
+  .pev__labels, .pev__lines { display: none; }
   .pev__dot { width: 1.5rem; height: 1.5rem; margin: -.75rem 0 0 -.75rem; background: rgba(10, 10, 10, .85); border: 1px solid #F5F3EF; box-shadow: none; }
-  .pev__dot i { font-size: .65rem; color: #F5F3EF; }
-  .anno-legend { display: grid; gap: .75rem; margin-top: var(--space-5); counter-reset: l; transition: opacity 400ms ease 500ms; }
+  .pev__dot i { font-size: .6rem; color: #F5F3EF; letter-spacing: .04em; }
+  .pev__head { flex-direction: column; align-items: flex-start; }
+  .pev__toggle { align-self: stretch; } .pev__toggle button { flex: 1; }
+  .anno-legend { display: grid; gap: 0; margin-top: var(--space-4); border-top: 1px solid var(--line); transition: opacity 400ms ease 200ms; }
   .js .pev:not(.is-static):not(.is-labeled) .anno-legend { opacity: 0; }
-  .anno-legend li { display: grid; grid-template-columns: 1.5rem 1fr; gap: .75rem; align-items: start; color: var(--fg-muted); }
-  .anno-legend li::before { counter-increment: l; content: counter(l); display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid var(--fg); color: var(--fg); font-size: .65rem; border-radius: 50%; }
-  .anno-legend b { display: block; color: var(--fg); font-weight: 500; font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; }
+  .pev__item { display: grid; grid-template-columns: 2rem 1fr; gap: .9rem; align-items: start; width: 100%; min-height: 3.5rem; padding: .95rem .25rem; border-bottom: 1px solid var(--line); text-align: left; color: var(--fg-muted); transition: background var(--transition-fast), color var(--transition-fast); }
+  .pev__item .n { font-size: var(--fs-label); letter-spacing: .18em; color: var(--color-accent); padding-top: .35rem; }
+  .pev__item b { display: block; color: var(--fg); font-weight: 500; font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; line-height: 1.6; }
+  .pev__item small { display: block; font-size: 1rem; color: var(--fg-muted); line-height: 1.4; margin-top: .15rem; }
+  .pev__item[aria-pressed="true"] { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+  .pev__item[aria-pressed="true"] b { color: #fff; }
   .quote { width: 100vw; height: 100dvh; margin: 0; }
   .quote__panel { grid-template-columns: 1fr; min-height: 100dvh; max-height: 100dvh; border: 0; border-radius: 0; }
   .quote__side { display: none; }
@@ -134,7 +147,7 @@
   .btn { font-size: 1rem; }
   .chip { font-size: 1rem; }
   .section-head__text, .cat__text, .range-item p, .range-item__features, .material__desc, .material__sub, .material__caption, .process p, .spec__title, .spec__value, .project__sub, .projects__note, .opt-media__title, .config__hint, .preview__caption, .preview__context, .cta__note, .option__desc, .summary__row dd, .footer__col ul, .footer__brand p, .accordion__panel p, .range__count, .finish__name, .sample__text, .footer__bottom { font-size: 1rem; }
-  .link, .material__features li, .site-footer li, .site-footer a, .anno__label small, .spec li span { font-size: 1rem; }
+  .link, .material__features li, .site-footer li, .site-footer a, .spec li span { font-size: 1rem; }
   .hero__tags, .hero__tags li { font-size: .6875rem; }
   .cat__title, .project__title, .material__title { font-size: 1.25rem; }
 

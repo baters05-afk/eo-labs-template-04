@@ -155,7 +155,29 @@ EO.client = {
       "width": 1800,
       "height": 1200
     },
-    "labelX": 75,
+    "plate": {
+      "ratio": "860 / 940",
+      "mobileRatio": "1 / 1.04"
+    },
+    "stage": {
+      "x": 2.3,
+      "y": 16,
+      "w": 98.4,
+      "mobile": {
+        "x": -9,
+        "y": 13,
+        "w": 118
+      }
+    },
+    "timeline": {
+      "fadeIn": 250,
+      "explodeAt": 500,
+      "annotateAt": 1450
+    },
+    "ghost": {
+      "opacity": 0.18,
+      "focusOpacity": 0.07
+    },
     "base": {
       "src": "assets/profile/profile-base-1440.webp",
       "srcset": "assets/profile/profile-base-960.webp 960w, assets/profile/profile-base-1440.webp 1440w",
@@ -171,73 +193,21 @@ EO.client = {
           "width": 1440,
           "height": 960
         },
+        "z": 5,
         "desktopOffset": {
+          "x": 115,
+          "y": -80
+        },
+        "tabletOffset": {
+          "x": 85,
+          "y": -60
+        },
+        "mobileOffset": {
           "x": 28,
           "y": -24
         },
-        "mobileOffset": {
-          "x": 10,
-          "y": -8
-        },
-        "start": 300,
-        "duration": 600
-      },
-      {
-        "id": "aluminium",
-        "image": {
-          "src": "assets/profile/profile-aluminium-1440.webp",
-          "srcset": "assets/profile/profile-aluminium-960.webp 960w, assets/profile/profile-aluminium-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "desktopOffset": {
-          "x": -24,
-          "y": 8
-        },
-        "mobileOffset": {
-          "x": -8,
-          "y": 0
-        },
-        "start": 450,
-        "duration": 600
-      },
-      {
-        "id": "thermal-break",
-        "image": {
-          "src": "assets/profile/profile-thermal-break-1440.webp",
-          "srcset": "assets/profile/profile-thermal-break-960.webp 960w, assets/profile/profile-thermal-break-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "desktopOffset": {
-          "x": 24,
-          "y": 4
-        },
-        "mobileOffset": {
-          "x": 8,
-          "y": 0
-        },
-        "start": 600,
-        "duration": 550
-      },
-      {
-        "id": "chambers",
-        "image": {
-          "src": "assets/profile/profile-chambers-1440.webp",
-          "srcset": "assets/profile/profile-chambers-960.webp 960w, assets/profile/profile-chambers-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "desktopOffset": {
-          "x": 12,
-          "y": 28
-        },
-        "mobileOffset": {
-          "x": 6,
-          "y": 10
-        },
-        "start": 750,
-        "duration": 500
+        "start": 500,
+        "duration": 450
       },
       {
         "id": "seals",
@@ -247,16 +217,93 @@ EO.client = {
           "width": 1440,
           "height": 960
         },
+        "z": 4,
         "desktopOffset": {
-          "x": 6,
-          "y": 14
+          "x": 75,
+          "y": -25
+        },
+        "tabletOffset": {
+          "x": 55,
+          "y": -20
         },
         "mobileOffset": {
-          "x": 3,
-          "y": 6
+          "x": 18,
+          "y": -8
         },
-        "start": 900,
-        "duration": 550
+        "start": 650,
+        "duration": 400
+      },
+      {
+        "id": "aluminium",
+        "image": {
+          "src": "assets/profile/profile-aluminium-1440.webp",
+          "srcset": "assets/profile/profile-aluminium-960.webp 960w, assets/profile/profile-aluminium-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "z": 1,
+        "desktopOffset": {
+          "x": -95,
+          "y": 10
+        },
+        "tabletOffset": {
+          "x": -70,
+          "y": 5
+        },
+        "mobileOffset": {
+          "x": -24,
+          "y": 0
+        },
+        "start": 800,
+        "duration": 450
+      },
+      {
+        "id": "thermal-break",
+        "image": {
+          "src": "assets/profile/profile-thermal-break-1440.webp",
+          "srcset": "assets/profile/profile-thermal-break-960.webp 960w, assets/profile/profile-thermal-break-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "z": 3,
+        "desktopOffset": {
+          "x": 85,
+          "y": 35
+        },
+        "tabletOffset": {
+          "x": 60,
+          "y": 25
+        },
+        "mobileOffset": {
+          "x": 22,
+          "y": 12
+        },
+        "start": 950,
+        "duration": 450
+      },
+      {
+        "id": "chambers",
+        "image": {
+          "src": "assets/profile/profile-chambers-1440.webp",
+          "srcset": "assets/profile/profile-chambers-960.webp 960w, assets/profile/profile-chambers-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "z": 2,
+        "desktopOffset": {
+          "x": 40,
+          "y": 115
+        },
+        "tabletOffset": {
+          "x": 25,
+          "y": 85
+        },
+        "mobileOffset": {
+          "x": 6,
+          "y": 30
+        },
+        "start": 1100,
+        "duration": 450
       }
     ],
     "annotations": [
@@ -266,6 +313,37 @@ EO.client = {
         "anchor": {
           "x": 64,
           "y": 26.7
+        },
+        "label": {
+          "x": 98,
+          "y": 0.5,
+          "align": "right"
+        }
+      },
+      {
+        "id": "seals",
+        "layer": "seals",
+        "anchor": {
+          "x": 61.4,
+          "y": 39.5
+        },
+        "label": {
+          "x": 79,
+          "y": 31,
+          "align": "left"
+        }
+      },
+      {
+        "id": "profile",
+        "layer": "aluminium",
+        "anchor": {
+          "x": 33.3,
+          "y": 40
+        },
+        "label": {
+          "x": 1.5,
+          "y": 20,
+          "align": "left"
         }
       },
       {
@@ -274,6 +352,11 @@ EO.client = {
         "anchor": {
           "x": 54.7,
           "y": 51.3
+        },
+        "label": {
+          "x": 79,
+          "y": 47,
+          "align": "left"
         }
       },
       {
@@ -282,14 +365,11 @@ EO.client = {
         "anchor": {
           "x": 64.4,
           "y": 73.3
-        }
-      },
-      {
-        "id": "profile",
-        "layer": "aluminium",
-        "anchor": {
-          "x": 49.2,
-          "y": 92.9
+        },
+        "label": {
+          "x": 79,
+          "y": 73,
+          "align": "left"
         }
       }
     ]

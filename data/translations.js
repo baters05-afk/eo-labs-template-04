@@ -48,6 +48,15 @@ EO.defaults.translations = {
       glazing: 'Triple glazing', thermalBreak: 'Thermal break', profile: 'Aluminium profile', chambers: 'Multi-chamber design',
       glazingGeneric: '', thermalBreakGeneric: 'Thermally separated profile', profileGeneric: 'Slim sightlines', chambersGeneric: 'Multi-chamber construction',
       alt: 'Technical cross-section of an aluminium window profile with triple glazing, thermal break and multiple chambers',
+      parts: {
+        glazing: { title: 'Triple glazing', desc: 'Three panes separated by insulated cavities. Helps improve thermal and acoustic performance.', short: 'Thermal + acoustic performance' },
+        seals: { title: 'Seals & spacers', desc: 'Flexible seals help limit air and water penetration. Spacer systems separate the glazing layers.', short: 'Air and water control' },
+        profile: { title: 'Aluminium profile', desc: 'Structural outer frame. Provides rigidity while allowing slim sightlines.', short: 'Strength + slim sightlines' },
+        thermalBreak: { title: 'Thermal break', desc: 'Insulating barrier between internal and external aluminium. Helps reduce thermal transfer through the frame.', short: 'Reduces heat transfer' },
+        chambers: { title: 'Multi-chamber core', desc: 'Internal cavities increase structural stability and insulation potential.', short: 'Stability + insulation' }
+      },
+      components: '5 components', hintHover: 'Hover a component to explore', hintTap: 'Tap a component to explore',
+      view: 'View', exploded: 'Exploded', assembled: 'Assembled',
       legend: 'Profile details'
     },
     projects: {
@@ -158,6 +167,15 @@ EO.defaults.translations = {
       glazing: 'Dreifachverglasung', thermalBreak: 'Thermische Trennung', profile: 'Aluminiumprofil', chambers: 'Mehrkammer-Design',
       glazingGeneric: '', thermalBreakGeneric: 'Thermisch getrenntes Profil', profileGeneric: 'Schlanke Ansichten', chambersGeneric: 'Mehrkammer-Konstruktion',
       alt: 'Technischer Querschnitt eines Aluminium-Fensterprofils mit Dreifachverglasung, thermischer Trennung und mehreren Kammern',
+      parts: {
+        glazing: { title: 'Dreifachverglasung', desc: 'Drei Scheiben, getrennt durch gedämmte Zwischenräume. Verbessert Wärme- und Schallschutz.', short: 'Wärme- und Schallschutz' },
+        seals: { title: 'Dichtungen & Abstandhalter', desc: 'Flexible Dichtungen begrenzen Luft- und Wasserdurchtritt. Abstandhalter trennen die Glasebenen.', short: 'Luft- und Wasserkontrolle' },
+        profile: { title: 'Aluminiumprofil', desc: 'Tragender Außenrahmen. Sorgt für Steifigkeit bei schlanken Ansichten.', short: 'Stabilität + schlanke Ansichten' },
+        thermalBreak: { title: 'Thermische Trennung', desc: 'Dämmende Barriere zwischen innerem und äußerem Aluminium. Reduziert den Wärmedurchgang durch den Rahmen.', short: 'Reduziert Wärmeverlust' },
+        chambers: { title: 'Mehrkammer-Kern', desc: 'Innere Kammern erhöhen Stabilität und Dämmpotenzial.', short: 'Stabilität + Dämmung' }
+      },
+      components: '5 Bauteile', hintHover: 'Bauteil mit der Maus wählen', hintTap: 'Bauteil antippen',
+      view: 'Ansicht', exploded: 'Zerlegt', assembled: 'Montiert',
       legend: 'Profildetails'
     },
     projects: {
