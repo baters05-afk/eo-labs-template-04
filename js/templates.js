@@ -195,17 +195,60 @@
 
   /* ---------- precision / engineering ---------- */
   const SPECS = ['thermal', 'acoustic', 'security', 'durability'];
-  const ANNO_IDS = ['glazing', 'profile', 'thermalBreak', 'chambers'];
-  const ANNO_DEFAULT = { glazing: { x: '58%', y: '22%' }, profile: { x: '65%', y: '40%' }, thermalBreak: { x: '55%', y: '53%' }, chambers: { x: '64%', y: '73%' } };
+  const ANNO_FALLBACK = [
+    { id: 'glazing', anchor: { x: 64, y: 26.7 } }, { id: 'thermalBreak', anchor: { x: 54.7, y: 51.3 } },
+    { id: 'chambers', anchor: { x: 64.4, y: 73.3 } }, { id: 'profile', anchor: { x: 49.2, y: 92.9 } }
+  ];
+  const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  const sign = (v) => (v > 0 ? 1 : v < 0 ? -1 : 0);
+
+  /**
+   * Exploded view of the profile section. Layers are aligned transparent images on one canvas; each layer owns its
+   * annotation dot + line, so anchors travel with the layer. Offsets are design px at an 800px-wide plate (scaled with
+   * container units), mobile offsets are real px. Without layers it degrades to the static photo + fixed dots.
+   */
+  function profileFigure(tech) {
+    const P = EO.site.technicalProfile || {};
+    const ann = tech.annotations || {};
+    const layers = (P.layers || []).filter((l) => l && l.image && asImg(l.image).src);
+    const animate = P.animation !== false && layers.length > 0;
+    const canvas = P.canvas || { width: 1800, height: 1200 };
+    const base = animate && P.base && asImg(P.base).src ? P.base : tech.image;
+    const items = (P.annotations && P.annotations.length ? P.annotations : ANNO_FALLBACK)
+      .map((a, i) => ({ ...a, n: i + 1, title: t('precision.' + a.id), value: ann[a.id] || t('precision.' + a.id + 'Generic') }));
+    const labelX = num(P.labelX) || 75;
+    const layerOf = (id) => layers.find((l) => l.id === id);
+    const off = (l, k) => ({ x: num(l && l[k] && l[k].x), y: num(l && l[k] && l[k].y) });
+    const anchorHtml = (a) => `<span class="pev__dot" style="left:${a.anchor.x}%;top:${a.anchor.y}%" aria-hidden="true"><i>${a.n}</i></span>
+        <svg class="pev__line" style="left:${a.anchor.x}%;top:${a.anchor.y}%;--reach:${Math.max(4, labelX - a.anchor.x - 1)};--i:${a.n - 1}" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line x1="0" y1="1" x2="100" y2="1" pathLength="1"/></svg>`;
+    const timeline = layers.map((l) => (num(l.start) || 300) + (num(l.duration) || 600));
+    const explodeMs = Math.max(600, Math.max(0, ...timeline) - 300);
+
+    const layerHtml = animate
+      ? layers.map((l, z) => {
+        const d = off(l, 'desktopOffset'), m = off(l, 'mobileOffset');
+        const mine = items.filter((a) => a.layer === l.id).map(anchorHtml).join('');
+        return `<div class="pev__layer" data-layer="${esc(l.id)}" style="--z:${z + 1};--ddx:${d.x};--ddy:${d.y};--mdx:${m.x};--mdy:${m.y};--hx:${sign(d.x) * 5}px;--hy:${sign(d.y) * 5}px;--delay:${Math.max(0, (num(l.start) || 300) - 300)}ms;--dur:${num(l.duration) || 600}ms" aria-hidden="true">${picture(l.image, '', { sizes: '(min-width: 961px) 50vw, 100vw' })}${mine}</div>`;
+      }).join('')
+      : `<div class="pev__layer pev__layer--fixed" style="--z:1" aria-hidden="true">${items.map(anchorHtml).join('')}</div>`;
+
+    const labelHtml = items.map((a) => {
+      const d = off(layerOf(a.layer), 'desktopOffset');
+      return `<li class="pev__label" data-layer="${esc(a.layer || '')}" style="--x:${labelX}%;--y:${a.anchor.y}%;--ddy:${d.y};--i:${a.n - 1}"><b>${esc(a.title)}</b>${a.value ? `<small>${esc(a.value)}</small>` : ''}</li>`;
+    }).join('');
+
+    return `<figure class="tech pev${animate ? '' : ' is-static'}" id="tech" data-pev="${animate ? 1 : 0}" data-explode-ms="${explodeMs}">
+        <div class="pev__plate" style="--ratio:${canvas.width} / ${canvas.height}">
+          <div class="pev__stage"><div class="pev__base">${picture(base, t('precision.alt'), { sizes: '(min-width: 961px) 50vw, 100vw' })}</div>${layerHtml}</div>
+          <ol class="pev__labels">${labelHtml}</ol>
+        </div>
+        <ol class="anno-legend" aria-label="${esc(t('precision.legend'))}">${items.map((a) => `<li><span><b>${esc(a.title)}</b>${esc(a.value)}</span></li>`).join('')}</ol>
+      </figure>`;
+  }
+
   function precisionSection() {
     const tech = EO.site.technical || {};
     const specs = tech.specs || {};
-    const ann = tech.annotations || {};
-    const pts = Object.assign({}, ANNO_DEFAULT, tech.points || {});
-    const ANNOS = ANNO_IDS.map((id) => ({ id, x: pts[id].x, y: pts[id].y }));
-    const label = (a) => ({ title: t('precision.' + a.id), value: ann[a.id] || t('precision.' + a.id + 'Generic') });
-    const ti = asImg(tech.image);
-    const tratio = ti.width && ti.height ? `${ti.width} / ${ti.height}` : '3 / 2';
     return `<section class="section section--lg theme-dark precision" id="precision" aria-labelledby="precision-title"><div class="container precision__grid">
       <div class="precision__copy" data-reveal>
         <p class="eyebrow">${esc(t('precision.eyebrow'))}</p>
@@ -213,9 +256,7 @@
         <p class="lead">${esc(t('precision.text'))}</p>
         <ul class="spec-list">${SPECS.map((k, i) => `<li class="spec reveal-item" style="--i:${i}"><span class="spec__icon">${ICON[k]}</span><span><span class="spec__title">${esc(t('precision.' + k))}</span><span class="spec__value">${esc(specs[k] || t('precision.' + k + 'Generic'))}</span></span></li>`).join('')}</ul>
       </div>
-      <figure class="tech" id="tech" data-reveal><div class="tech__plate">${media(tech.image, t('precision.alt'), { ratio: tratio, sizes: '(min-width: 961px) 50vw, 100vw' })}
-        <ol class="anno-list">${ANNOS.map((a, i) => { const l = label(a); return `<li class="anno" style="--x:${a.x};--y:${a.y}"><span class="anno__dot" aria-hidden="true">${i + 1}</span><span class="anno__line"></span><span class="anno__label"><b>${esc(l.title)}</b>${l.value ? `<small>${esc(l.value)}</small>` : ''}</span></li>`; }).join('')}</ol></div>
-        <ol class="anno-legend" aria-label="${esc(t('precision.legend'))}">${ANNOS.map((a) => { const l = label(a); return `<li><span><b>${esc(l.title)}</b>${esc(l.value)}</span></li>`; }).join('')}</ol></figure>
+      ${profileFigure(tech)}
     </div></section>`;
   }
 

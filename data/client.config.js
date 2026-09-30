@@ -12,6 +12,7 @@
  * branding.*     → optional colour overrides (null = preset value)
  * hero.image / imageMobile → string or { src, width, height, srcset, sources:[{type,srcset}] } (AVIF/WebP)
  * categories[].availableMaterials / availableFinishes / availableGlass drive the configurator.
+ * technicalProfile: animated exploded view of the profile section (layers = aligned transparent WebP, see tools/make-profile-layers.py).
  *
  * After editing run:  node tools/build.js   (regenerates crawler-visible HTML for every language)
  */
@@ -146,25 +147,152 @@ EO.client = {
       "thermalBreak": "",
       "profile": "",
       "chambers": ""
-    },
-    "points": {
-      "glazing": {
-        "x": "58%",
-        "y": "22.5%"
-      },
-      "profile": {
-        "x": "65.5%",
-        "y": "40%"
-      },
-      "thermalBreak": {
-        "x": "55%",
-        "y": "53%"
-      },
-      "chambers": {
-        "x": "64%",
-        "y": "73%"
-      }
     }
+  },
+  "technicalProfile": {
+    "animation": true,
+    "canvas": {
+      "width": 1800,
+      "height": 1200
+    },
+    "labelX": 75,
+    "base": {
+      "src": "assets/profile/profile-base-1440.webp",
+      "srcset": "assets/profile/profile-base-960.webp 960w, assets/profile/profile-base-1440.webp 1440w",
+      "width": 1440,
+      "height": 960
+    },
+    "layers": [
+      {
+        "id": "glass",
+        "image": {
+          "src": "assets/profile/profile-glass-1440.webp",
+          "srcset": "assets/profile/profile-glass-960.webp 960w, assets/profile/profile-glass-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "desktopOffset": {
+          "x": 28,
+          "y": -24
+        },
+        "mobileOffset": {
+          "x": 10,
+          "y": -8
+        },
+        "start": 300,
+        "duration": 600
+      },
+      {
+        "id": "aluminium",
+        "image": {
+          "src": "assets/profile/profile-aluminium-1440.webp",
+          "srcset": "assets/profile/profile-aluminium-960.webp 960w, assets/profile/profile-aluminium-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "desktopOffset": {
+          "x": -24,
+          "y": 8
+        },
+        "mobileOffset": {
+          "x": -8,
+          "y": 0
+        },
+        "start": 450,
+        "duration": 600
+      },
+      {
+        "id": "thermal-break",
+        "image": {
+          "src": "assets/profile/profile-thermal-break-1440.webp",
+          "srcset": "assets/profile/profile-thermal-break-960.webp 960w, assets/profile/profile-thermal-break-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "desktopOffset": {
+          "x": 24,
+          "y": 4
+        },
+        "mobileOffset": {
+          "x": 8,
+          "y": 0
+        },
+        "start": 600,
+        "duration": 550
+      },
+      {
+        "id": "chambers",
+        "image": {
+          "src": "assets/profile/profile-chambers-1440.webp",
+          "srcset": "assets/profile/profile-chambers-960.webp 960w, assets/profile/profile-chambers-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "desktopOffset": {
+          "x": 12,
+          "y": 28
+        },
+        "mobileOffset": {
+          "x": 6,
+          "y": 10
+        },
+        "start": 750,
+        "duration": 500
+      },
+      {
+        "id": "seals",
+        "image": {
+          "src": "assets/profile/profile-seals-1440.webp",
+          "srcset": "assets/profile/profile-seals-960.webp 960w, assets/profile/profile-seals-1440.webp 1440w",
+          "width": 1440,
+          "height": 960
+        },
+        "desktopOffset": {
+          "x": 6,
+          "y": 14
+        },
+        "mobileOffset": {
+          "x": 3,
+          "y": 6
+        },
+        "start": 900,
+        "duration": 550
+      }
+    ],
+    "annotations": [
+      {
+        "id": "glazing",
+        "layer": "glass",
+        "anchor": {
+          "x": 64,
+          "y": 26.7
+        }
+      },
+      {
+        "id": "thermalBreak",
+        "layer": "thermal-break",
+        "anchor": {
+          "x": 54.7,
+          "y": 51.3
+        }
+      },
+      {
+        "id": "chambers",
+        "layer": "chambers",
+        "anchor": {
+          "x": 64.4,
+          "y": 73.3
+        }
+      },
+      {
+        "id": "profile",
+        "layer": "aluminium",
+        "anchor": {
+          "x": 49.2,
+          "y": 92.9
+        }
+      }
+    ]
   },
   "cta": {
     "image": {

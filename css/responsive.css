@@ -32,7 +32,7 @@
   .config__left, .config__right { display: contents; }
   .stepper { order: 1; } .config__stage { order: 2; } .config__preview { order: 3; max-width: 40rem; } .config__summary { order: 4; } .config__nav { order: 5; }
   .config__right { position: static; }
-  .tech { justify-self: stretch; max-width: 40rem; }
+  .pev { justify-self: stretch; max-width: 40rem; }
   .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project:first-child { grid-column: 1 / -1; }
   .cta { grid-template-columns: 1fr; }
@@ -41,6 +41,16 @@
 }
 
 @media (max-width: 768px) {
+  /* exploded view: smaller separation, labels move below the image as a list */
+  .pev__layer { --dx: calc(var(--mdx, 0) * 1px); --dy: calc(var(--mdy, 0) * 1px); }
+  .pev__labels, .pev__line { display: none; }
+  .pev__dot { width: 1.5rem; height: 1.5rem; margin: -.75rem 0 0 -.75rem; background: rgba(10, 10, 10, .85); border: 1px solid #F5F3EF; box-shadow: none; }
+  .pev__dot i { font-size: .65rem; color: #F5F3EF; }
+  .anno-legend { display: grid; gap: .75rem; margin-top: var(--space-5); counter-reset: l; transition: opacity 400ms ease 500ms; }
+  .js .pev:not(.is-static):not(.is-labeled) .anno-legend { opacity: 0; }
+  .anno-legend li { display: grid; grid-template-columns: 1.5rem 1fr; gap: .75rem; align-items: start; color: var(--fg-muted); }
+  .anno-legend li::before { counter-increment: l; content: counter(l); display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid var(--fg); color: var(--fg); font-size: .65rem; border-radius: 50%; }
+  .anno-legend b { display: block; color: var(--fg); font-weight: 500; font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; }
   .quote { width: 100vw; height: 100dvh; margin: 0; }
   .quote__panel { grid-template-columns: 1fr; min-height: 100dvh; max-height: 100dvh; border: 0; border-radius: 0; }
   .quote__side { display: none; }
@@ -77,14 +87,6 @@
   .material-grid { grid-template-columns: 1fr; }
   .swatch-strip { height: 4.25rem; }
 
-  /* technical annotations simplify to numbered markers + legend */
-  .anno { right: auto; }
-  .anno__line, .anno__label { display: none; }
-  .anno__dot { width: 1.5rem; height: 1.5rem; font-size: .65rem; box-shadow: none; background: rgba(10,10,10,.85); color: #F4F1EB; border: 1px solid #F4F1EB; transform: translateX(-50%); }
-  .anno-legend { display: grid; gap: .75rem; margin-top: var(--space-5); counter-reset: l; }
-  .anno-legend li { display: grid; grid-template-columns: 1.5rem 1fr; gap: .75rem; align-items: start; font-size: var(--fs-sm); color: var(--fg-muted); }
-  .anno-legend li::before { counter-increment: l; content: counter(l); display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid var(--fg); color: var(--fg); font-size: .65rem; border-radius: 50%; }
-  .anno-legend b { display: block; color: var(--fg); font-weight: 500; font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; }
 
   .step .name { display: none; }
   .step[aria-current="step"] .name { display: block; grid-column: 1 / -1; }

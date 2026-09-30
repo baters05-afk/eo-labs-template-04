@@ -94,17 +94,6 @@
 .spec__icon svg { width: 1.4rem; height: 1.4rem; }
 .spec__title { font-size: var(--fs-sm); font-weight: 500; }
 .spec__value { font-size: var(--fs-sm); color: var(--fg-muted); }
-.tech { position: relative; max-width: 50rem; width: 100%; justify-self: end; }
-.tech .media::after { display: none; }
-.tech__plate { position: relative; --fg: #F4F1EB; --fg-muted: rgba(244,241,235,.7); --line: rgba(244,241,235,.2); color: var(--fg); }
-.anno-list { position: absolute; inset: 0; }
-.anno { position: absolute; left: var(--x); top: var(--y); right: 0; display: flex; align-items: center; transform: translateY(-50%); pointer-events: none; }
-.anno__dot { flex: none; display: grid; place-items: center; width: .55rem; height: .55rem; border-radius: 50%; background: var(--fg); font-size: 0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--fg) 18%, transparent); }
-.anno__line { flex: 1; height: 1px; background: color-mix(in srgb, var(--fg) 45%, transparent); }
-.anno__label { flex: none; width: 10.5rem; padding-left: .85rem; display: grid; gap: .1rem; }
-.anno__label b { font-weight: 500; font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; }
-.anno__label small { font-size: var(--fs-sm); color: var(--fg-muted); line-height: 1.35; }
-.anno-legend { display: none; }
 
 /* ================= PROJECTS ================= */
 .project-grid { display: grid; grid-template-columns: 1.55fr 1fr 1fr; gap: clamp(.9rem, 1.6vw, 1.5rem); }
@@ -324,3 +313,51 @@ h1, h2, h3, .cat__title, .range-item h3, .option__title, .material__title, .opt-
 .preset-select select { min-height: 2.75rem; padding: 0 2rem 0 .75rem; background-color: transparent; color: #F4F1EB; border: 1px solid rgba(255,255,255,.28); border-radius: 0; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 1rem) 55%, calc(100% - .7rem) 55%; background-size: .3rem .3rem; background-repeat: no-repeat; }
 .preset-select select option { color: #181818; background: #fff; }
 .config__nav .btn { min-height: 3rem; }
+
+/* ================= PROFILE EXPLODED VIEW ================= */
+.pev { position: relative; width: 100%; max-width: 50rem; justify-self: end; margin: 0; }
+.pev__plate { --fg: #F5F3EF; --fg-muted: rgba(245, 243, 239, .7); color: #F5F3EF; position: relative; container-type: inline-size; aspect-ratio: var(--ratio, 3 / 2); width: 100%; }
+.pev__stage { position: absolute; inset: 0; overflow: hidden; background: #0a0a0b; transition: opacity 300ms ease, transform 300ms ease; transform-origin: 50% 55%; }
+.pev__base, .pev__layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pev__base picture, .pev__base img, .pev__layer picture, .pev__layer img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pev__layer { z-index: var(--z, 1); --dx: calc(var(--ddx, 0) * 1px); --dy: calc(var(--ddy, 0) * 1px); --tx: 0px; --ty: 0px; transform: translate(var(--tx), var(--ty)); transition: transform var(--dur, 600ms) cubic-bezier(.22, .6, .2, 1) var(--delay, 0ms), opacity 240ms ease, filter 240ms ease; will-change: transform; }
+@supports (width: 1cqw) { .pev__layer, .pev__label { --dx: calc(var(--ddx, 0) * 0.125cqw); --dy: calc(var(--ddy, 0) * 0.125cqw); } }
+.pev__layer--fixed { transform: none; }
+
+/* states: idle (assembled, hidden) → is-visible → is-exploded → is-labeled → is-interactive */
+.js .pev:not(.is-static):not(.is-visible) .pev__stage { opacity: 0; transform: scale(.98); }
+.pev.is-exploded .pev__layer, html:not(.js) .pev .pev__layer, .pev.is-static .pev__layer { --tx: var(--dx); --ty: var(--dy); }
+
+/* annotations: dot → line draws → label */
+.pev__dot { position: absolute; z-index: 3; width: .6rem; height: .6rem; margin: -.3rem 0 0 -.3rem; border-radius: 50%; background: #F5F3EF; box-shadow: 0 0 0 4px rgba(245, 243, 239, .16); display: grid; place-items: center; transition: opacity 220ms ease calc(var(--i, 0) * 80ms); }
+.pev__dot i { font-style: normal; font-size: 0; }
+.pev__line { position: absolute; z-index: 2; height: 2px; margin-top: -1px; width: calc(var(--reach, 10) * 1% - var(--dx, 0px)); overflow: visible; pointer-events: none; color: rgba(245, 243, 239, .55); }
+.pev__line line { stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 450ms cubic-bezier(.3, .6, .2, 1) calc(var(--i, 0) * 80ms + 160ms); }
+.pev__labels { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+.pev__label { position: absolute; left: var(--x, 75%); top: calc(var(--y, 50%) + var(--dy, 0px)); right: 0; transform: translateY(-50%); padding-left: .85rem; display: grid; gap: .12rem; pointer-events: auto; cursor: default; transition: opacity 320ms ease calc(var(--i, 0) * 80ms + 520ms), transform 320ms ease calc(var(--i, 0) * 80ms + 520ms); }
+.pev__label b { overflow-wrap: anywhere; font-weight: 500; font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; }
+.pev__label small { font-size: var(--fs-sm); color: var(--photo-muted); line-height: 1.35; }
+.pev { --fg: #F5F3EF; }
+.js .pev:not(.is-static):not(.is-labeled) .pev__dot { opacity: 0; }
+.js .pev:not(.is-static):not(.is-labeled) .pev__label { opacity: 0; transform: translate(10px, -50%); }
+.pev.is-labeled .pev__line line, .pev.is-static .pev__line line, html:not(.js) .pev .pev__line line { stroke-dashoffset: 0; }
+
+/* hover (desktop, after the sequence): the layer of the hovered label lifts, the rest recede */
+.pev.is-interactive .pev__layer { transition-delay: 0ms; transition-duration: 260ms; }
+.pev.is-interactive.has-hover .pev__layer:not(.is-hover) { opacity: .65; }
+.pev.is-interactive .pev__layer.is-hover { filter: brightness(1.14); --tx: calc(var(--dx) + var(--hx, 0px)); --ty: calc(var(--dy) + var(--hy, 0px)); }
+.pev.is-interactive .pev__label { transition: opacity 200ms ease, color 200ms ease; }
+.pev.is-interactive .pev__label:hover b { color: var(--color-accent); }
+
+@media (max-width: 1180px) { .pev__label { padding-left: .6rem; } .pev__label b { letter-spacing: .08em; font-size: .625rem; } }
+@media (min-width: 961px) and (max-width: 1180px) { .pev__label small { display: none; } }
+.anno-legend { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pev__stage, .pev__layer, .pev__dot, .pev__line line, .pev__label { transition: none !important; }
+  .js .pev .pev__stage { opacity: 1 !important; transform: none !important; }
+  .pev .pev__layer { --tx: var(--dx); --ty: var(--dy); }
+  .js .pev .pev__dot, .js .pev .pev__label { opacity: 1 !important; transform: translateY(-50%) !important; }
+  .js .pev .pev__dot { transform: none !important; }
+  .pev .pev__line line { stroke-dashoffset: 0 !important; }
+}

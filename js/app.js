@@ -21,6 +21,7 @@
     EO.seo.apply();
     observeReveal();
     initScroll();
+    if (EO.profile) EO.profile.init();
   }
 
   function updateRange() {
@@ -178,7 +179,7 @@
       $$('[data-preset-select]').forEach((x) => { x.value = sw; });
       observeReveal(); initScroll();
     }
-    EO.gallery.init(); EO.configurator.init(); EO.quote.init();
+    EO.gallery.init(); EO.configurator.init(); EO.quote.init(); EO.profile.init();
     document.addEventListener('click', onClick);
     document.addEventListener('change', (e) => { const sel = e.target.closest && e.target.closest('[data-preset-select]'); if (sel) { EO.setPreset(sel.value); $$('button[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === sel.value))); } });
     document.addEventListener('keydown', onKeydown);
