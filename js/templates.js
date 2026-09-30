@@ -105,7 +105,7 @@
   function headerInner() {
     const items = navItems();
     const bar = demo() ? `<div class="demo-bar" id="demoBar"><div><b>${esc(t('demo.label'))}</b> <span>· ${esc(t('demo.notReal'))}</span></div>${feat().presetSwitcher
-      ? `<div class="preset-switch" role="group" aria-label="${esc(t('demo.preset'))}"><span class="preset-switch__label">${esc(t('demo.preset'))}</span>${EO.presets.map((p) => `<button type="button" data-preset="${p}" aria-pressed="${p === EO.presetOf()}" aria-label="${esc(EO.presetNames[p])}"><span class="long" aria-hidden="true">${esc(EO.presetNames[p])}</span><span class="short" aria-hidden="true">${esc(EO.presetShort[p])}</span></button>`).join('')}</div>` : ''}</div>` : '';
+      ? `<label class="preset-select"><span class="preset-switch__label">${esc(t('demo.preset'))}</span><select data-preset-select aria-label="${esc(t('demo.preset'))}">${EO.presets.map((p) => `<option value="${p}"${p === EO.presetOf() ? ' selected' : ''}>${esc(EO.presetNames[p])}</option>`).join('')}</select></label>` : ''}</div>` : '';
     return `${bar}
       <div class="container header-main">${brand()}
         <nav class="primary-nav" aria-label="${esc(t('nav.main'))}"><ul>${items.map(([k, href]) => `<li><a href="${href}" data-nav="${k}">${esc(t('nav.' + k))}</a></li>`).join('')}</ul></nav>
@@ -143,7 +143,7 @@
 
   function categoryGrid() {
     return categories().map((c, i) => {
-      const inner = `${media(c.image, tr(c.alt) || tr(c.title), { overlay: `<span class="media-index" aria-hidden="true">${pad(i)}</span>`, sizes: '(min-width: 961px) 24vw, (min-width: 641px) 46vw, 76vw' })}
+      const inner = `${media(c.image, tr(c.alt) || tr(c.title), { focal: c.preview && c.preview.position, overlay: `<span class="media-index" aria-hidden="true">${pad(i)}</span>`, sizes: '(min-width: 961px) 24vw, (min-width: 641px) 46vw, 76vw' })}
         <span class="cat__body"><span class="cat__title">${esc(tr(c.title))}</span><span class="cat__text">${esc(tr(c.tagline))}</span></span>${arrow()}`;
       const href = pageFor(c.pageSlug);
       return href
@@ -212,10 +212,9 @@
         <h2 class="display-lg" id="precision-title">${esc(t('precision.title'))}</h2>
         <p class="lead">${esc(t('precision.text'))}</p>
         <ul class="spec-list">${SPECS.map((k, i) => `<li class="spec reveal-item" style="--i:${i}"><span class="spec__icon">${ICON[k]}</span><span><span class="spec__title">${esc(t('precision.' + k))}</span><span class="spec__value">${esc(specs[k] || t('precision.' + k + 'Generic'))}</span></span></li>`).join('')}</ul>
-        <a class="link" href="#materials"><span>${esc(t('btn.details'))}</span>${arrow()}</a>
       </div>
       <figure class="tech" id="tech" data-reveal><div class="tech__plate">${media(tech.image, t('precision.alt'), { ratio: tratio, sizes: '(min-width: 961px) 50vw, 100vw' })}
-        <ol class="anno-list" aria-hidden="true">${ANNOS.map((a, i) => { const l = label(a); return `<li class="anno" style="--x:${a.x};--y:${a.y}"><span class="anno__dot">${i + 1}</span><span class="anno__line"></span><span class="anno__label"><b>${esc(l.title)}</b>${l.value ? `<small>${esc(l.value)}</small>` : ''}</span></li>`; }).join('')}</ol></div>
+        <ol class="anno-list">${ANNOS.map((a, i) => { const l = label(a); return `<li class="anno" style="--x:${a.x};--y:${a.y}"><span class="anno__dot" aria-hidden="true">${i + 1}</span><span class="anno__line"></span><span class="anno__label"><b>${esc(l.title)}</b>${l.value ? `<small>${esc(l.value)}</small>` : ''}</span></li>`; }).join('')}</ol></div>
         <ol class="anno-legend" aria-label="${esc(t('precision.legend'))}">${ANNOS.map((a) => { const l = label(a); return `<li><span><b>${esc(l.title)}</b>${esc(l.value)}</span></li>`; }).join('')}</ol></figure>
     </div></section>`;
   }
@@ -228,7 +227,7 @@
     const anyDemo = demo() || list.some((p) => p.demo);
     return `<section class="section theme-light" id="projects" aria-labelledby="projects-title"><div class="container">
       <div class="section-head" data-reveal><div><p class="eyebrow">${esc(t('projects.eyebrow'))}</p><h2 class="display-lg" id="projects-title">${esc(t('projects.title'))}</h2></div>
-        <div class="section-head__intro"><p class="section-head__text">${esc(t('projects.text'))}</p></div></div>
+        <div class="section-head__intro"><p class="section-head__text">${esc(demo() ? t('projects.textDemo') : t('projects.text'))}</p></div></div>
       <div class="project-grid" id="projectGrid" data-reveal>${featured.map((p, i) => {
         const img = (p.images || [])[0];
         const isDemo = demo() || p.demo;
@@ -279,7 +278,7 @@
     const steps = t('about.steps');
     return `<section class="section theme-dark" id="about" aria-labelledby="about-title"><div class="container about__grid">
       <div class="about__copy" data-reveal><p class="eyebrow">${esc(t('about.eyebrow'))}</p><h2 class="display-lg" id="about-title">${esc(t('about.title'))}</h2>
-        <p class="lead">${esc(t('about.text') + (demo() ? ' ' + t('about.demoNote') : ''))}</p></div>
+        <p class="lead">${esc(demo() ? t('about.textDemo') : t('about.text'))}</p></div>
       <ol class="process" id="process" data-reveal>${(Array.isArray(steps) ? steps : []).map((s, i) => `<li class="reveal-item" style="--i:${i}"><span class="n">${pad(i)}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div></li>`).join('')}</ol>
     </div></section>`;
   }
@@ -317,12 +316,8 @@
   /* ---------- footer ---------- */
   function footerInner() {
     const s = EO.site, c = s.contact || {}, co = s.company;
-    const ph = `<span class="placeholder">${esc(t('demo.contactPlaceholder'))}</span>`;
     const countryName = (code) => { const o = (db().options.countries || []).find((x) => x.id === code); return o ? tr(o.title) : code; };
-    const row = (key, value, href) => {
-      if (value) return `<li><span class="k">${esc(t('footer.' + key))}</span>${href ? `<a href="${esc(href)}">${esc(value)}</a>` : esc(value)}</li>`;
-      return demo() ? `<li><span class="k">${esc(t('footer.' + key))}</span>${ph}</li>` : '';
-    };
+    const row = (key, value, href) => (value ? `<li><span class="k">${esc(t('footer.' + key))}</span>${href ? `<a href="${esc(href)}">${esc(value)}</a>` : esc(value)}</li>` : '');
     const wa = c.whatsapp ? `https://wa.me/${String(c.whatsapp).replace(/\D/g, '')}` : '';
     const area = (s.serviceAreas || []).map(countryName).join(', ');
     const contact = [
@@ -342,10 +337,10 @@
         <div class="footer__brand">${brand()}<p>${esc(blurb)}</p>${demo() ? `<span class="footer__demo"><b>${esc(t('demo.label'))}</b>${esc(t('demo.notReal'))}</span>` : ''}</div>
         <div class="footer__col"><h2>${esc(t('footer.products'))}</h2><ul>${categories().map((cat) => `<li><a href="#products" data-category="${esc(cat.id)}">${esc(tr(cat.title))}</a></li>`).join('')}</ul></div>
         <div class="footer__col"><h2>${esc(t('footer.company'))}</h2><ul>${nav.map(([k, href]) => `<li><a href="${href}">${esc(t('nav.' + k))}</a></li>`).join('')}<li><a href="#contact" data-open-quote>${esc(t('btn.quote'))}</a></li></ul></div>
-        <div class="footer__col footer__col--contact"><h2>${esc(t('footer.contact'))}</h2><ul>${contact}</ul></div>
-        <div class="footer__col"><h2>${esc(t('footer.follow'))}</h2><ul>${socialLinks || (demo() ? `<li>${ph}</li>` : '')}</ul></div>
+        ${contact ? `<div class="footer__col footer__col--contact"><h2>${esc(t('footer.contact'))}</h2><ul>${contact}</ul></div>` : ''}
+        ${socialLinks ? `<div class="footer__col"><h2>${esc(t('footer.follow'))}</h2><ul>${socialLinks}</ul></div>` : ''}
       </div>
-      <div class="footer__bottom"><p>© ${new Date().getFullYear()} ${esc(co.legalName || co.name)}. ${esc(t('footer.rights'))}${demo() ? ' ' + esc(t('footer.demoNote')) : ''}</p>${legalLinks ? `<ul>${legalLinks}</ul>` : ''}${langSwitch()}</div></div>`;
+      <div class="footer__bottom"><p>© ${new Date().getFullYear()} ${esc(demo() ? 'EO Labs' : (co.legalName || co.name))}. ${esc(t('footer.rights'))}</p>${legalLinks ? `<ul>${legalLinks}</ul>` : ''}${langSwitch()}</div></div>`;
   }
 
   const mainInner = () => [hero(), productsSection(), precisionSection(), projectsSection(), materialsSection(), configuratorSection(), aboutSection(), manufacturersSection(), faqSection(), ctaSection()].join('\n');

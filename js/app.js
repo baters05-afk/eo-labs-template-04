@@ -16,7 +16,7 @@
     $('#siteHeader').innerHTML = EO.tpl.headerInner();
     $('#main').innerHTML = EO.tpl.mainInner();
     $('#contact').innerHTML = EO.tpl.footerInner();
-    document.documentElement.style.setProperty('--demo-bar-h', EO.site.demoMode ? '2rem' : '0px');
+    document.documentElement.dataset.demo = EO.site.demoMode ? '1' : '0';
     EO.applyTheme();
     EO.seo.apply();
     observeReveal();
@@ -31,13 +31,15 @@
   }
 
   /* ---------- menu ---------- */
-  function setMenu(open) {
+  function setMenu(open, returnFocus) {
+    const was = menuOpen;
     menuOpen = open;
     $('#siteHeader').classList.toggle('is-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
     const btn = $('#menuToggle');
     if (btn) { btn.setAttribute('aria-expanded', String(open)); btn.querySelector('.menu-toggle__label').textContent = open ? t('nav.close') : t('nav.menu'); }
     if (open) { const a = $('#mobileNav a'); if (a) a.focus({ preventScroll: true }); }
+    else if (was && returnFocus !== false && btn) btn.focus({ preventScroll: true });
   }
   const scrollToEl = (el) => { if (el) el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); };
 
@@ -48,10 +50,11 @@
     if (preset) {
       EO.setPreset(preset.dataset.preset);
       $$('button[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b === preset)));
+      $$('[data-preset-select]').forEach((x) => { x.value = preset.dataset.preset; });
       return;
     }
     if (tgt.closest('#menuToggle')) { setMenu(!menuOpen); return; }
-    if (tgt.closest('.mobile-nav a')) setMenu(false);
+    if (tgt.closest('.mobile-nav a')) { setMenu(false); return; }
 
     if (tgt.closest('[data-open-quote]')) { e.preventDefault(); setMenu(false); EO.quote.open({}); return; }
 
@@ -107,7 +110,16 @@
 
   /* radio groups: arrows move + select; Esc closes the mobile menu */
   function onKeydown(e) {
-    if (e.key === 'Escape' && menuOpen) { setMenu(false); const b = $('#menuToggle'); if (b) b.focus(); return; }
+    if (e.key === 'Escape' && menuOpen) { setMenu(false); return; }
+    if (e.key === 'Tab' && menuOpen) {                       // focus trap inside header + fullscreen menu
+      const items = $$('#menuToggle, #mobileNav a, #mobileNav button, #mobileNav select').filter((el) => !el.disabled && el.getClientRects().length);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!items.includes(document.activeElement)) { e.preventDefault(); first.focus(); }
+      return;
+    }
     const r = e.target.closest && e.target.closest('[role="radio"]');
     if (!r || !['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(e.key)) return;
     const group = r.closest('[role="radiogroup"]');
@@ -163,10 +175,12 @@
     else {
       const sw = document.documentElement.dataset.preset;
       $$('button[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === sw)));
+      $$('[data-preset-select]').forEach((x) => { x.value = sw; });
       observeReveal(); initScroll();
     }
     EO.gallery.init(); EO.configurator.init(); EO.quote.init();
     document.addEventListener('click', onClick);
+    document.addEventListener('change', (e) => { const sel = e.target.closest && e.target.closest('[data-preset-select]'); if (sel) { EO.setPreset(sel.value); $$('button[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === sel.value))); } });
     document.addEventListener('keydown', onKeydown);
     window.addEventListener('resize', () => { if (menuOpen && window.innerWidth > 960) setMenu(false); });
     EO.app = { renderAll };

@@ -188,7 +188,7 @@ EO.client = {
     "endpoint": ""
   },
   "seo": {
-    "siteUrl": "",
+    "siteUrl": "https://eo-labs-template-04.eo-labs-template-04.workers.dev",
     "title": {
       "en": "",
       "de": ""
@@ -247,8 +247,8 @@ EO.client = {
         "de": "Fenster"
       },
       "tagline": {
-        "en": "Maximum daylight.\nSuperior thermal performance.",
-        "de": "Maximales Tageslicht.\nHervorragende Wärmedämmung."
+        "en": "Generous daylight.\nThermally considered frames.",
+        "de": "Viel Tageslicht.\nDurchdacht gedämmte Rahmen."
       },
       "image": {
         "src": "assets/photos/cat-windows-960.jpg",

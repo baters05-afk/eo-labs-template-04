@@ -28,7 +28,7 @@
   .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-6); }
   .precision__grid, .about__grid, .faq__grid { grid-template-columns: 1fr; }
   /* mobile/tablet order: steps → options → preview → selection → back/next */
-  .config { display: flex; flex-direction: column; gap: var(--space-5); }
+  .config { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-5); }
   .config__left, .config__right { display: contents; }
   .stepper { order: 1; } .config__stage { order: 2; } .config__preview { order: 3; max-width: 40rem; } .config__summary { order: 4; } .config__nav { order: 5; }
   .config__right { position: static; }
@@ -115,6 +115,54 @@
 @media (max-width: 380px) {
   .option-grid { grid-template-columns: 1fr; }
   .category-grid > *, .project-grid > * { flex-basis: 84%; }
+}
+
+@media (max-width: 960px) {
+  .footer__col a { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; }
+  .footer__bottom a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+}
+
+@media (max-width: 640px) {
+  .range__head > *, .range__filters, .range__filter-row, .chips, .config__stage > * { min-width: 0; max-width: 100%; }
+  .range__filters { width: 100%; }
+  /* touch targets ≥ 44px, body copy ≥ 16px */
+  .demo-bar { padding-block: 0; }
+  .preset-switch__label { display: none; }
+  .menu-toggle { font-size: .75rem; }
+  .btn { font-size: 1rem; }
+  .chip { font-size: 1rem; }
+  .section-head__text, .cat__text, .range-item p, .range-item__features, .material__desc, .material__sub, .material__caption, .process p, .spec__title, .spec__value, .project__sub, .projects__note, .opt-media__title, .config__hint, .preview__caption, .preview__context, .cta__note, .option__desc, .summary__row dd, .footer__col ul, .footer__brand p, .accordion__panel p, .range__count, .finish__name, .sample__text, .footer__bottom { font-size: 1rem; }
+  .link, .material__features li, .site-footer li, .site-footer a, .anno__label small, .spec li span { font-size: 1rem; }
+  .hero__tags, .hero__tags li { font-size: .6875rem; }
+  .cat__title, .project__title, .material__title { font-size: 1.25rem; }
+
+  /* filters: one scrolling row each */
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; margin-inline: calc(var(--page-padding) * -1); padding-inline: var(--page-padding); }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
+
+  /* hero: full small-viewport height with fallback */
+  .hero { min-height: 100vh; min-height: 100svh; }
+
+  /* configurator: horizontal step rail, visual option rail, compact preview and selection */
+  .stepper { display: flex; gap: .6rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; position: relative; margin-inline: calc(var(--page-padding) * -1); padding-inline: var(--page-padding); }
+  .stepper::-webkit-scrollbar { display: none; }
+  .step { flex: 0 0 auto; min-width: 6.75rem; min-height: 3.5rem; scroll-snap-align: start; }
+  .step .name { display: block; grid-column: auto; font-size: .9375rem; }
+  .opt-media-grid { display: flex; gap: .85rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--page-padding) * -1); padding-inline: var(--page-padding); scroll-padding-inline: var(--page-padding); }
+  .opt-media-grid::-webkit-scrollbar { display: none; }
+  .opt-media { flex: 0 0 68%; scroll-snap-align: start; }
+  .option-grid, .option-grid--material { grid-template-columns: 1fr; }
+  .preview__frame { aspect-ratio: 16 / 10; }
+  .summary { padding: .5rem 1.25rem 1.25rem; }
+  .summary__title { display: none; }
+  .summary__toggle { display: flex; align-items: center; gap: 1rem; width: 100%; min-height: 2.75rem; text-align: left; color: var(--fg); }
+  .summary__count { margin-left: auto; font-size: .9375rem; color: var(--fg-muted); }
+  .summary:not(.is-open) .summary__rows, .summary:not(.is-open) .summary__hint { display: none; }
+  .summary:not(.is-open) .btn { margin-top: .75rem; }
+  .summary__row dd button { min-height: 2.75rem; }
+  .finish { min-height: 2.75rem; }
+  .config__nav { gap: .75rem; }
 }
 
 @media (min-width: 1700px) {

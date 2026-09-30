@@ -42,17 +42,18 @@ EO.defaults.translations = {
     precision: {
       eyebrow: 'Engineered for a higher standard',
       title: 'Precision\nin every detail.',
-      text: 'Our systems combine architectural design with advanced engineering — a considered balance of insulation, security and durability.',
+      text: 'Slim aluminium profiles, multi-chamber construction and considered glazing — details that shape insulation, security and durability.',
       thermal: 'Thermal performance', acoustic: 'Acoustic performance', security: 'Security', durability: 'Durability',
       thermalGeneric: 'High thermal performance', acousticGeneric: 'Enhanced acoustic comfort', securityGeneric: 'Security options available', durabilityGeneric: 'Designed for demanding climates',
       glazing: 'Triple glazing', thermalBreak: 'Thermal break', profile: 'Aluminium profile', chambers: 'Multi-chamber design',
-      glazingGeneric: '', thermalBreakGeneric: 'Maximum efficiency', profileGeneric: 'Slim and strong', chambersGeneric: 'For superior insulation',
+      glazingGeneric: '', thermalBreakGeneric: 'Thermally separated profile', profileGeneric: 'Slim sightlines', chambersGeneric: 'Multi-chamber construction',
       alt: 'Technical cross-section of an aluminium window profile with triple glazing, thermal break and multiple chambers',
       legend: 'Profile details'
     },
     projects: {
       eyebrow: 'Selected projects', title: 'Real spaces.\nLasting value.',
       text: 'From private residences to commercial buildings, our windows and doors become part of exceptional architecture.',
+      textDemo: 'Sample presentation of how reference projects appear on the site.',
       demoText: 'Sample presentation. These are demo visuals, not completed client projects.',
       open: 'Open project gallery', gallery: 'Project gallery', prev: 'Previous image', next: 'Next image', close: 'Close gallery', of: 'of'
     },
@@ -69,13 +70,14 @@ EO.defaults.translations = {
       prompts: { product: 'What do you need?', material: 'Which material?', finish: 'Choose a finish', glass: 'Glass type', project: 'Project type' },
       stepOf: 'Step {n} of {total}',
       summary: 'Your selection', preview: 'Selection preview', previewEmpty: 'Choose a product to see it here.', empty: 'Not selected yet',
-      unavailable: 'Not available for this product', chooseFirst: 'Choose a material first.', frame: 'Frame / material', finishLabel: 'Finish', glassLabel: 'Glass', context: 'Project context', showingFor: 'Showing products available in {material}.', stepDone: 'completed',
+      unavailable: 'Not available for this product', chooseFirst: 'Choose a material first.', frame: 'Frame / material', finishLabel: 'Finish', glassLabel: 'Glass', systemPreview: 'System preview', context: 'Project context', showingFor: 'Showing products available in {material}.', stepDone: 'completed',
       hint: 'You can change any choice at any time.', edit: 'Change'
     },
     about: {
       eyebrow: 'About', title: 'Planned with\nprecision.',
       text: '{company} supplies window, door and glazing systems for architects, builders and homeowners.',
       demoNote: 'In a live site this section carries the real company story and credentials.',
+      textDemo: 'This section presents the company: what it offers, how it works and who it serves.',
       steps: [
         { title: 'Consult', text: 'We clarify architecture, use and budget together.' },
         { title: 'Specify', text: 'Systems, materials and glazing are matched to the building.' },
@@ -129,7 +131,7 @@ EO.defaults.translations = {
       products: 'Produkte', materials: 'Materialien', projects: 'Projekte', about: 'Über uns', faq: 'FAQ', contact: 'Kontakt',
       skip: 'Zum Inhalt springen', menu: 'Menü', close: 'Schließen', main: 'Hauptnavigation', language: 'Sprache'
     },
-    btn: { quote: 'Angebot anfragen', explore: 'Systeme entdecken', details: 'Technische Details ansehen', viewAll: 'Alle Projekte ansehen', exploreMaterials: 'Alle Materialien ansehen', configure: 'Konfigurieren', continue: 'Weiter', back: 'Zurück', next: 'Weiter' },
+    btn: { quote: 'Angebot anfragen', explore: 'Systeme entdecken', details: 'Technische Details ansehen', viewAll: 'Alle Projekte ansehen', exploreMaterials: 'Alle Materialien ansehen', configure: 'Konfigurieren', continue: 'Zur Anfrage', back: 'Zurück', next: 'Weiter' },
     demo: {
       label: 'Demo-Vorlage', notReal: 'Kein echtes Unternehmen', preset: 'Preset',
       contactPlaceholder: 'Wird bei Livegang ergänzt',
@@ -150,17 +152,18 @@ EO.defaults.translations = {
     precision: {
       eyebrow: 'Entwickelt für höchste Ansprüche',
       title: 'Präzision\nin jedem Detail.',
-      text: 'Unsere Systeme verbinden architektonisches Design mit moderner Technik – eine durchdachte Balance aus Dämmung, Sicherheit und Langlebigkeit.',
+      text: 'Schlanke Aluminiumprofile, Mehrkammer-Konstruktion und durchdachte Verglasung – Details, die Dämmung, Sicherheit und Langlebigkeit prägen.',
       thermal: 'Wärmedämmleistung', acoustic: 'Schallschutz', security: 'Sicherheit', durability: 'Langlebigkeit',
       thermalGeneric: 'Hohe Wärmedämmleistung', acousticGeneric: 'Mehr akustischer Komfort', securityGeneric: 'Sicherheitsoptionen verfügbar', durabilityGeneric: 'Für anspruchsvolles Klima entwickelt',
       glazing: 'Dreifachverglasung', thermalBreak: 'Thermische Trennung', profile: 'Aluminiumprofil', chambers: 'Mehrkammer-Design',
-      glazingGeneric: '', thermalBreakGeneric: 'Maximale Effizienz', profileGeneric: 'Schlank und stabil', chambersGeneric: 'Für bessere Dämmung',
+      glazingGeneric: '', thermalBreakGeneric: 'Thermisch getrenntes Profil', profileGeneric: 'Schlanke Ansichten', chambersGeneric: 'Mehrkammer-Konstruktion',
       alt: 'Technischer Querschnitt eines Aluminium-Fensterprofils mit Dreifachverglasung, thermischer Trennung und mehreren Kammern',
       legend: 'Profildetails'
     },
     projects: {
       eyebrow: 'Ausgewählte Projekte', title: 'Echte Räume.\nBleibender Wert.',
       text: 'Von Privathäusern bis zu Gewerbebauten – unsere Fenster und Türen werden Teil besonderer Architektur.',
+      textDemo: 'Beispielpräsentation, wie Referenzprojekte auf der Seite dargestellt werden.',
       demoText: 'Beispielpräsentation. Dies sind Demobilder, keine realisierten Kundenprojekte.',
       open: 'Projektgalerie öffnen', gallery: 'Projektgalerie', prev: 'Vorheriges Bild', next: 'Nächstes Bild', close: 'Galerie schließen', of: 'von'
     },
@@ -177,13 +180,14 @@ EO.defaults.translations = {
       prompts: { product: 'Was benötigen Sie?', material: 'Welches Material?', finish: 'Oberfläche wählen', glass: 'Glasart', project: 'Projektart' },
       stepOf: 'Schritt {n} von {total}',
       summary: 'Ihre Auswahl', preview: 'Vorschau der Auswahl', previewEmpty: 'Wählen Sie ein Produkt, um es hier zu sehen.', empty: 'Noch nicht gewählt',
-      unavailable: 'Für dieses Produkt nicht verfügbar', chooseFirst: 'Bitte zuerst ein Material wählen.', frame: 'Rahmen / Material', finishLabel: 'Oberfläche', glassLabel: 'Glas', context: 'Projektkontext', showingFor: 'Angezeigt werden Produkte, die in {material} verfügbar sind.', stepDone: 'abgeschlossen',
+      unavailable: 'Für dieses Produkt nicht verfügbar', chooseFirst: 'Bitte zuerst ein Material wählen.', frame: 'Rahmen / Material', finishLabel: 'Oberfläche', glassLabel: 'Glas', systemPreview: 'Systemvorschau', context: 'Projektkontext', showingFor: 'Angezeigt werden Produkte, die in {material} verfügbar sind.', stepDone: 'abgeschlossen',
       hint: 'Sie können jede Auswahl jederzeit ändern.', edit: 'Ändern'
     },
     about: {
       eyebrow: 'Über uns', title: 'Mit Präzision\ngeplant.',
       text: '{company} liefert Fenster-, Tür- und Glassysteme für Architekten, Bauherren und Eigentümer.',
       demoNote: 'Auf einer Live-Seite steht hier die echte Unternehmensgeschichte mit Referenzen.',
+      textDemo: 'Dieser Abschnitt stellt das Unternehmen vor: Angebot, Arbeitsweise und Zielgruppen.',
       steps: [
         { title: 'Beraten', text: 'Wir klären Architektur, Nutzung und Budget gemeinsam.' },
         { title: 'Spezifizieren', text: 'Systeme, Materialien und Verglasung werden auf das Gebäude abgestimmt.' },

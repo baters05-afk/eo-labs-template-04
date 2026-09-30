@@ -53,12 +53,11 @@ function renderPage(lang, root) {
   const css = EO.brandCss();
   if (css) brand.push(css);
   const vars = [];
-  if (site.demoMode) vars.push('--demo-bar-h:2rem');
   if (site.company.logo) vars.push(`--logo:url("${EO.cssAsset(site.company.logo)}")`);
   if (vars.length) brand.push(`:root{${vars.join(';')}}`);
 
   const map = {
-    lang, root,
+    lang, root, demo: site.demoMode ? '1' : '0',
     preset: EO.presetOf(),
     hash: EO.tpl.hash(),
     switcher: site.demoMode && site.features.presetSwitcher ? ' data-switcher="1"' : '',

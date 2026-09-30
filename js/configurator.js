@@ -127,7 +127,8 @@
         <div class="preview__frost${m.glass && m.glass.effect === 'frosted' ? ' is-on' : ''}"></div>
         <span class="preview__finish${m.fin ? ' is-on' : ''}" style="--sw:${m.fin ? esc(m.fin.color) : 'transparent'}" aria-hidden="true"></span>
       </div>
-      <p class="preview__context" ${m.context ? '' : 'hidden'}><span class="label">${esc(t('config.context'))}</span> ${esc(m.context)}</p>
+      <p class="preview__label label" id="cfgPreviewLabel">${esc(m.context ? t('config.context') : t('config.systemPreview'))}</p>
+      <p class="preview__context" ${m.context ? '' : 'hidden'}>${esc(m.context)}</p>
       <p class="preview__caption" aria-live="polite">${esc(m.chain || t('config.previewEmpty'))}</p>
       <div class="preview__samples" id="cfgSamples">${samplesHtml(m)}</div>`;
   }
@@ -160,7 +161,8 @@
     fin.style.setProperty('--sw', m.fin ? m.fin.color : 'transparent');
     const ctx = host.querySelector('.preview__context');
     ctx.hidden = !m.context;
-    ctx.innerHTML = `<span class="label">${esc(t('config.context'))}</span> ${esc(m.context)}`;
+    ctx.textContent = m.context;
+    host.querySelector('#cfgPreviewLabel').textContent = m.context ? t('config.context') : t('config.systemPreview');
     host.querySelector('.preview__caption').textContent = m.chain || t('config.previewEmpty');
     host.querySelector('#cfgSamples').innerHTML = samplesHtml(m);
   }
@@ -239,7 +241,9 @@
     const stepId = STEPS[EO.state.step];
     const last = EO.state.step === STEPS.length - 1;
     return `<button type="button" class="btn btn--ghost" data-cfg-back data-focus="back" ${EO.state.step === 0 ? 'disabled' : ''}><span>${esc(t('btn.back'))}</span></button>
-      ${last ? '' : `<button type="button" class="btn btn--primary" data-cfg-next data-focus="next" ${s[stepId] ? '' : 'disabled'}><span>${esc(t('btn.next'))}</span>${arrow()}</button>`}`;
+      ${last
+        ? `<button type="button" class="btn btn--primary" data-cfg-continue data-focus="continue-nav" ${s[stepId] ? '' : 'disabled'}><span>${esc(t('btn.continue'))}</span>${arrow()}</button>`
+        : `<button type="button" class="btn btn--primary" data-cfg-next data-focus="next" ${s[stepId] ? '' : 'disabled'}><span>${esc(t('btn.next'))}</span>${arrow()}</button>`}`;
   }
 
   function renderConfiguratorSummary(s = S()) {
@@ -249,10 +253,13 @@
       const swatch = f ? `<span class="swatch" style="--sw:${esc(f.color)}"></span>` : '';
       return `<div class="summary__row"><dt>${esc(t('config.steps.' + LABEL(step)))}</dt><dd class="${label ? '' : 'is-empty'}"><button type="button" data-step="${STEPS.indexOf(step)}" data-focus="sum-${step}" aria-label="${esc(t('config.edit'))}: ${esc(t('config.steps.' + LABEL(step)))}" ${STEPS.indexOf(step) <= maxStep() ? '' : 'disabled'}>${swatch}<span>${esc(label || '—')}</span></button></dd></div>`;
     }).join('');
+    const done = STEPS.filter((k) => s[k]).length;
+    const lastStep = EO.state.step === STEPS.length - 1;
     return `<p class="eyebrow summary__title" id="sumTitle">${esc(t('config.summary'))}</p>
-      <dl class="summary__rows" aria-live="polite">${rows}</dl>
-      <button type="button" class="btn btn--primary" data-cfg-continue data-focus="continue" ${s.product ? '' : 'disabled'}><span>${esc(t('btn.continue'))}</span>${arrow()}</button>
-      <p class="config__hint">${esc(t('config.hint'))}</p>`;
+      <button type="button" class="summary__toggle" data-summary-toggle aria-expanded="${!!EO.state.summaryOpen}" aria-controls="cfgRows"><span class="eyebrow">${esc(t('config.summary'))}</span><span class="summary__count">${done} / ${STEPS.length}</span><span class="summary__chev" aria-hidden="true"></span></button>
+      <dl class="summary__rows" id="cfgRows" aria-live="polite">${rows}</dl>
+      ${lastStep ? '' : `<button type="button" class="btn btn--primary" data-cfg-continue data-focus="continue" ${s.product ? '' : 'disabled'}><span>${esc(t('btn.continue'))}</span>${arrow()}</button>`}
+      <p class="config__hint summary__hint">${esc(t('config.hint'))}</p>`;
   }
 
   /** Inner markup of #config (pure). */
@@ -264,7 +271,7 @@
       </div>
       <div class="config__right">
         <div class="config__preview preview" id="cfgPreview" aria-label="${esc(t('config.preview'))}">${renderConfiguratorPreview()}</div>
-        <aside class="config__summary summary theme-dark" id="cfgSummary" aria-labelledby="sumTitle">${renderConfiguratorSummary()}</aside>
+        <aside class="config__summary summary theme-dark${EO.state.summaryOpen ? ' is-open' : ''}" id="cfgSummary" aria-labelledby="sumTitle">${renderConfiguratorSummary()}</aside>
       </div>`;
   }
 
@@ -278,6 +285,9 @@
     $('#cfgStage').innerHTML = stageInner();
     $('#cfgNav').innerHTML = renderConfiguratorNav();
     $('#cfgSummary').innerHTML = renderConfiguratorSummary();
+    $('#cfgSummary').classList.toggle('is-open', !!EO.state.summaryOpen);
+    const st = $('#cfgStepper'), cur = st.querySelector('[aria-current]');
+    if (cur && st.scrollWidth > st.clientWidth) st.scrollLeft = cur.offsetLeft - (st.clientWidth - cur.offsetWidth) / 2;
     updatePreview();
     if (focusKey) { const el = host.querySelector(`[data-focus="${CSS.escape(focusKey)}"]`); if (el && !el.disabled) el.focus({ preventScroll: true }); }
   }
@@ -374,6 +384,7 @@
         if (st && !st.disabled) { go(Number(st.dataset.step)); return; }
         if (e.target.closest('[data-cfg-next]')) { go(EO.state.step + 1); return; }
         if (e.target.closest('[data-cfg-back]')) { go(EO.state.step - 1); return; }
+        if (e.target.closest('[data-summary-toggle]')) { EO.state.summaryOpen = !EO.state.summaryOpen; paint(); const b = host.querySelector('[data-summary-toggle]'); if (b) b.focus({ preventScroll: true }); return; }
         if (e.target.closest('[data-cfg-continue]')) EO.quote.open({ prefill: EO.state.configuratorState });
       });
       const warm = () => (window.requestIdleCallback || ((f) => setTimeout(f, 800)))(preloadPreviews);

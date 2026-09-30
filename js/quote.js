@@ -227,6 +227,9 @@
         updateRecap();
       });
 
+      // keep the focused field above the phone keyboard
+      d.addEventListener('focusin', (e) => { const el = e.target; if (el.matches && el.matches('input, select, textarea')) setTimeout(() => el.scrollIntoView({ block: 'center', behavior: 'smooth' }), 320); });
+
       d.addEventListener('submit', (e) => {
         e.preventDefault();
         const id = STEPS[S.step];
