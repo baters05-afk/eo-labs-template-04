@@ -12,7 +12,6 @@
  * branding.*     → optional colour overrides (null = preset value)
  * hero.image / imageMobile → string or { src, width, height, srcset, sources:[{type,srcset}] } (AVIF/WebP)
  * categories[].availableMaterials / availableFinishes / availableGlass drive the configurator.
- * technicalProfile: animated exploded view of the profile section (layers = aligned transparent WebP, see tools/make-profile-layers.py).
  *
  * After editing run:  node tools/build.js   (regenerates crawler-visible HTML for every language)
  */
@@ -147,232 +146,25 @@ EO.client = {
       "thermalBreak": "",
       "profile": "",
       "chambers": ""
+    },
+    "points": {
+      "glazing": {
+        "x": "58%",
+        "y": "22.5%"
+      },
+      "profile": {
+        "x": "65.5%",
+        "y": "40%"
+      },
+      "thermalBreak": {
+        "x": "55%",
+        "y": "53%"
+      },
+      "chambers": {
+        "x": "64%",
+        "y": "73%"
+      }
     }
-  },
-  "technicalProfile": {
-    "animation": false,
-    "canvas": {
-      "width": 1800,
-      "height": 1200
-    },
-    "plate": {
-      "ratio": "860 / 940",
-      "mobileRatio": "1 / 1.04"
-    },
-    "stage": {
-      "x": 2.3,
-      "y": 16,
-      "w": 98.4,
-      "mobile": {
-        "x": -9,
-        "y": 13,
-        "w": 118
-      }
-    },
-    "timeline": {
-      "fadeIn": 250,
-      "explodeAt": 500,
-      "annotateAt": 1450
-    },
-    "ghost": {
-      "opacity": 0.1,
-      "focusOpacity": 0.07
-    },
-    "base": {
-      "src": "assets/profile/profile-base-1440.webp",
-      "srcset": "assets/profile/profile-base-960.webp 960w, assets/profile/profile-base-1440.webp 1440w",
-      "width": 1440,
-      "height": 960
-    },
-    "layers": [
-      {
-        "id": "glass",
-        "image": {
-          "src": "assets/profile/profile-glass-1440.webp",
-          "srcset": "assets/profile/profile-glass-960.webp 960w, assets/profile/profile-glass-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "z": 5,
-        "desktopOffset": {
-          "x": 165,
-          "y": -120
-        },
-        "tabletOffset": {
-          "x": 105,
-          "y": -82
-        },
-        "mobileOffset": {
-          "x": 48,
-          "y": -40
-        },
-        "start": 500,
-        "duration": 450
-      },
-      {
-        "id": "seals",
-        "image": {
-          "src": "assets/profile/profile-seals-1440.webp",
-          "srcset": "assets/profile/profile-seals-960.webp 960w, assets/profile/profile-seals-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "z": 4,
-        "desktopOffset": {
-          "x": 70,
-          "y": -30
-        },
-        "tabletOffset": {
-          "x": 45,
-          "y": -22
-        },
-        "mobileOffset": {
-          "x": 20,
-          "y": -12
-        },
-        "start": 650,
-        "duration": 400
-      },
-      {
-        "id": "aluminium",
-        "image": {
-          "src": "assets/profile/profile-aluminium-1440.webp",
-          "srcset": "assets/profile/profile-aluminium-960.webp 960w, assets/profile/profile-aluminium-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "z": 1,
-        "desktopOffset": {
-          "x": -145,
-          "y": 12
-        },
-        "tabletOffset": {
-          "x": -95,
-          "y": 8
-        },
-        "mobileOffset": {
-          "x": -44,
-          "y": 2
-        },
-        "start": 800,
-        "duration": 450
-      },
-      {
-        "id": "thermal-break",
-        "image": {
-          "src": "assets/profile/profile-thermal-break-1440.webp",
-          "srcset": "assets/profile/profile-thermal-break-960.webp 960w, assets/profile/profile-thermal-break-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "z": 3,
-        "desktopOffset": {
-          "x": 105,
-          "y": 70
-        },
-        "tabletOffset": {
-          "x": 70,
-          "y": 48
-        },
-        "mobileOffset": {
-          "x": 34,
-          "y": 25
-        },
-        "start": 950,
-        "duration": 450
-      },
-      {
-        "id": "chambers",
-        "image": {
-          "src": "assets/profile/profile-chambers-1440.webp",
-          "srcset": "assets/profile/profile-chambers-960.webp 960w, assets/profile/profile-chambers-1440.webp 1440w",
-          "width": 1440,
-          "height": 960
-        },
-        "z": 2,
-        "desktopOffset": {
-          "x": 95,
-          "y": 155
-        },
-        "tabletOffset": {
-          "x": 65,
-          "y": 105
-        },
-        "mobileOffset": {
-          "x": 29,
-          "y": 58
-        },
-        "start": 1100,
-        "duration": 450
-      }
-    ],
-    "annotations": [
-      {
-        "id": "glazing",
-        "layer": "glass",
-        "anchor": {
-          "x": 64,
-          "y": 26.7
-        },
-        "label": {
-          "x": 65,
-          "y": 0.5,
-          "align": "right"
-        }
-      },
-      {
-        "id": "seals",
-        "layer": "seals",
-        "anchor": {
-          "x": 61.4,
-          "y": 39.5
-        },
-        "label": {
-          "x": 79,
-          "y": 31,
-          "align": "left"
-        }
-      },
-      {
-        "id": "profile",
-        "layer": "aluminium",
-        "anchor": {
-          "x": 33.3,
-          "y": 40
-        },
-        "label": {
-          "x": 1.5,
-          "y": 20,
-          "align": "left"
-        }
-      },
-      {
-        "id": "thermalBreak",
-        "layer": "thermal-break",
-        "anchor": {
-          "x": 54.7,
-          "y": 51.3
-        },
-        "label": {
-          "x": 79,
-          "y": 47,
-          "align": "left"
-        }
-      },
-      {
-        "id": "chambers",
-        "layer": "chambers",
-        "anchor": {
-          "x": 64.4,
-          "y": 73.3
-        },
-        "label": {
-          "x": 79,
-          "y": 87,
-          "align": "left"
-        }
-      }
-    ]
   },
   "cta": {
     "image": {

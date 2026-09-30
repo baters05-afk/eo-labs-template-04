@@ -195,82 +195,17 @@
 
   /* ---------- precision / engineering ---------- */
   const SPECS = ['thermal', 'acoustic', 'security', 'durability'];
-  const ANNO_FALLBACK = [
-    { id: 'glazing', anchor: { x: 64, y: 26.7 } }, { id: 'thermalBreak', anchor: { x: 54.7, y: 51.3 } },
-    { id: 'chambers', anchor: { x: 64.4, y: 73.3 } }, { id: 'profile', anchor: { x: 49.2, y: 92.9 } }
-  ];
-  const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
-  const sign = (v) => (v > 0 ? 1 : v < 0 ? -1 : 0);
-
-  /**
-   * Exploded view of the profile section: aligned transparent layers on one canvas, a dimmed assembled "ghost",
-   * numbered annotations placed around the object (lines are drawn by js/profile.js from the real dot positions),
-   * an Exploded/Assembled switch and a tap/hover focus mode. Offsets are real px per breakpoint (desktop ≥1280,
-   * tablet 769–1279, mobile ≤768). Without layers it degrades to the static photo + component list.
-   */
-  const PART_KEY = { glazing: 'glazing', seals: 'seals', profile: 'profile', thermalBreak: 'thermalBreak', chambers: 'chambers' };
-  function profileFigure(tech) {
-    const P = EO.site.technicalProfile || {};
-    const ann = tech.annotations || {};
-    const layers = (P.layers || []).filter((l) => l && l.image && asImg(l.image).src);
-    const animate = P.animation !== false && layers.length > 0;
-    const plate = P.plate || {};
-    const st = P.stage || {};
-    const stM = st.mobile || {};
-    const tl = P.timeline || {};
-    const explodeAt = num(tl.explodeAt) || 500;
-    const annotateAt = num(tl.annotateAt) || 1450;
-    const ghost = P.ghost || {};
-    const ghostImg = ghost.image || tech.image;
-    const base = animate && P.base && asImg(P.base).src ? P.base : tech.image;
-    const items = (P.annotations && P.annotations.length ? P.annotations : []).map((a, i) => {
-      const k = PART_KEY[a.id] || a.id;
-      return { ...a, n: i + 1, nn: String(i + 1).padStart(2, '0'), title: t(`precision.parts.${k}.title`), desc: t(`precision.parts.${k}.desc`), short: t(`precision.parts.${k}.short`), value: ann[a.id] || '' };
-    });
-    const layerOf = (id) => layers.find((l) => l.id === id);
-    const off = (l, k) => ({ x: num(l && l[k] && l[k].x), y: num(l && l[k] && l[k].y) });
-    const dotHtml = (a) => `<span class="pev__dot" data-id="${esc(a.id)}" style="left:${a.anchor.x}%;top:${a.anchor.y}%" aria-hidden="true"><i>${a.nn}</i></span>`;
-
-    const layerHtml = animate
-      ? layers.map((l, z) => {
-        const d = off(l, 'desktopOffset'), tb = off(l, 'tabletOffset'), m = off(l, 'mobileOffset');
-        const mine = items.filter((a) => a.layer === l.id).map(dotHtml).join('');
-        return `<div class="pev__layer" data-layer="${esc(l.id)}" style="--z:${num(l.z) || z + 1};--i:${z};--ddx:${d.x};--ddy:${d.y};--tdx:${tb.x};--tdy:${tb.y};--mdx:${m.x};--mdy:${m.y};--hx:${sign(d.x) * 8}px;--hy:${sign(d.y) * 8}px;--delay:${Math.max(0, (num(l.start) || explodeAt) - explodeAt)}ms;--dur:${num(l.duration) || 450}ms" aria-hidden="true">${picture(l.image, '', { sizes: '(min-width: 961px) 60vw, 100vw' })}${mine}</div>`;
-      }).join('')
-      : '';
-
-    const lineHtml = animate ? items.map((a) => `<line data-id="${esc(a.id)}" x1="0" y1="0" x2="0" y2="0" pathLength="1" style="--i:${a.n - 1}"/>`).join('') : '';
-    const labelHtml = animate ? items.map((a) => {
-      const al = (a.label && a.label.align) || 'left';
-      return `<li class="pev__label is-${al}" tabindex="0" role="button" aria-pressed="false" data-id="${esc(a.id)}" data-layer="${esc(a.layer || '')}" style="--lx:${num(a.label && a.label.x)}%;--ly:${num(a.label && a.label.y)}%;--i:${a.n - 1}"><span class="pev__n">${a.nn}</span><b>${esc(a.title)}</b>${a.value ? `<em>${esc(a.value)}</em>` : ''}<small>${esc(a.desc)}</small></li>`;
-    }).join('') : '';
-
-    const listHtml = items.map((a) => (animate
-      ? `<li><button type="button" class="pev__item" data-id="${esc(a.id)}" data-layer="${esc(a.layer || '')}" aria-pressed="false"><span class="n">${a.nn}</span><span class="t"><b>${esc(a.title)}</b><small>${esc(a.value ? a.value + ' · ' : '')}${esc(a.short)}</small></span></button></li>`
-      : `<li><span class="pev__item"><span class="n">${a.nn}</span><span class="t"><b>${esc(a.title)}</b><small>${esc(a.value ? a.value + ' · ' : '')}${esc(a.short)}</small></span></span></li>`)).join('');
-
-    const head = animate ? `<div class="pev__head"><p class="pev__meta"><span class="pev__count">${esc(t('precision.components'))}</span><span class="pev__hint pev__hint--hover">${esc(t('precision.hintHover'))}</span><span class="pev__hint pev__hint--tap">${esc(t('precision.hintTap'))}</span></p>
-        <div class="pev__toggle" role="group" aria-label="${esc(t('precision.view'))}"><button type="button" data-view="exploded" aria-pressed="true" disabled>${esc(t('precision.exploded'))}</button><button type="button" data-view="assembled" aria-pressed="false" disabled>${esc(t('precision.assembled'))}</button></div></div>` : '';
-
-    const stageVars = `--sx:${num(st.x)}%;--sy:${num(st.y)}%;--sw:${num(st.w) || 100}%;--msx:${num(stM.x)}%;--msy:${num(stM.y)}%;--msw:${num(stM.w) || 100}%;--gh:${num(ghost.opacity) || .13};--gf:${num(ghost.focusOpacity) || .07}`;
-    const canvas = P.canvas || { width: 1800, height: 1200 };
-    return `<figure class="tech pev${animate ? '' : ' is-static'}" id="tech" data-pev="${animate ? 1 : 0}" data-view="exploded" data-fade-ms="${num(tl.fadeIn) || 250}" data-explode-at="${explodeAt}" data-annotate-at="${annotateAt}">
-        ${head}
-        <div class="pev__plate" style="--ratio:${plate.ratio || '860 / 940'};--mratio:${plate.mobileRatio || '1 / 1.04'};--cr:${canvas.width} / ${canvas.height};${stageVars}">
-          <div class="pev__stage">
-            <div class="pev__base">${picture(base, t('precision.alt'), { sizes: '(min-width: 961px) 60vw, 100vw' })}</div>
-            ${animate ? `<div class="pev__ghost" aria-hidden="true">${picture(ghostImg, '', { sizes: '(min-width: 961px) 60vw, 100vw' })}</div>` : ''}
-            ${layerHtml}
-          </div>
-          ${animate ? `<svg class="pev__lines" aria-hidden="true" focusable="false">${lineHtml}</svg><ol class="pev__labels">${labelHtml}</ol>` : ''}
-        </div>
-        <ol class="anno-legend pev__list" aria-label="${esc(t('precision.legend'))}">${listHtml}</ol>
-      </figure>`;
-  }
-
+  const ANNO_IDS = ['glazing', 'profile', 'thermalBreak', 'chambers'];
+  const ANNO_DEFAULT = { glazing: { x: '58%', y: '22%' }, profile: { x: '65%', y: '40%' }, thermalBreak: { x: '55%', y: '53%' }, chambers: { x: '64%', y: '73%' } };
   function precisionSection() {
     const tech = EO.site.technical || {};
     const specs = tech.specs || {};
+    const ann = tech.annotations || {};
+    const pts = Object.assign({}, ANNO_DEFAULT, tech.points || {});
+    const ANNOS = ANNO_IDS.map((id) => ({ id, x: pts[id].x, y: pts[id].y }));
+    const label = (a) => ({ title: t('precision.' + a.id), value: ann[a.id] || t('precision.' + a.id + 'Generic') });
+    const ti = asImg(tech.image);
+    const tratio = ti.width && ti.height ? `${ti.width} / ${ti.height}` : '3 / 2';
     return `<section class="section section--lg theme-dark precision" id="precision" aria-labelledby="precision-title"><div class="container precision__grid">
       <div class="precision__copy" data-reveal>
         <p class="eyebrow">${esc(t('precision.eyebrow'))}</p>
@@ -278,7 +213,9 @@
         <p class="lead">${esc(t('precision.text'))}</p>
         <ul class="spec-list">${SPECS.map((k, i) => `<li class="spec reveal-item" style="--i:${i}"><span class="spec__icon">${ICON[k]}</span><span><span class="spec__title">${esc(t('precision.' + k))}</span><span class="spec__value">${esc(specs[k] || t('precision.' + k + 'Generic'))}</span></span></li>`).join('')}</ul>
       </div>
-      ${profileFigure(tech)}
+      <figure class="tech" id="tech" data-reveal><div class="tech__plate">${media(tech.image, t('precision.alt'), { ratio: tratio, sizes: '(min-width: 961px) 50vw, 100vw' })}
+        <ol class="anno-list">${ANNOS.map((a, i) => { const l = label(a); return `<li class="anno" style="--x:${a.x};--y:${a.y}"><span class="anno__dot" aria-hidden="true">${i + 1}</span><span class="anno__line"></span><span class="anno__label"><b>${esc(l.title)}</b>${l.value ? `<small>${esc(l.value)}</small>` : ''}</span></li>`; }).join('')}</ol></div>
+        <ol class="anno-legend" aria-label="${esc(t('precision.legend'))}">${ANNOS.map((a) => { const l = label(a); return `<li><span><b>${esc(l.title)}</b>${esc(l.value)}</span></li>`; }).join('')}</ol></figure>
     </div></section>`;
   }
 
