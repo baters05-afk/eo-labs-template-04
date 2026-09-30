@@ -205,8 +205,8 @@
 .footer__brand { display: grid; gap: var(--space-4); align-content: start; }
 .footer__brand p { font-size: var(--fs-sm); color: var(--fg-muted); max-width: 30ch; line-height: 1.7; }
 .footer__col h2 { margin-bottom: var(--space-4); font-size: var(--fs-label); letter-spacing: .2em; text-transform: uppercase; color: var(--fg); font-weight: 500; }
-.footer__col ul { display: grid; gap: .65rem; font-size: var(--fs-sm); color: var(--fg-muted); }
-.footer__col a { text-decoration: none; }
+.footer__col ul { display: grid; gap: 0; font-size: var(--fs-sm); color: var(--fg-muted); }
+.footer__col a { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; text-decoration: none; }
 .footer__col a:hover { color: var(--fg); text-decoration: underline; }
 .footer__col .placeholder { opacity: .75; font-style: italic; }
 .footer__col li > span.k { display: block; font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; opacity: .6; margin-bottom: .15rem; }
